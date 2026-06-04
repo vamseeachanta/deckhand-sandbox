@@ -1,0 +1,26 @@
+{
+  "LOA_m": 1609.34,
+  "beam_m": 228.6,
+  "footprint_m2": 367895.12399999995,
+  "footprint_acres": 90.90886495593008,
+  "rectangular_25_deck_gross_m2": 9197378.1,
+  "effective_gross_m2": 7887671.458559999,
+  "net_area_m2": 4375818.183880799,
+  "shipwide_net_gross": 0.5547667910447761,
+  "weights_t": {
+    "Primary/deck cellular structure": 5719297.597704,
+    "Secondary structure, shafts, trunks, foundations": 1262027.4333696,
+    "Architectural outfit and accommodation fit-out": 1396733.3367075718,
+    "Area payload/inventory/parks/vehicles allowance": 998116.7624828276,
+    "Fixed machinery, utilities, MEP, plant and distribution": 1735287.7208832,
+    "People": 7200.0,
+    "Personal effects / residential contents": 80000.0,
+    "Potable/technical water reserve": 52800.0,
+    "Food reserve": 5280.0,
+    "Diesel-equivalent fuel reserve": 26880.0,
+    "Solid waste buffer": 1680.0,
+    "Battery critical ride-through": 6400.0,
+    "Design growth / estimating margin": 2484174.6272523836
+  },
+  "design80_total_t": 13775877.478399582
+}
