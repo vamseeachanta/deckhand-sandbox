@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wall Thickness Quick Check — 12" Export Line, 1500 m water depth</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+               max-width: 1100px; margin: 0 auto; padding: 20px; color: #333; }
+        h1 { color: #1a1a2e; border-bottom: 3px solid #16213e; padding-bottom: 10px; }
+        h2 { color: #16213e; margin-top: 30px; }
+        table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+        th { background: #16213e; color: white; padding: 10px 14px; text-align: left; }
+        td { padding: 8px 14px; border-bottom: 1px solid #ddd; }
+        tr:hover { background: #f5f5f5; }
+        .pass { color: #2e7d32; font-weight: bold; }
+        .fail { color: #c62828; font-weight: bold; }
+        .na { color: #999; font-style: italic; }
+        .summary-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px;
+                        padding: 20px; margin: 20px 0; }
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .input-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 15px; }
+        .input-card h3 { margin-top: 0; color: #444; font-size: 14px; text-transform: uppercase;
+                          letter-spacing: 1px; }
+        .chart-container { text-align: center; margin: 20px 0; }
+        .footer { margin-top: 40px; padding-top: 15px; border-top: 1px solid #ddd;
+                   font-size: 12px; color: #888; }
+    </style>
+</head>
+<body>
+
+<h1>Wall Thickness Quick Check — 12" Export Line, 1500 m water depth</h1>
+
+<div class="summary-box">
+    <h2>Executive Summary</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Design Code</th>
+                <th>Max Utilisation</th>
+                <th>Governing Check</th>
+                <th>Verdict</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td><strong>DNV-ST-F101</strong></td>
+            <td>0.719</td>
+            <td>propagation_buckling</td>
+            <td class="pass">PASS</td>
+        </tr>
+        <tr>
+            <td><strong>API-RP-1111</strong></td>
+            <td>0.595</td>
+            <td>propagation</td>
+            <td class="pass">PASS</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Utilisation Comparison</h2>
+<div class="chart-container">
+    <svg xmlns="http://www.w3.org/2000/svg" width="280" height="280" viewBox="0 0 280 280">
+    <rect width="100%" height="100%" fill="#fafafa" rx="6"/>
+    <text x="12" y="120.0" text-anchor="middle" font-size="11" fill="#666" transform="rotate(-90, 12, 120.0)">Max Utilisation</text>
+
+    <rect x="50" y="89.35163636363637" width="80" height="130.64836363636363" fill="#1f77b4" rx="3"/>
+<rect x="160" y="111.81636363636363" width="80" height="108.18363636363637" fill="#ff7f0e" rx="3"/>
+
+    <line x1="40" y1="38.18181818181819" x2="270" y2="38.18181818181819" stroke="#c62828" stroke-width="1.5" stroke-dasharray="6,3"/>
+
+    <text x="35" y="42.18181818181819" text-anchor="end" font-size="10" fill="#c62828">1.0</text>
+
+    <text x="90.0" y="238" text-anchor="middle" font-size="11" fill="#333">DNV-ST-F101</text>
+<text x="200.0" y="238" text-anchor="middle" font-size="11" fill="#333">API-RP-1111</text>
+
+    <text x="90.0" y="84.35163636363637" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f77b4">0.719</text>
+<text x="200.0" y="106.81636363636363" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff7f0e">0.595</text>
+
+</svg>
+</div>
+
+<h2>Detailed Check-by-Check Comparison</h2>
+<table>
+    <thead>
+        <tr><th>Check</th><th>DNV-ST-F101</th><th>API-RP-1111</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>collapse</strong></td><td class="pass">0.0294</td><td class="pass">0.2460</td></tr><tr><td><strong>combined_loading</strong></td><td class="pass">0.0001</td><td class="na">N/A</td></tr><tr><td><strong>pressure_containment</strong></td><td class="pass">-0.0015</td><td class="na">N/A</td></tr><tr><td><strong>propagation_buckling</strong></td><td class="pass">0.7186</td><td class="na">N/A</td></tr><tr><td><strong>burst</strong></td><td class="na">N/A</td><td class="pass">-0.0013</td></tr><tr><td><strong>propagation</strong></td><td class="na">N/A</td><td class="pass">0.5950</td></tr>
+    </tbody>
+</table>
+
+<h2>Input Data</h2>
+<div class="input-grid">
+    <div class="input-card">
+        <h3>Geometry</h3>
+        <table>
+            <tr><td>Outer Diameter</td><td>323.9 mm (0.3239 m)</td></tr>
+            <tr><td>Wall Thickness</td><td>28.6 mm (0.0286 m)</td></tr>
+            <tr><td>D/t Ratio</td><td>11.3</td></tr>
+            <tr><td>Corrosion Allowance</td><td>3.0 mm</td></tr>
+        </table>
+    </div>
+    <div class="input-card">
+        <h3>Material — X65</h3>
+        <table>
+            <tr><td>SMYS</td><td>448 MPa</td></tr>
+            <tr><td>SMTS</td><td>531 MPa</td></tr>
+            <tr><td>Young's Modulus</td><td>207 GPa</td></tr>
+        </table>
+    </div>
+    <div class="input-card">
+        <h3>Design Loads</h3>
+        <table>
+            <tr><td>Internal Pressure</td><td>15.0 MPa</td></tr>
+            <tr><td>External Pressure</td><td>15.1 MPa</td></tr>
+            <tr><td>Net Pressure</td><td>-0.1 MPa</td></tr>
+        </table>
+    </div>
+</div>
+
+<div class="footer">
+    Generated by digitalmodel structural analysis — Design Code Comparison (WRK-159)
+</div>
+
+
+<section class="section">
+  <h2>Required Wall Screening Result</h2>
+  <p><strong>Minimum by this quick check:</strong> 25.41 mm net screening wall for OD 323.9 mm, 150 bar internal pressure and 1500 m water depth. A 25.4 mm nominal wall is essentially on the limit (utilisation 1.001), so the next practical checked wall is <strong>26.97 mm</strong> with DNV utilisation 0.845. The 28.575 mm wall in the benchmark case passes with utilisation 0.719.</p>
+  <p><strong>Governing mode:</strong> DNV-ST-F101 propagation buckling. API RP 1111 propagation check is less onerous for this screening case.</p>
+</section>
+<section class="section">
+  <h2>Assumptions &amp; Sensitivity</h2>
+  <ul>
+    <li>12-inch export line taken as OD 323.9 mm.</li>
+    <li>X65 line pipe: SMYS 448 MPa, SMTS 531 MPa.</li>
+    <li>Corrosion allowance: 3.0 mm included in the quick-check model.</li>
+    <li>External pressure from seawater density 1025 kg/m³, gravity 9.81 m/s² and 1500 m water depth: 15.08 MPa.</li>
+    <li>Candidate wall sensitivity: 23.8 mm fails at utilisation 1.205; 25.4 mm is marginal at 1.001; 26.97 mm passes at 0.845; 28.575 mm passes at 0.719.</li>
+    <li>Not included: installation bending, collapse with ovality, local buckling combinations, free-span/VIV fatigue, thermal expansion/global buckling, hydrotest, fabrication tolerances, and project-specific safety class choices.</li>
+  </ul>
+</section>
+
+</body>
+</html>
