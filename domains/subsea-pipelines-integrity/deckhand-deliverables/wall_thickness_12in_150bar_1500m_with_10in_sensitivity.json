@@ -1,0 +1,87 @@
+{
+  "computed_at_utc": "2026-06-10T03:05:48.498678+00:00",
+  "basis": {
+    "material": "X65, SMYS 448 MPa, SMTS 531 MPa",
+    "internal_pressure_bar": 150.0,
+    "water_depth_m": 1500.0,
+    "external_pressure_MPa": 15.082875,
+    "corrosion_allowance_mm": 3.0,
+    "codes": [
+      "DNV-ST-F101",
+      "API RP 1111"
+    ],
+    "method": "Binary search on nominal wall until max utilisation across both codes <= 1.0"
+  },
+  "results": [
+    {
+      "label": "12-inch nominal OD",
+      "outer_diameter_m": 0.3239,
+      "required_wall_m": 0.02540795472691715,
+      "required_wall_mm": 25.40795472691715,
+      "required_wall_in": 1.0003131782250847,
+      "governing_code": "DNV-ST-F101",
+      "governing_check": "propagation_buckling",
+      "governing_utilisation": 0.9999999999999976,
+      "code_results": [
+        {
+          "code_label": "DNV-ST-F101",
+          "max_utilisation": 0.9999999999999976,
+          "governing_check": "propagation_buckling",
+          "is_safe": true,
+          "checks": {
+            "pressure_containment": -0.0016947154153351147,
+            "collapse": 0.043678751894341304,
+            "propagation_buckling": 0.9999999999999976,
+            "combined_loading": 0.00018338741433349657
+          }
+        },
+        {
+          "code_label": "API-RP-1111",
+          "max_utilisation": 0.7887944891622728,
+          "governing_check": "propagation",
+          "is_safe": true,
+          "checks": {
+            "burst": -0.0015310052632600477,
+            "collapse": 0.2816466281480053,
+            "propagation": 0.7887944891622728
+          }
+        }
+      ]
+    },
+    {
+      "label": "10-inch nominal OD sensitivity",
+      "outer_diameter_m": 0.2731,
+      "required_wall_m": 0.021893524038039767,
+      "required_wall_mm": 21.893524038039768,
+      "required_wall_in": 0.8619497652771562,
+      "governing_code": "DNV-ST-F101",
+      "governing_check": "propagation_buckling",
+      "governing_utilisation": 0.9999999999999952,
+      "code_results": [
+        {
+          "code_label": "DNV-ST-F101",
+          "max_utilisation": 0.9999999999999952,
+          "governing_check": "propagation_buckling",
+          "is_safe": true,
+          "checks": {
+            "pressure_containment": -0.0016947154153351132,
+            "collapse": 0.04367875189434117,
+            "propagation_buckling": 0.9999999999999952,
+            "combined_loading": 0.00018338741433349598
+          }
+        },
+        {
+          "code_label": "API-RP-1111",
+          "max_utilisation": 0.748719864743791,
+          "governing_check": "propagation",
+          "is_safe": true,
+          "checks": {
+            "burst": -0.0014951259222030552,
+            "collapse": 0.27452595137550817,
+            "propagation": 0.748719864743791
+          }
+        }
+      ]
+    }
+  ]
+}
