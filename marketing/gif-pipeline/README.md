@@ -1,35 +1,43 @@
-# Marketing GIF pipeline (Option B — deterministic render)
+# Marketing demo-clip generator (Option B — deterministic render)
 
-Generates crisp, branded demo clips of a Deckhand workflow **without** computer-use
-or any live channel: an HTML scene template is rasterised by headless Chrome and
-stitched with ffmpeg crossfades into an MP4 (crisp master) + GIF (loop).
+Generates crisp, branded **animated** demo clips of a Deckhand workflow — a
+realistic chat (Deckhand seeks the right inputs → runs → a report scrolls through
+Inputs / Methodology / Outputs → CTA) where the header stays fixed and only the
+chat pane scrolls. No computer-use, no live channel, no browser-driver deps.
 
-Prototype for `digitalmodel:mooring-fatigue` (Floating & Marine Systems). Tracking
-issue: deckhand#402. Part of the marketable-workflows epic deckhand#389 (#397).
+Tracking: deckhand#402 · epic deckhand#389 (#397). Every demo's numbers are
+grounded in a real run of its workflow.
 
-## Files
-- `demo.html` — the scene template. Drive it with `?scene=0..5`:
-  0 title · 1 user prompt · 2 intake · 3 running · 4 result · 5 closing CTA.
-  Content (prompt, result rows, CTA, logic-flow rail) is the part to parametrise
-  per workflow; result numbers should be sourced from the workflow's real run output.
-- `render.sh` — screenshots each scene (HiDPI) → ffmpeg variable-duration xfade →
-  `mooring-fatigue-demo.mp4` + `.gif`. Prints the **total video time**.
-  Tunables at the top: `DSF` (capture scale, default 2x = 2400×1350), `DURS`
-  (per-scene hold seconds), `XF` (crossfade), `GIF_W` (gif width).
-- `view.sh` — serves the folder on `127.0.0.1` (loopback only) so the MP4/GIF/HTML
-  open in a browser even over SSH (`ssh -L 8777:localhost:8777 <host>`).
+## Data-driven: one engine, one spec per workflow
+- `template-anim.html` — the engine. Builds the chat + report DOM from a `SPEC`
+  object and animates it on a deterministic timeline via `window.seek(t)`.
+- `specs/<slug>.json` — one per workflow: channel, title, the chat `turns[]`
+  (ask → probe → reply → restate → result), the `report` (inputs/methodology/
+  outputs), and the locked `closing` CTA. HTML fields use single-quoted
+  attributes so the file stays valid JSON.
+- `demos/<slug>.mp4` — the rendered clip (2400×1350, ~37 s, H.264). MP4 is the
+  master; for Telegram it autoplays inline like a GIF. (GIFs optional —
+  re-render with `GIF=1`.)
 
-## Usage
+## Build & render
 ```bash
-bash render.sh          # -> mp4 + gif, prints duration
-bash view.sh            # -> http://localhost:8777/  (Ctrl-C to stop)
-DSF=2 DURS=...          # override pacing/resolution via env or edit the array
+bash build-demo.sh <slug>          # specs/<slug>.json -> demo-<slug>.html (+ .dur)
+SLUG=<slug> bash render-anim.sh     # -> demos/<slug>.mp4   (GIF=1 also emits .gif)
+bash render-all.sh                  # build + render every spec in specs/
+bash view.sh                        # gallery at http://localhost:8777/ (loopback)
 ```
+Tunables (env): `FPS` (24), `W` parallel workers (10), `GIF`/`GIF_FPS`/`GIF_W`.
+Pacing lives in each spec's per-turn `hold` ms; the engine derives the timeline.
 
-## Notes
-- **Operator-only.** This renders on the host; never wire it into a client / Open
-  Deck channel (their execution profile is fail-closed toward the host).
-- MP4 is the crisp master (CRF 18, 2× capture). For Telegram, send the MP4 — it
-  autoplays inline like a GIF and stays sharp. GIF is palette-limited (256 colours)
-  regardless of resolution.
-- Requirements: `google-chrome` (headless), `ffmpeg`, `bc`, `python3`.
+## How it captures (sandbox-safe)
+`render-anim.sh` drives the page with a `?t=<ms>` URL param and captures one PNG
+per frame via `google-chrome --headless --screenshot`, fanned across `W` parallel
+workers, then `ffmpeg` assembles them. No DevTools/debug port needed.
+
+Requirements: `google-chrome` (headless), `ffmpeg`, `python3`, `bc`.
+
+## Adding a workflow
+Copy an existing `specs/*.json`, swap in the real workflow's probe/inputs/result
+numbers (run the workflow first — keep it truthful) and the locked CTA, then
+`build-demo.sh` + `render-anim.sh`. Operator-only; never wire into a client or
+Open Deck channel.

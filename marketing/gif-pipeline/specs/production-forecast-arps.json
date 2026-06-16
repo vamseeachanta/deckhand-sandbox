@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Wells & Subsurface", "tags": "⛏️ drilling · wells · reservoir" },
+  "title": { "big": "Decline forecast for a well, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "09:14", "hold": 900, "html": "I've got about a year of monthly oil rate on a well and I want to know where it's headed — fit a decline and give me the EUR. Can you do that?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "09:14", "hold": 4100, "html": "Happy to. A few things so I forecast it the right way:<ul><li>The rate history — send the monthly oil rate (month + barrels per month).</li><li>The economic limit — the rate where the well stops paying its way and you'd shut it in.</li><li>How far out you want the forecast carried.</li><li>The decline shape — exponential, hyperbolic, or shall I fit the best one?</li></ul><span class='note'>I fit Arps decline curves to the history, then carry the curve forward. If the well is still ramping up or the rate is bouncing around, I'll flag that rather than force a fit.</span>" },
+    { "side": "me", "time": "09:15", "hold": 4000, "file": { "name": "monthly_oil_rate.csv", "size": "1.4 KB" }, "html": "Twelve months of monthly oil rate attached. Economic limit is 100 barrels a month. Carry it out 24 months. Use a hyperbolic fit." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "09:15", "hold": 4400, "html": "Got it — hyperbolic Arps it is. Here's the plan: fit the decline to your 12 months of rate, lock in the starting rate, the decline rate and the curve shape, then carry the curve forward 24 months and stop it at the 100&nbsp;barrel-a-month economic limit. The EUR is everything produced to date plus what the forecast adds. Running it now…" },
+    { "side": "bot", "wide": true, "time": "09:16", "hold": 3000, "file": { "name": "production_forecast_arps_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's the fitted decline and the forecast:<table><tr><th>Quantity</th><th>Value</th></tr><tr><td>Starting rate (qi)</td><td>1,000&nbsp;bbl/mo</td></tr><tr><td>Initial decline (Di)</td><td>0.10 /mo</td></tr><tr><td>Decline exponent (b)</td><td>0.50</td></tr><tr><td>Fit quality (R²)</td><td>1.00</td></tr><tr><td>EUR</td><td class='verdict'>13,675&nbsp;bbl</td></tr></table><span class='note'>Clean hyperbolic fit. Over the 24-month forecast the rate eases to about 207&nbsp;bbl/mo — still above your 100&nbsp;barrel economic limit, so the well keeps producing past the horizon.</span>" }
+  ],
+  "report": {
+    "title": "Decline Forecast (Arps)",
+    "sub": "worldenergydata · production-forecast-arps · Report · 2026-06-16",
+    "foot": "production_forecast_arps_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Well</b><br>Monthly oil rate · 12 months of history<div class='mono'>m1 907 · m2 826 · m3 756 · m4 694 · m5 640 · m6 592<br>m7 549 · m8 510 · m9 476 · m10 444 · m11 416 · m12 391&nbsp;(bbl/mo)</div><br><b>Forecast basis</b><br>Decline shape: hyperbolic · Economic limit 100&nbsp;bbl/mo · Forecast horizon 24&nbsp;months</div>",
+    "methodology": "<div class='kv'>1&nbsp;· Fit an Arps hyperbolic decline to the 12 months of rate — solve for starting rate qi, initial decline Di, and curve shape b.<br>2&nbsp;· Check the fit against the history (R²).<br>3&nbsp;· Carry the fitted curve forward 24 months.<br>4&nbsp;· Stop the forecast when the rate drops to the 100&nbsp;bbl/mo economic limit (or at the horizon, whichever comes first).<br>5&nbsp;· EUR = barrels produced to date + barrels the forecast adds.</div>",
+    "outputs": "<table><tr><th>Quantity</th><th>Fitted value</th></tr><tr><td>Starting rate qi</td><td>1,000&nbsp;bbl/mo</td></tr><tr><td>Initial decline Di</td><td>0.10 /mo</td></tr><tr><td>Decline exponent b</td><td>0.50</td></tr><tr><td>Fit quality R²</td><td>1.00</td></tr><tr><td>Rate at month 24</td><td>207&nbsp;bbl/mo</td></tr><tr><td>EUR</td><td class='verdict'>13,675&nbsp;bbl</td></tr></table><div class='kv' style='margin-top:10px'><b>Verdict:</b> Clean hyperbolic fit (R²&nbsp;1.00). Rate at the 24-month horizon is ~207&nbsp;bbl/mo, still above the 100&nbsp;bbl/mo economic limit — the well stays economic past the forecast window. EUR is 13,675&nbsp;bbl.</div>"
+  },
+  "closing": {
+    "headline": "Decline forecast (Arps): fitted curve + EUR.",
+    "tryThis": "Fit an Arps decline and give me the EUR from this monthly oil rate.",
+    "route": "Wells & Subsurface"
+  }
+}

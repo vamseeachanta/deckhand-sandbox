@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Floating & Marine Systems", "tags": "🌊 mooring · riser · hydrodynamics" },
+  "title": { "big": "Mooring-line fatigue, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "14:21", "hold": 900, "html": "I've got a permanent mooring in 1500&nbsp;m and want to check fatigue on the most-loaded line. Can you screen it?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "14:21", "hold": 4100, "html": "Glad to help — a few details so I screen it the right way:<ul><li>Line make-up — chain, wire, or both (and the cross-sections)?</li><li>Do you have a tension-range histogram (ranges + cycle counts), or should I build one from a storm spectrum?</li><li>Design life and the fatigue safety factor you work to?</li></ul><span class='note'>I can screen metallic lines (chain/wire) directly. Synthetic rope needs a different method, so I'd flag that and pass it on.</span>" },
+    { "side": "me", "time": "14:22", "hold": 4000, "file": { "name": "mooring_tensions.csv", "size": "2.1 KB" }, "html": "Two segments: R4 studless chain (8,000&nbsp;mm²) and spiral-strand wire (5,200&nbsp;mm²). Tension-range bins for each are attached. 25-year design life, factor of 3." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "14:22", "hold": 4400, "html": "Got it — both metallic, so I'll screen fatigue directly. Basis I'll use: DNV S-N curve&nbsp;D (seawater with cathodic protection), Miner's-rule cumulative damage, 25-yr life × factor&nbsp;3 → a 75-yr requirement. Running it now…" },
+    { "side": "bot", "wide": true, "time": "14:23", "hold": 3000, "file": { "name": "mooring_fatigue_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's the fatigue life of each line:<table><tr><th>Line</th><th>Type</th><th>Fatigue life</th><th>Required</th><th>Verdict</th></tr><tr><td>chain-01</td><td>R4 studless chain</td><td>2,587&nbsp;yr</td><td>75&nbsp;yr</td><td class='verdict'>✅ Pass · 34.5×</td></tr><tr><td>wire-01</td><td>spiral-strand wire</td><td>609&nbsp;yr</td><td>75&nbsp;yr</td><td class='verdict'>✅ Pass · 8.1×</td></tr></table><span class='note'>Both clear the requirement comfortably — the wire is the governing line.</span>" }
+  ],
+  "report": {
+    "title": "Mooring Fatigue Screen",
+    "sub": "digitalmodel · mooring-fatigue · Report · 2026-06-16",
+    "foot": "input_mooring_fatigue_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Lines</b><br>chain-01 — R4 studless chain · A = 8,000&nbsp;mm²<br>wire-01 — spiral-strand wire · A = 5,200&nbsp;mm²<br><br><b>Tension-range bins</b><div class='mono'>chain-01:&nbsp; 220&nbsp;kN ×150,000 · 300&nbsp;kN ×60,000 · 380&nbsp;kN ×10,000<br>wire-01:&nbsp;&nbsp; 180&nbsp;kN ×180,000 · 260&nbsp;kN ×90,000 · 360&nbsp;kN ×20,000</div><br><b>Design</b><br>Design life 25&nbsp;yr · Design fatigue factor 3 · Required life 75&nbsp;yr</div>",
+    "methodology": "<div class='kv'>1&nbsp;· Stress range Δσ = tension range ÷ cross-sectional area, per bin.<br>2&nbsp;· Cycles-to-failure N from the DNV S-N curve&nbsp;D (seawater with cathodic protection).<br>3&nbsp;· Cumulative damage D = Σ&nbsp;(nᵢ&nbsp;/&nbsp;Nᵢ) — Miner's rule across all bins.<br>4&nbsp;· Fatigue life = design life ÷ D.<br>5&nbsp;· Verdict: life must clear design life × DFF (= 75&nbsp;yr).</div>",
+    "outputs": "<table><tr><th>Line</th><th>Σ damage</th><th>Fatigue life</th><th>DFF margin</th><th>Verdict</th></tr><tr><td>chain-01</td><td>0.0097</td><td>2,587&nbsp;yr</td><td>34.5×</td><td class='verdict'>✅ Pass</td></tr><tr><td>wire-01</td><td>0.0411</td><td>609&nbsp;yr</td><td>8.1×</td><td class='verdict'>✅ Pass</td></tr></table><div class='kv' style='margin-top:10px'><b>Verdict:</b> PASS — both lines exceed the 75-yr requirement; wire-01 governs.</div>"
+  },
+  "closing": {
+    "headline": "Code-checked mooring-line fatigue life, consumed & remaining.",
+    "tryThis": "Screen the fatigue life of my R4 chain mooring in 1500 m.",
+    "route": "Floating & Marine Systems"
+  }
+}
