@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --bg:#0b1220; --panel:#0f1830; --ink:#e8eef9; --muted:#90a0bd;
+    --accent:#4cc2ff; --accent2:#7af0c0; --userbubble:#1f6feb; --botbubble:#16223e;
+    --ok:#3ad29f; --line:#22304f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  html,body{width:1200px;height:675px;background:var(--bg);color:var(--ink);overflow:hidden}
+  .stage{position:relative;width:1200px;height:675px;display:flex;flex-direction:column}
+  /* top bar */
+  .topbar{display:flex;align-items:center;gap:12px;padding:16px 26px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#0d1730,#0b1220)}
+  .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#06243b}
+  .brand{font-weight:700;font-size:19px;letter-spacing:.2px}
+  .chan{margin-left:auto;font-size:14px;color:var(--muted);border:1px solid var(--line);padding:6px 12px;border-radius:999px}
+  /* body split */
+  .body{flex:1;display:flex;min-height:0}
+  .chat{flex:1.55;padding:26px 28px;display:flex;flex-direction:column;gap:16px;overflow:hidden}
+  .rail{flex:1;border-left:1px solid var(--line);padding:26px 24px;background:#0c1428}
+  .rail h3{font-size:12px;text-transform:uppercase;letter-spacing:1.6px;color:var(--muted);margin-bottom:18px}
+  .step{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px;opacity:.32;transition:opacity .3s}
+  .step.active{opacity:1}
+  .dot{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);flex:0 0 auto}
+  .step.active .dot{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 4px rgba(76,194,255,.12)}
+  .step .t{font-size:14.5px;line-height:1.35}
+  .step .s{font-size:12.5px;color:var(--muted);margin-top:2px}
+  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:var(--accent2);background:#0a142b;padding:1px 6px;border-radius:5px;font-size:12.5px}
+  /* bubbles */
+  .row{display:flex}
+  .row.me{justify-content:flex-end}
+  .bubble{max-width:80%;padding:13px 16px;border-radius:16px;font-size:15.5px;line-height:1.45;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+  .me .bubble{background:var(--userbubble);border-bottom-right-radius:5px}
+  .bot .bubble{background:var(--botbubble);border:1px solid var(--line);border-bottom-left-radius:5px}
+  .hide{display:none}
+  .running{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:14.5px}
+  .pulse{display:inline-flex;gap:4px}
+  .pulse i{width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.85}
+  /* result table */
+  table{border-collapse:collapse;width:100%;margin-top:6px;font-size:14px}
+  th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.6px}
+  .verdict{color:var(--ok);font-weight:700;white-space:nowrap}
+  .attach{margin-top:11px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--accent);border:1px dashed #2b4a78;padding:7px 11px;border-radius:9px}
+  .take{margin-top:10px;font-size:14px;color:var(--accent2)}
+  /* overlays */
+  .overlay{position:absolute;inset:0;background:radial-gradient(1200px 600px at 50% 30%,#13224a,#0a0f1f);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px}
+  .overlay .big{font-size:46px;font-weight:800;letter-spacing:.3px}
+  .overlay .sub{font-size:22px;color:var(--accent);margin-top:14px;font-weight:600}
+  .overlay .desc{font-size:17px;color:var(--muted);margin-top:18px;max-width:760px;line-height:1.5}
+  .overlay .logo-lg{width:74px;height:74px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:34px;color:#06243b;margin-bottom:26px}
+  .overlay .try{margin-top:26px;font-size:15px;color:var(--ink);background:#0f1830;border:1px solid var(--line);border-radius:12px;padding:14px 18px;max-width:760px}
+  .overlay .try b{color:var(--accent2)}
+  body:not([data-scene="0"]) #titlecard{display:none}
+  body:not([data-scene="5"]) #closecard{display:none}
+</style>
+</head>
+<body data-scene="0">
+  <div class="stage">
+    <div class="topbar">
+      <div class="logo">D</div>
+      <div class="brand">Deckhand</div>
+      <div class="chan">🌊 Floating &amp; Marine Systems</div>
+    </div>
+    <div class="body">
+      <div class="chat" id="chat">
+        <!-- user -->
+        <div class="row me" data-from="1"><div class="bubble">I have a steel R4 studless chain mooring in 1500&nbsp;m — can you screen the fatigue life of the most-loaded line?</div></div>
+        <!-- bot probe/intake -->
+        <div class="row bot" data-from="2"><div class="bubble">Got it. These are steel chain and spiral-strand wire — metallic lines — so I can screen the fatigue life directly. Working it out now.</div></div>
+        <!-- bot running (only scene 3) -->
+        <div class="row bot" data-only="3"><div class="bubble"><span class="running">Running the fatigue screen <span class="pulse"><i></i><i></i><i></i></span></span></div></div>
+        <!-- bot result (scene >=4) -->
+        <div class="row bot" data-from="4"><div class="bubble" style="max-width:92%">
+          <div style="font-weight:600;margin-bottom:4px">Here's the fatigue life of each line:</div>
+          <table>
+            <tr><th>Line</th><th>Type</th><th>Fatigue life</th><th>Required (×DFF&nbsp;3)</th><th>Verdict</th></tr>
+            <tr><td>chain-01</td><td>R4 studless chain</td><td>2,587&nbsp;yr</td><td>75&nbsp;yr</td><td class="verdict">✅ Pass · 34.5×</td></tr>
+            <tr><td>wire-01</td><td>spiral-strand wire</td><td>609&nbsp;yr</td><td>75&nbsp;yr</td><td class="verdict">✅ Pass · 8.1×</td></tr>
+          </table>
+          <div class="attach">📎 mooring_fatigue_summary.csv · per-bin damage breakdown attached</div>
+          <div class="take">Both lines clear the design fatigue factor comfortably — the wire is the governing line.</div>
+        </div></div>
+      </div>
+      <div class="rail">
+        <h3>How it answered</h3>
+        <div class="step" data-step="1"><div class="dot">1</div><div><div class="t">Read the question</div><div class="s">plain-English mooring ask</div></div></div>
+        <div class="step" data-step="2"><div class="dot">2</div><div><div class="t">Confirmed the inputs</div><div class="s">metallic line → fatigue screen applies</div></div></div>
+        <div class="step" data-step="3"><div class="dot">3</div><div><div class="t">Ran the engineering calc</div><div class="s"><code>digitalmodel · mooring-fatigue</code></div></div></div>
+        <div class="step" data-step="4"><div class="dot">4</div><div><div class="t">Delivered the result</div><div class="s">code-checked life + downloadable report</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TITLE CARD (scene 0) -->
+  <div class="overlay" id="titlecard">
+    <div class="logo-lg">D</div>
+    <div class="big">Mooring-line fatigue, answered in chat</div>
+    <div class="sub">Deckhand · Floating &amp; Marine Systems</div>
+    <div class="desc">Ask a real engineering question in plain English. Deckhand runs the calculation and sends back a code-checked answer with a report you can keep.</div>
+  </div>
+
+  <!-- CLOSING CARD (scene 5) -->
+  <div class="overlay" id="closecard">
+    <div class="logo-lg">D</div>
+    <div class="big">From a question to a fatigue life — in one message.</div>
+    <div class="desc">No spreadsheets, no setup. Just ask.</div>
+    <div class="try">Try asking: <b>"Screen the fatigue life of my R4 chain mooring in 1500&nbsp;m."</b></div>
+  </div>
+
+<script>
+  var p = new URLSearchParams(location.search);
+  var scene = parseInt(p.get('scene')||'0',10);
+  document.body.setAttribute('data-scene', scene);
+  // cumulative chat reveal
+  document.querySelectorAll('[data-from]').forEach(function(el){
+    el.classList.toggle('hide', scene < parseInt(el.getAttribute('data-from'),10));
+  });
+  document.querySelectorAll('[data-only]').forEach(function(el){
+    el.classList.toggle('hide', scene !== parseInt(el.getAttribute('data-only'),10));
+  });
+  // rail steps
+  document.querySelectorAll('.step').forEach(function(el){
+    el.classList.toggle('active', scene >= parseInt(el.getAttribute('data-step'),10));
+  });
+</script>
+</body>
+</html>
