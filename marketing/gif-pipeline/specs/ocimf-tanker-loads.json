@@ -70,7 +70,7 @@
   },
   "closing": {
     "headline": "OCIMF tanker loads: wind + current force & yaw moment.",
-    "tryThis": "Wind + current loads on a 320 m VLCC at 30° (OCIMF)?",
+    "tryThis": "OCIMF wind + current loads on a 320 m VLCC at 30°?",
     "route": "Floating & Marine Systems"
   }
 }

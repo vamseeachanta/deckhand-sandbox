@@ -21,7 +21,7 @@
   },
   "closing": {
     "headline": "Subsea-manifold CP (DNV-RP-B401): current demand, anode mass & output.",
-    "tryThis": "Size DNV-RP-B401 anodes for my subsea manifold (850 m² submerged).",
+    "tryThis": "Size DNV-RP-B401 anodes for a subsea manifold (850 m² submerged).",
     "route": "Subsea, Pipelines & Integrity"
   }
 }

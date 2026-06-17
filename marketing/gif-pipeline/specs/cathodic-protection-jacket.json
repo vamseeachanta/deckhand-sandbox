@@ -21,7 +21,7 @@
   },
   "closing": {
     "headline": "Fixed-jacket CP (DNV-RP-B401): zone demand, anode mass & governing count.",
-    "tryThis": "Run DNV-RP-B401 CP for my fixed steel jacket (submerged/splash/atmospheric).",
+    "tryThis": "Run DNV-RP-B401 CP for a fixed steel jacket (submerged/splash/atmospheric).",
     "route": "Subsea, Pipelines & Integrity"
   }
 }

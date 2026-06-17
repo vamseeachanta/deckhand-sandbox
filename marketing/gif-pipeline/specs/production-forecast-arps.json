@@ -21,7 +21,7 @@
   },
   "closing": {
     "headline": "Decline forecast (Arps): fitted curve + EUR.",
-    "tryThis": "Fit an Arps decline and give me the EUR from this monthly oil rate.",
+    "tryThis": "Fit an Arps decline and get the EUR from a monthly oil rate.",
     "route": "Wells & Subsurface"
   }
 }
