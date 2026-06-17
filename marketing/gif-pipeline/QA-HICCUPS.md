@@ -12,10 +12,10 @@ realism + composer coverage, not bot-chat issues (chat-eval #390–392 covers th
 2. **fdas-field-npv — toy inputs.** Canonical input is `[-1000,+500,+500,+500]` →
    MIRR 422.6%, reads as unrealistic. → swapping to a realistic subsea-tieback case
    (CAPEX/plateau/$bbl/OPEX/life) in a parallel session.
-3. **CP pipeline (F103) & fpso (ABS) — thinner reports.** `compose-cp.py` is
-   B401-schema-centric (per-zone current-demand chart), so the F103 (attenuation/
-   bracelet) and ABS (mass-only) reports lack a tailored chart. → add F103/ABS
-   mapping to the composer.
+3. ~~**CP pipeline (F103) & fpso (ABS) — thinner reports.**~~ **RESOLVED** —
+   `compose-cp.py` now dispatches by schema (F103 attenuation/bracelet + reach
+   chart; ABS densities + demand chart; B401 zone + current-output charts). All 5
+   CP reports ~27 KB, demos re-rendered.
 
 ## Truthful-but-worth-noting (no fix, or operator call)
 4. **free-span-f105 — canonical 34 m span FAILs** (VIV lock-in, fatigue ~2.5 days).
