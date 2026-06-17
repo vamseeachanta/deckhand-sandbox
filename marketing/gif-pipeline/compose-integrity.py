@@ -5,7 +5,7 @@
 # drives GTMReportBuilder -> report.html (real numbers + synthesized Plotly
 # charts). Run from the digitalmodel compute checkout's env:
 #   uv run --with plotly --with pandas --with pyyaml python compose-integrity.py <slug> <out.html>
-import sys, re, yaml, pathlib
+import sys, re, math, yaml, pathlib
 sys.path.insert(0, "/mnt/local-analysis/.deckhand-compute/digitalmodel/examples/demos/gtm")
 import plotly.graph_objects as go
 import pandas as pd
@@ -205,6 +205,36 @@ def compose_f105(out):
                        height=360, template="plotly_white", yaxis_title="metres")
     b.add_chart("span", fig2, "Allowable vs actual span", "Actual span is 2.7× the allowable")
 
+    # Chart 3: span length vs reduced velocity — VIV lock-in transition / critical length
+    # Ur ∝ 1/fn ∝ L² (fn from a pinned-pinned beam), so Ur(L) = Ur_actual · (L/L_actual)².
+    La, Ura = r["span_length_m"], r["Ur_CF"]
+    on_il, on_cf = r["Ur_onset_IL"], r["Ur_onset_CF"]
+    L_il = La * math.sqrt(on_il / Ura)   # in-line onset → the allowable span
+    L_cf = La * math.sqrt(on_cf / Ura)   # cross-flow lock-in onset
+    Lmax = max(La * 1.12, L_cf * 1.25)
+    Ls = [5 + i * (Lmax - 5) / 80 for i in range(81)]
+    Ur_L = [Ura * (L / La) ** 2 for L in Ls]
+    fig3 = go.Figure()
+    fig3.add_vrect(x0=5, x1=L_il, fillcolor="#3ad29f", opacity=0.13, line_width=0,
+                   annotation_text="no VIV", annotation_position="top left")
+    fig3.add_vrect(x0=L_il, x1=L_cf, fillcolor="#f0b429", opacity=0.15, line_width=0,
+                   annotation_text="in-line VIV", annotation_position="top left")
+    fig3.add_vrect(x0=L_cf, x1=Lmax, fillcolor="#e53e3e", opacity=0.13, line_width=0,
+                   annotation_text="cross-flow lock-in", annotation_position="top left")
+    fig3.add_trace(go.Scatter(x=Ls, y=Ur_L, mode="lines", line=dict(color=NAVY, width=3), name="Ur(L)"))
+    fig3.add_hline(y=on_il, line_dash="dot", line_color="#b7791f", annotation_text=f"IL onset {on_il:.2f}", annotation_position="right")
+    fig3.add_hline(y=on_cf, line_dash="dash", line_color="#c53030", annotation_text=f"CF onset {on_cf:.2f}", annotation_position="right")
+    fig3.add_vline(x=L_il, line_dash="dot", line_color="#1b7f3a")
+    fig3.add_trace(go.Scatter(x=[L_il], y=[on_il], mode="markers+text", marker=dict(color="#1b7f3a", size=11),
+                              text=[f"critical {L_il:.1f} m"], textposition="bottom right", name="allowable span"))
+    fig3.add_trace(go.Scatter(x=[La], y=[Ura], mode="markers+text", marker=dict(color="#e53e3e", size=13, symbol="x"),
+                              text=[f"actual {La:.0f} m"], textposition="top center", name="actual span"))
+    fig3.update_layout(title="Span length vs reduced velocity — VIV lock-in transition", height=410,
+                       template="plotly_white", xaxis_title="Span length (m)", yaxis_title="Reduced velocity Ur",
+                       legend_orientation="h")
+    b.add_chart("transition", fig3, "Length vs reduced velocity",
+                f"VIV locks in past the {L_il:.1f} m critical span; the {La:.0f} m survey span sits deep in lock-in")
+
     b.add_section("Verdict",
                   f"<p><strong>{verdict}</strong> — the {sp['span_length_m']:.0f} m free span is "
                   f"<strong>not acceptable</strong> under DNV-RP-F105. At a natural frequency of "
@@ -296,6 +326,21 @@ def compose_b318(out):
                                                 "LML MAWPr L1 (psi)", "LML MAWPr L2 (psi)", "vs design P"]),
                 subtitle=f"All MAWP values exceed the {design_p:,} psi design pressure",
                 status_col="vs design P")
+
+    # Chart 0 (hero): the measured UT wall-thickness grid (contour) — the real flaw map
+    inp = yaml.safe_load((DM / "examples/workflows/api579-pipe-ffs-b318/input.yml").read_text())
+    rs = inp["ReadingSets"][0]
+    grid = rs["grid"]["values"]
+    zlim = rs.get("Contour", {}).get("zlim", [None, None])
+    gmin = min(min(r) for r in grid)
+    figg = go.Figure(go.Contour(z=grid, colorscale="RdYlBu", zmin=zlim[0], zmax=zlim[1],
+                                contours=dict(showlabels=True, labelfont=dict(size=10, color="#333")),
+                                colorbar=dict(title="WT (in)")))
+    figg.update_layout(title=f"UT wall-thickness grid (in) — min {gmin:.3f} in at the flaw",
+                       height=430, template="plotly_white",
+                       xaxis_title="Circumferential CML", yaxis_title="Axial CML")
+    b.add_chart("grid", figg, "Measured wall-thickness grid (CMLs)",
+                "Contour of the 6×6 ultrasonic grid — the red zone is the governing flaw (thinnest wall)")
 
     # Chart 1: MAWP vs FCA (GML + LML L2) with design pressure line
     fcas = [g["FCA"] for g in gml]
