@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Cathodic Protection", "tags": "🛡️ anodes · corrosion · DNV/ABS" },
+  "title": { "big": "Pipeline CP design, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "11:02", "hold": 900, "html": "I need a sacrificial-anode CP design for a subsea export line — can you size the anodes to DNV-RP-F103?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "11:02", "hold": 4200, "html": "Happy to — a few details so I size it right:<ul><li>Pipe — outer diameter, wall thickness, and length?</li><li>Buried or non-buried, and the external coating?</li><li>Design life and the internal operating temperature?</li><li>Anode type and unit mass, and the seawater resistivity?</li></ul><span class='note'>This runs the DNV-RP-F103 sacrificial-anode screen for a coated steel line on the seabed — current demand, anode mass, bracelet spacing and an attenuation reach check.</span>" },
+    { "side": "me", "time": "11:04", "hold": 4200, "file": { "name": "cp_pipeline.yml", "size": "0.7 KB" }, "html": "12.75-inch line — OD 323.9&nbsp;mm, wall 15.9&nbsp;mm, 1,500&nbsp;m on the seabed (non-buried), FBE coating. Fluid at 60&nbsp;°C, 30-year design life. Aluminium bracelet anodes, 25&nbsp;kg each, utilisation 0.80, 10% contingency. Seawater resistivity 0.59&nbsp;Ω·m. Section's in the file." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "11:04", "hold": 4400, "html": "Got it — coated steel on the seabed, so I'll run DNV-RP-F103 directly. Basis I'll use: surface-area current demand with coating breakdown over life (mean density 0.06&nbsp;A/m² for the 50–80&nbsp;°C band), total charge → anode mass, bracelet count &amp; spacing, then an attenuation check that protection reaches along the line. Running it now…" },
+    { "side": "bot", "wide": true, "time": "11:05", "hold": 3000, "file": { "name": "cp_pipeline_f103_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's the CP design — and it covers the line:<table><tr><th>Quantity</th><th>Result</th><th>Check</th><th>Verdict</th></tr><tr><td>Mean current demand</td><td>1.33&nbsp;A</td><td>final 1.74&nbsp;A</td><td>—</td></tr><tr><td>Required anode mass</td><td>218&nbsp;kg</td><td>250&nbsp;kg fitted</td><td class='verdict'>✅ Met</td></tr><tr><td>Bracelet anodes (25&nbsp;kg)</td><td>10</td><td>spacing 167&nbsp;m</td><td class='verdict'>✅ Valid</td></tr><tr><td>Protection reach</td><td>96.6&nbsp;m</td><td>half-span 83&nbsp;m</td><td class='verdict'>✅ Adequate</td></tr></table><span class='note'>10 aluminium bracelets (250&nbsp;kg) cover the 1,500&nbsp;m line — mean demand 1.33&nbsp;A over 30 years, and each anode polarises 96.6&nbsp;m, comfortably past the 83&nbsp;m half-spacing, so the whole line stays protected.</span>" }
+  ],
+  "report": {
+    "title": "Pipeline CP Design (DNV-RP-F103)",
+    "sub": "digitalmodel · cathodic-protection-pipeline · Report · 2026-06-16",
+    "foot": "cp_pipeline_f103_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Pipe</b><br>12.75&nbsp;inch · OD 323.9&nbsp;mm · wall 15.9&nbsp;mm · length 1,500&nbsp;m · non-buried on seabed<br>FBE coating · internal fluid 60&nbsp;°C<br><br><b>Design</b><br>Design life 30&nbsp;yr · coated-steel current density 13.5&nbsp;mA/m²<br><br><b>Anodes &amp; environment</b><div class='mono'>Al bracelet · 25&nbsp;kg each · utilisation 0.80 · contingency 1.10<br>capacity 2,000&nbsp;Ah/kg · seawater resistivity 0.59&nbsp;Ω·m<br>spacing window 5–300&nbsp;m</div></div>",
+    "methodology": "<div class='kv'>1&nbsp;· Outer surface area from OD × length.<br>2&nbsp;· Coating breakdown over life — initial 0.010 / mean 0.0145 / final 0.019.<br>3&nbsp;· Current demand = area × density × breakdown (mean density 0.06&nbsp;A/m², DNV-RP-F103 Table&nbsp;5-1, 50–80&nbsp;°C band).<br>4&nbsp;· Total charge over the design life → anode mass (capacity 2,000&nbsp;Ah/kg, utilisation 0.80, ×1.10 contingency).<br>5&nbsp;· Bracelet count &amp; spacing from unit mass; attenuation reach vs half-spacing for an adequacy check.</div>",
+    "outputs": "<table><tr><th>Quantity</th><th>Value</th><th>Note</th></tr><tr><td>Outer surface area</td><td>1,526&nbsp;m²</td><td>OD 323.9&nbsp;mm × 1,500&nbsp;m</td></tr><tr><td>Current demand (init/mean/final)</td><td>0.92 / 1.33 / 1.74&nbsp;A</td><td>over life</td></tr><tr><td>Total charge (30&nbsp;yr)</td><td>348,977&nbsp;Ah</td><td>262,800&nbsp;h</td></tr><tr><td>Required anode mass</td><td>218.1&nbsp;kg</td><td>incl. 10% contingency</td></tr><tr><td>Anodes fitted</td><td>10 × 25&nbsp;kg = 250&nbsp;kg</td><td>spacing 166.7&nbsp;m</td></tr><tr><td>Protection reach</td><td>96.6&nbsp;m</td><td>half-span 83.3&nbsp;m</td></tr></table><div class='kv' style='margin-top:10px'><b>Verdict:</b> ADEQUATE — fitted mass 250&nbsp;kg clears the 218&nbsp;kg requirement, and protection reach 96.6&nbsp;m exceeds the 83&nbsp;m half-spacing, so the full 1,500&nbsp;m line is polarised.</div>"
+  },
+  "closing": {
+    "headline": "Pipeline sacrificial-anode CP (DNV-RP-F103): anode mass, count & reach.",
+    "tryThis": "Size sacrificial anodes for my 1500 m subsea line to DNV-RP-F103.",
+    "route": "Subsea, Pipelines & Integrity"
+  }
+}

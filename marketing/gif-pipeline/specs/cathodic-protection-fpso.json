@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Cathodic Protection", "tags": "🛡️ anodes · corrosion · DNV/ABS" },
+  "title": { "big": "FPSO-hull CP design, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "16:45", "hold": 900, "html": "I need a hull-anode CP estimate for an FPSO to ABS offshore guidance — can you run it?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "16:45", "hold": 4200, "html": "Happy to — a few details so I size it right:<ul><li>External submerged hull area?</li><li>Water depth (it sets the current-density band)?</li><li>Design life, and the maximum seawater temperature?</li><li>Anode type and net unit mass?</li></ul><span class='note'>This estimates the external hull CP to ABS offshore guidance — current demand over life and the aluminium anode mass.</span>" },
+    { "side": "me", "time": "16:47", "hold": 4200, "file": { "name": "cp_fpso.yml", "size": "0.6 KB" }, "html": "FPSO hull — 8,000&nbsp;m² external submerged area, moored in 20&nbsp;m of water. Tropical site, seawater up to 25&nbsp;°C, 25-year design life. Aluminium stand-off hull anodes, 180&nbsp;kg net each, utilisation 0.80. It's in the file." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "16:47", "hold": 4400, "html": "Got it — external hull in the shallow (0–30&nbsp;m) band, so I'll run the ABS estimate. Basis I'll use: current densities of 150 / 75 / 100&nbsp;mA/m² (initial/mean/final), coating breakdown over life, current demand, then aluminium anode mass from the charge. Running it now…" },
+    { "side": "bot", "wide": true, "time": "16:48", "hold": 3000, "file": { "name": "cp_fpso_abs_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's the estimate:<table><tr><th>Quantity</th><th>Result</th><th>Over life</th><th>Basis</th></tr><tr><td>Mean protective current</td><td>96.0&nbsp;A</td><td>12 → 248&nbsp;A</td><td>ABS</td></tr><tr><td>Required anode mass</td><td>14,091&nbsp;kg</td><td>—</td><td>Al, 1,865&nbsp;Ah/kg</td></tr></table><span class='note'>Tropical FPSO hull, 8,000&nbsp;m² external. Mean demand 96&nbsp;A over 25 years, rising to 248&nbsp;A as the coating breaks down — total aluminium anode mass 14,091&nbsp;kg (≈ 79 × 180&nbsp;kg stand-offs, indicative; final layout set by the hull arrangement).</span>" }
+  ],
+  "report": {
+    "title": "FPSO-Hull CP Design (ABS offshore guidance)",
+    "sub": "digitalmodel · cathodic-protection-fpso · Report · 2026-06-16",
+    "foot": "cp_fpso_abs_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Hull</b><br>FPSO external submerged area 8,000&nbsp;m² · water depth 20&nbsp;m (0–30&nbsp;m band)<br><br><b>Design &amp; environment</b><br>Design life 25&nbsp;yr · tropical · seawater max 25&nbsp;°C<br><br><b>Anodes</b><div class='mono'>Al stand-off hull anodes · 180&nbsp;kg net each · utilisation 0.80<br>anode capacity 1,865&nbsp;Ah/kg</div></div>",
+    "methodology": "<div class='kv'>1&nbsp;· Current densities 150 / 75 / 100&nbsp;mA/m² (initial / mean / final), ABS shallow-water band.<br>2&nbsp;· Coating breakdown over life — initial 0.01 / mean 0.16 / final 0.31.<br>3&nbsp;· Current demand = area × density × breakdown.<br>4&nbsp;· Aluminium anode mass from total charge (capacity 1,865&nbsp;Ah/kg, utilisation 0.80).</div>",
+    "outputs": "<table><tr><th>Quantity</th><th>Value</th><th>Note</th></tr><tr><td>Current density (init/mean/final)</td><td>150 / 75 / 100&nbsp;mA/m²</td><td>ABS band</td></tr><tr><td>Coating breakdown (init/mean/final)</td><td>0.01 / 0.16 / 0.31</td><td>over life</td></tr><tr><td>Current demand (init/mean/final)</td><td>12.0 / 96.0 / 248.0&nbsp;A</td><td>over life</td></tr><tr><td>Anode capacity</td><td>1,865&nbsp;Ah/kg</td><td>utilisation 0.80</td></tr><tr><td>Required anode mass</td><td>14,091.2&nbsp;kg</td><td>aluminium</td></tr></table><div class='kv' style='margin-top:10px'><b>Verdict:</b> 14,091&nbsp;kg of aluminium hull anodes — mean demand 96&nbsp;A, final 248&nbsp;A over the 25-year life. Anode count and placement follow from the hull arrangement (≈ 79 × 180&nbsp;kg indicative).</div>"
+  },
+  "closing": {
+    "headline": "FPSO-hull CP (ABS): protective current & aluminium anode mass.",
+    "tryThis": "Size hull anodes for my FPSO to ABS offshore guidance (8,000 m²).",
+    "route": "Subsea, Pipelines & Integrity"
+  }
+}

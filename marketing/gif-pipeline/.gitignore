@@ -2,3 +2,4 @@ demo-*.html
 demo-*.dur
 .frames-*/
 pal-*.png
+web/

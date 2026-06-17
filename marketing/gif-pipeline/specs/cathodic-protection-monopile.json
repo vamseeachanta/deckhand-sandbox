@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Cathodic Protection", "tags": "🛡️ anodes · corrosion · DNV/ABS" },
+  "title": { "big": "Offshore-wind monopile CP, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "15:10", "hold": 900, "html": "Need a sacrificial-anode CP design for an offshore-wind monopile, 30-year life. Can you run DNV-RP-B401?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "15:10", "hold": 4200, "html": "Happy to — a few details so I run it right:<ul><li>Exposure zones and areas — submerged, splash, atmospheric?</li><li>Coating category in each zone?</li><li>Design life, and the seawater temperature &amp; resistivity?</li><li>Anode type and unit mass?</li></ul><span class='note'>This runs the DNV-RP-B401 zone-by-zone screen — current demand per zone, anode mass, then a current-output check on the count.</span>" },
+    { "side": "me", "time": "15:12", "hold": 4300, "file": { "name": "cp_monopile.yml", "size": "0.9 KB" }, "html": "Monopile — 1,200&nbsp;m² submerged, 180&nbsp;m² splash, 120&nbsp;m² atmospheric, all coating cat&nbsp;I. 30-year design life. North Sea at 8&nbsp;°C, resistivity 0.28&nbsp;Ω·m. Aluminium stand-off anodes, 150&nbsp;kg each, utilisation 0.85. Make-up's in the file." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "15:12", "hold": 4400, "html": "Got it — three zones over a 30-year life, so I'll run DNV-RP-B401 zone by zone. Basis I'll use: current demand per zone from area × density × coating breakdown, total charge over 30&nbsp;yr → anode mass, then a current-output check that the bank delivers the final demand. Running it now…" },
+    { "side": "bot", "wide": true, "time": "15:13", "hold": 3000, "file": { "name": "cp_monopile_b401_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's the design — and it flags the governing criterion:<table><tr><th>Quantity</th><th>Result</th><th>Check</th><th>Verdict</th></tr><tr><td>Mean current demand</td><td>27.7&nbsp;A</td><td>final 51.5&nbsp;A</td><td>—</td></tr><tr><td>Required anode mass</td><td>4,285&nbsp;kg</td><td>—</td><td>—</td></tr><tr><td>Anodes by mass (150&nbsp;kg)</td><td>29</td><td>—</td><td>—</td></tr><tr><td>Anodes by current output</td><td>32</td><td>governs</td><td class='verdict'>✅ Use 32</td></tr></table><span class='note'>30-year life on a North Sea monopile. Mass alone needs 29 stand-off anodes, but the 51.5&nbsp;A final demand needs 32 by current output — so 32 governs. The thin coating breakdown over 30 years is what drives the final current up.</span>" }
+  ],
+  "report": {
+    "title": "Monopile CP Design (DNV-RP-B401)",
+    "sub": "digitalmodel · cathodic-protection-monopile · Report · 2026-06-16",
+    "foot": "cp_monopile_b401_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Structure — exposure zones</b><br>Submerged 1,200&nbsp;m² · splash 180&nbsp;m² · atmospheric 120&nbsp;m² — all coating cat&nbsp;I<br><br><b>Design &amp; environment</b><br>Design life 30&nbsp;yr · North Sea 8&nbsp;°C · resistivity 0.28&nbsp;Ω·m<br><br><b>Anodes</b><div class='mono'>Al stand-off · 150&nbsp;kg each · utilisation 0.85<br>capacity 2,000&nbsp;Ah/kg · resistance 0.153&nbsp;Ω</div></div>",
+    "methodology": "<div class='kv'>1&nbsp;· Current demand per zone = area × density × coating breakdown (cat&nbsp;I: initial 0.05 / mean 0.35 / final 0.65).<br>2&nbsp;· Total charge over 30&nbsp;yr (262,800&nbsp;h) → anode mass (capacity 2,000&nbsp;Ah/kg, utilisation 0.85).<br>3&nbsp;· Anode count by mass, then by current output (through the anode resistance at final demand).<br>4&nbsp;· The larger count governs.</div>",
+    "outputs": "<table><tr><th>Quantity</th><th>Value</th><th>Note</th></tr><tr><td>Total area</td><td>1,500&nbsp;m²</td><td>3 zones</td></tr><tr><td>Demand — submerged</td><td>21.0 / 39.0&nbsp;A</td><td>mean / final</td></tr><tr><td>Demand — splash</td><td>6.3 / 11.7&nbsp;A</td><td>mean / final</td></tr><tr><td>Demand — atmospheric</td><td>0.42 / 0.78&nbsp;A</td><td>mean / final</td></tr><tr><td>Total current demand</td><td>27.72 / 51.48&nbsp;A</td><td>mean / final</td></tr><tr><td>Required anode mass</td><td>4,285.19&nbsp;kg</td><td>29 × 150&nbsp;kg</td></tr><tr><td>Anodes by current output</td><td>32</td><td>1.63&nbsp;A each</td></tr></table><div class='kv' style='margin-top:10px'><b>Verdict:</b> USE 32 ANODES — mass needs 29, but the current-output check (final demand 51.5&nbsp;A vs 47.3&nbsp;A from 29 anodes) governs at 32.</div>"
+  },
+  "closing": {
+    "headline": "Offshore-wind monopile CP (DNV-RP-B401): 30-yr demand & governing count.",
+    "tryThis": "Run DNV-RP-B401 CP for a 30-year offshore-wind monopile.",
+    "route": "Subsea, Pipelines & Integrity"
+  }
+}
