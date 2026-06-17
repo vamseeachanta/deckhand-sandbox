@@ -9,6 +9,13 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, 'web-v3');
 const FRONT_DOOR = 'https://t.me/the_deckhand_bot';   // #431/#409 will append ?start=src_<domain>_<workflow>
+// Sustainable hosting (update.sh): USE_RELEASE=1 points <video> at the GitHub Release
+// (stable URLs, --clobber to update in place) + a ?v=<contenthash> cache-bust so viewers
+// always get the latest without the URL changing. Default = local relative paths (preview).
+const USE_RELEASE = !!process.env.USE_RELEASE;
+const REL = 'https://github.com/vamseeachanta/deckhand-sandbox/releases/download/demos';
+const cb = rel => { try { const s = fs.statSync(path.join(ROOT, rel)); return Math.round(s.mtimeMs).toString(36) + '-' + s.size.toString(36); } catch { return '0'; } };
+const murl = rel => USE_RELEASE ? `${REL}/${path.basename(rel)}?v=${cb(rel)}` : rel;
 const DOMAIN = {
   'Floating & Marine Systems': 'floating-marine',
   'Subsea, Pipelines & Integrity': 'subsea-pipelines-integrity',
@@ -33,12 +40,12 @@ const card = d => {
   const hasV = fs.existsSync(path.join(ROOT, 'demos', `${d.slug}v.mp4`));
   return `      <article class="card">
         <video class="v" muted loop autoplay playsinline preload="metadata"
-               poster="posters/${d.slug}.png"><source src="demos/${d.slug}.mp4" type="video/mp4"></video>
+               poster="${murl(`posters/${d.slug}.png`)}"><source src="${murl(`demos/${d.slug}.mp4`)}" type="video/mp4"></video>
         <div class="meta">
           <h3>${esc(d.spec.title?.big || d.slug)}</h3>
           <div class="row">
             <a class="cta" href="${FRONT_DOOR}" data-start="${tag}" target="_blank" rel="noopener">Try it on Deckhand →</a>
-            ${hasV ? `<a class="alt" href="demos/${d.slug}v.mp4" target="_blank" rel="noopener">▤ vertical</a>` : ''}
+            ${hasV ? `<a class="alt" href="${murl(`demos/${d.slug}v.mp4`)}" target="_blank" rel="noopener">▤ vertical</a>` : ''}
           </div>
         </div>
       </article>`;

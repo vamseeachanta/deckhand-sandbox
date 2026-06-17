@@ -9,3 +9,4 @@ __pycache__/
 proto-reports/*.png
 posters/
 web-v3/
+youtube-upload-manifest.csv

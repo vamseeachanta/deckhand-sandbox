@@ -74,4 +74,22 @@ Public-safe (synthetic inputs, no PII). `deckhand-sandbox` owns the public artif
 - **CTA scheme:** `demo_*` → `src_*` per #431.
 - **Unchanged:** specs are source of truth; synthetic-only/no-PII; UTM+`?start` composition; Telegram native MP4 primary; YouTube secondary.
 
+## Sustainable update workflow (decided 2026-06-17) — "keep updating these videos"
+The demos will be re-rendered repeatedly as workflows/composers/charts improve, so the
+architecture is chosen for **easy, link-stable updates**:
+
+| Method | Updating a video | Verdict |
+|---|---|---|
+| YouTube | can't replace the file → re-upload = **new ID**, breaks every reference | ❌ update-hostile — never canonical |
+| **GitHub Release** | `gh release upload --clobber` = same URL, new content; free, uncapped, no git bloat | ✅ canonical binary home |
+| Vercel co-located | `git push` redeploys, same URL — but MP4s bloat git + bandwidth | ⚠️ heavier |
+| Telegram post | re-post (feed ages out) | ⚠️ manual per update |
+
+**Decision:**
+1. **Binaries → one GitHub Release** (tag `demos`), updated in place with `--clobber` → stable URLs, $0, uncapped.
+2. **One canonical reference = the gallery URL** (`…/demos/deckhand/`, per-demo anchors). All external links (email/LinkedIn/docs/Telegram CTA) point here → they **never break** on update.
+3. **Gallery `<video>` → the Release URLs + `?v=<contenthash>` cache-bust** (`build-web-v3.mjs USE_RELEASE=1`) → viewers always get the latest; URLs never change.
+4. **YouTube = optional secondary** (milestone uploads for reach/SEO/Shorts; `build-youtube-manifest.py` produces the metadata) — accept it lags; not a canonical reference.
+5. **One update command:** `bash update.sh [<slug>…]` → make-demo → render both cuts → posters → regenerate gallery (USE_RELEASE), then it prints the `gh release upload --clobber` publish line. Re-render a demo and everything propagates with no broken links.
+
 Sources verified by the research pass: GitHub Releases/Pages limits, Telegram sendVideo, YouTube Shorts specs, LinkedIn video specs/algorithm, cold-email attachments-vs-links.
