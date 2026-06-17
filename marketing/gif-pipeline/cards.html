@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<style>
+ :root{--ink:#e8eef9;--muted:#90a0bd;--accent:#4cc2ff;--accent2:#7af0c0;--line:#22304f;}
+ *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+ html,body{width:1200px;height:675px;background:#070c16;color:var(--ink);overflow:hidden}
+ .card{width:1200px;height:675px;display:flex;flex-direction:column;background:linear-gradient(160deg,#0d1730,#080d18);padding:46px 56px}
+ .top{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+ .logo{width:46px;height:46px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#06243b;font-size:22px}
+ .brand{font-weight:700;font-size:20px}
+ .tags{margin-left:auto;font-size:14px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 15px}
+ .chan{font-size:15px;color:var(--accent);font-weight:600;margin:18px 0 6px;letter-spacing:.3px}
+ .title{font-size:38px;font-weight:800;line-height:1.12;max-width:1000px}
+ .askhdr{margin-top:26px;font-size:13px;text-transform:uppercase;letter-spacing:1.6px;color:var(--muted)}
+ ul{margin-top:14px;list-style:none;display:flex;flex-direction:column;gap:13px}
+ li{font-size:20px;line-height:1.3;display:flex;gap:13px;align-items:flex-start}
+ li .b{color:var(--accent2);font-weight:800;flex:0 0 auto}
+ .foot{margin-top:auto;display:flex;align-items:center;gap:18px;padding-top:20px;border-top:1px solid var(--line)}
+ .note{font-size:15px;color:var(--muted);max-width:620px;line-height:1.45}
+ .note b{color:var(--accent2)}
+ .join{margin-left:auto;text-align:right}
+ .join .b1{display:inline-block;font-size:18px;font-weight:700;color:#06243b;background:linear-gradient(135deg,var(--accent),var(--accent2));padding:12px 22px;border-radius:11px}
+ .join .b2{font-size:13px;color:var(--muted);margin-top:8px}
+ .join .b2 b{color:var(--accent)}
+</style></head>
+<body>
+ <div class="card">
+   <div class="top"><div class="logo">D</div><div class="brand">Deckhand</div><div class="tags" id="tags"></div></div>
+   <div class="chan" id="chan"></div>
+   <div class="title" id="title"></div>
+   <div class="askhdr">You can ask me to…</div>
+   <ul id="asks"></ul>
+   <div class="foot">
+     <div class="note">You get a <b>standards-grounded answer with citations</b> — or, for a full study, a tracked request with a <b>24-hour response</b>.</div>
+     <div class="join"><span class="b1">Start on Deckhand →</span><div class="b2">message <b>@the_deckhand_bot</b> · we'll point you to <span id="route"></span></div></div>
+   </div>
+ </div>
+<script>
+var CARDS = {
+ "codes-standards-maritime-law": {
+   chan:"Codes, Standards & Maritime Law", tags:"📐 codes · standards · maritime law",
+   title:"The governing code and clause — cited.",
+   asks:["tell me which design code or standard governs a piece of work, and why",
+         "explain what a specific code clause requires, with the citation",
+         "lay out the standards a project needs to meet",
+         "advise on classification-society, flag-state and IMO requirements"] },
+ "electrical": {
+   chan:"Power, Electrical & Controls", tags:"⚡ power · electrical · controls",
+   title:"Offshore power & controls — feasibility to protection.",
+   asks:["help plan an offshore electrification or power-from-shore feasibility study",
+         "tell me what a power load-flow and short-circuit study needs from me",
+         "talk through how to coordinate protection on a switchboard",
+         "explain what drives subsea power-umbilical sizing on a long tieback"] },
+ "cad": {
+   chan:"Design & CAD", tags:"✏️ 3D modeling · drawings · design",
+   title:"Plan your CAD-to-analysis & fabrication handoffs.",
+   asks:["plan a 3D-model-to-analysis handoff",
+         "tell me what a drawing-package review covers",
+         "advise on geometry cleanup to make a part mesh-ready",
+         "lay out what a clean design-to-fabrication handoff needs"] },
+ "manufacturing": {
+   chan:"Manufacturing & Fabrication", tags:"🔧 fabrication · welding · QA/QC",
+   title:"Plan welding, NDE & fabrication QA.",
+   asks:["plan a welding-procedure (WPS/PQR) review",
+         "advise on fabrication tolerances for a welded assembly",
+         "help plan NDE coverage for a set of welds",
+         "lay out a quality plan for a fabrication package"] }
+};
+var slug = new URLSearchParams(location.search).get('c') || 'codes-standards-maritime-law';
+var c = CARDS[slug];
+document.getElementById('tags').textContent=c.tags;
+document.getElementById('chan').textContent=c.chan;
+document.getElementById('title').textContent=c.title;
+document.getElementById('route').textContent=c.chan;
+var ul=document.getElementById('asks');
+c.asks.forEach(function(a){var li=document.createElement('li');li.innerHTML='<span class="b">→</span><span>'+a+'</span>';ul.appendChild(li);});
+</script>
+</body></html>
