@@ -24,10 +24,20 @@ grounded in a real run of its workflow.
 bash build-demo.sh <slug>          # specs/<slug>.json -> demo-<slug>.html (+ .dur)
 SLUG=<slug> bash render-anim.sh     # -> demos/<slug>.mp4   (GIF=1 also emits .gif)
 bash render-all.sh                  # build + render every spec in specs/
-bash view.sh                        # gallery at http://localhost:8777/ (loopback)
+bash build-teaser.sh <slug>        # ~15 s teaser variant (TEASER_SPEED=2.3)
+SLUG=<slug>-teaser bash render-anim.sh   # -> demos/<slug>-teaser.mp4
+bash render-posters.sh             # one branded poster/thumbnail per demo (close card)
+node build-web.mjs                 # in-browser live gallery -> web/ (deckhand#420)
+bash view.sh                       # gallery at http://localhost:8777/ (loopback)
 ```
 Tunables (env): `FPS` (24), `W` parallel workers (10), `GIF`/`GIF_FPS`/`GIF_W`.
 Pacing lives in each spec's per-turn `hold` ms; the engine derives the timeline.
+Optional spec field `"speed": <n>` scales the whole timeline (teasers use it).
+
+## Hosting & distribution
+See **HOSTING.md** (deckhand#420). Canonical viewing link = the in-browser live
+gallery (`build-web.mjs` → `web/`, published to aceengineer.com); MP4s are the
+binary master for Telegram/LinkedIn native upload.
 
 ## How it captures (sandbox-safe)
 `render-anim.sh` drives the page with a `?t=<ms>` URL param and captures one PNG
