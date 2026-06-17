@@ -8,3 +8,4 @@ __pycache__/
 *.raw.png
 proto-reports/*.png
 posters/
+web-v3/
