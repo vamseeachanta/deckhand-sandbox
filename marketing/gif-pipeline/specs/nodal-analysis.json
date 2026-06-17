@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Wells & Subsurface", "tags": "⛏️ drilling · wells · reservoir" },
+  "title": { "big": "Where does this well actually flow?", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "09:14", "hold": 900, "html": "I want the operating point on one of my oil wells — where the inflow and the tubing lift balance out. Can you run a nodal analysis?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "09:14", "hold": 4100, "html": "Happy to. I find the operating point where the inflow curve and the tubing-lift curve cross, so I need a bit on each side:<ul><li><b>Inflow (IPR)</b> — reservoir pressure and the well's productivity index? Bubble point too, if you have it.</li><li><b>Lift (VLP)</b> — tubing size and depth, water cut, and gas-oil ratio?</li><li><b>Surface</b> — the wellhead pressure you're flowing against, and fluid basics (oil gravity, temperature)?</li></ul><span class='note'>I'll use a Vogel inflow curve since the well draws below bubble point. If it's gas or multi-layer, tell me and I'll flag it for a different method.</span>" },
+    { "side": "me", "time": "09:15", "hold": 4000, "file": { "name": "well_nodal_inputs.csv", "size": "1.4 KB" }, "html": "Reservoir 3,000&nbsp;psi, productivity index 2.0&nbsp;bopd/psi, bubble point 2,500&nbsp;psi. Tubing is 2.992&quot; ID at 8,000&nbsp;ft, 20% water cut, GOR 400&nbsp;scf/bbl. Wellhead 200&nbsp;psi, 35° oil at 180°F. Details attached." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "09:15", "hold": 4400, "html": "Got it. I'll build the Vogel inflow curve from your 3,000&nbsp;psi reservoir pressure and 2.0&nbsp;bopd/psi index, then the tubing-lift curve up the 2.992&quot; string to the 200&nbsp;psi wellhead, and find where they cross. Running it now…" },
+    { "side": "bot", "wide": true, "time": "09:16", "hold": 3000, "file": { "name": "nodal_analysis_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's the operating point where inflow meets lift:<table><tr><th>Quantity</th><th>Value</th><th>Basis</th></tr><tr><td>Deliverable rate</td><td>997&nbsp;bopd</td><td>IPR ∩ VLP</td></tr><tr><td>Flowing bottomhole pressure</td><td>2,458&nbsp;psi</td><td>at the crossing</td></tr><tr><td>Rate range</td><td>947 – 1,047&nbsp;bopd</td><td>±5% on test quality</td></tr></table><span class='note'>The well settles at about 997&nbsp;bopd with 2,458&nbsp;psi at the perforations — a 542&nbsp;psi drawdown. Confidence is green on your test data.</span>" }
+  ],
+  "report": {
+    "title": "Nodal Analysis (IPR/VLP)",
+    "sub": "digitalmodel · nodal-analysis · Report · 2026-06-16",
+    "foot": "input_nodal_analysis_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Reservoir (inflow)</b><br>IPR model — Vogel<br>Reservoir pressure 3,000&nbsp;psi · Bubble point 2,500&nbsp;psi<br>Productivity index 2.0&nbsp;bopd/psi<br><br><b>Tubing (lift)</b><br>Depth 8,000&nbsp;ft · ID 2.992&quot;<br>Water cut 20% · GOR 400&nbsp;scf/bbl<br><br><b>Surface &amp; fluid</b><br>Wellhead pressure 200&nbsp;psi · Temperature 180°F<br>Oil 35° · Gas gravity 0.65 · Test quality 85</div>",
+    "methodology": "<div class='kv'>1&nbsp;· Build the inflow (IPR) curve — Vogel relation from reservoir pressure and productivity index, drawing below bubble point.<br>2&nbsp;· Build the tubing-lift (VLP) curve — pressure climb up the 2.992&quot; string to the 200&nbsp;psi wellhead, with water cut and gas-oil ratio.<br>3&nbsp;· Find the operating point where the two curves cross — the rate the well actually delivers.<br>4&nbsp;· Read off the flowing bottomhole pressure at the crossing and the drawdown.<br>5&nbsp;· Band the rate by test quality to give a working range.</div>",
+    "outputs": "<table><tr><th>Quantity</th><th>Value</th><th>Note</th></tr><tr><td>Deliverable rate</td><td>997&nbsp;bopd</td><td>IPR ∩ VLP operating point</td></tr><tr><td>Flowing bottomhole pressure</td><td>2,458&nbsp;psi</td><td>at the crossing</td></tr><tr><td>Drawdown</td><td>542&nbsp;psi</td><td>reservoir − flowing</td></tr><tr><td>Rate range</td><td>947 – 1,047&nbsp;bopd</td><td>±5% on test quality</td></tr><tr><td>Confidence</td><td>Green</td><td>test quality 85</td></tr></table><div class='kv' style='margin-top:10px'><b>Operating point:</b> the well delivers about 997&nbsp;bopd at 2,458&nbsp;psi flowing bottomhole pressure.</div>"
+  },
+  "closing": {
+    "headline": "Nodal analysis: IPR/VLP operating point (rate + BHP).",
+    "tryThis": "IPR/VLP operating point for this well?",
+    "route": "Wells & Subsurface"
+  }
+}

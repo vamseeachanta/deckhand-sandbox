@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Floating & Marine Systems", "tags": "🌊 mooring · riser · hydrodynamics" },
+  "title": { "big": "Spread-mooring SF check, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "09:48", "hold": 900, "html": "I've got an FPSO on a spread mooring and want a quick intact safety-factor screen on the lines. Can you run it?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "09:48", "hold": 4100, "html": "Happy to screen it — a few things so I set it up right:<ul><li>Vessel — length, beam, draft, displacement?</li><li>Water depth, and the mooring layout (how many lines, anchor and fairlead radius)?</li><li>Line make-up — material, line length, and pretension?</li><li>The metocean to screen against — wave height/period, current, wind?</li></ul><span class='note'>This runs the intact quasi-static screen for steel chain or wire. Synthetic rope is a different method, so I'd flag that and pass it on.</span>" },
+    { "side": "me", "time": "09:50", "hold": 4000, "file": { "name": "fpso_mooring.yml", "size": "1.4 KB" }, "html": "250&nbsp;m × 42&nbsp;m FPSO, 16&nbsp;m draft, 120,000&nbsp;t. 8-line spread in 150&nbsp;m, anchor radius 600&nbsp;m. Lines are R3 102&nbsp;mm chain, 1,200&nbsp;m long, 200&nbsp;kN pretension. Screen against Hs&nbsp;3&nbsp;m / Tp&nbsp;8&nbsp;s, 0.3&nbsp;m/s current, 8&nbsp;m/s wind — all collinear. Make-up's in the file." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "09:50", "hold": 4400, "html": "Got it — steel chain, so I'll run the intact screen directly. Basis I'll use: collinear wave-drift, current and wind built into a mean environmental load, quasi-static line tensions, and the intact safety factor of 1.67 from DNV / RP 2SK (OCIMF coefficients for the wind and current loads). The verdict checks each line's breaking load against tension × 1.67. Running it now…" },
+    { "side": "bot", "wide": true, "time": "09:51", "hold": 3000, "file": { "name": "fpso_spread_mooring_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's the intact screen. The spread is symmetric, so all 8 lines see the same governing tension:<table><tr><th>Line</th><th>Max tension</th><th>Breaking load</th><th>Utilisation</th><th>Safety factor</th><th>Verdict</th></tr><tr><td>ML1 (governing)</td><td>5,859&nbsp;kN</td><td>12,200&nbsp;kN</td><td>48%</td><td>2.08</td><td class='verdict'>✅ Pass</td></tr><tr><td>ML2–ML8</td><td>5,859&nbsp;kN</td><td>12,200&nbsp;kN</td><td>48%</td><td>2.08</td><td class='verdict'>✅ Pass</td></tr></table><span class='note'>All 8 lines pass — SF 2.08 against the 1.67 intact requirement, so good headroom. Total mean environmental load was 2,281&nbsp;kN.</span>" }
+  ],
+  "report": {
+    "title": "FPSO Spread-Mooring Screen",
+    "sub": "digitalmodel · fpso-spread-mooring · Report · 2026-06-16",
+    "foot": "fpso_spread_mooring_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Vessel</b><br>FPSO · 250&nbsp;m × 42&nbsp;m · draft 16&nbsp;m · displacement 120,000&nbsp;t · windage 5,000&nbsp;m²<br><br><b>Mooring</b><br>8-line spread · water depth 150&nbsp;m · anchor radius 600&nbsp;m · fairlead radius 35&nbsp;m<br>Lines: R3 102&nbsp;mm chain · length 1,200&nbsp;m · pretension 200&nbsp;kN · breaking load 12,200&nbsp;kN<br><br><b>Metocean (collinear, head-on)</b><div class='mono'>wave Hs 3.0&nbsp;m · Tp 8.0&nbsp;s · current 0.3&nbsp;m/s · wind 8.0&nbsp;m/s</div><br><b>Load case</b><br>Intact screening · dynamic factor 1.0</div>",
+    "methodology": "<div class='kv'>1&nbsp;· Mean environmental load = wave-drift + current + wind, collinear (OCIMF coefficients for current and wind).<br>2&nbsp;· Quasi-static line tensions from the catenary spread at the mean offset.<br>3&nbsp;· Required breaking load = max tension × intact safety factor 1.67 (DNV / RP 2SK).<br>4&nbsp;· Utilisation = max tension ÷ breaking load; safety factor = breaking load ÷ max tension.<br>5&nbsp;· Verdict: every line's breaking load must clear its required value.</div>",
+    "outputs": "<table><tr><th>Line</th><th>Max tension</th><th>Required MBL</th><th>Actual MBL</th><th>Utilisation</th><th>SF</th><th>Verdict</th></tr><tr><td>ML1</td><td>5,859&nbsp;kN</td><td>9,785&nbsp;kN</td><td>12,200&nbsp;kN</td><td>48%</td><td>2.08</td><td class='verdict'>✅ Pass</td></tr><tr><td>ML2–ML8</td><td>5,859&nbsp;kN</td><td>9,785&nbsp;kN</td><td>12,200&nbsp;kN</td><td>48%</td><td>2.08</td><td class='verdict'>✅ Pass</td></tr></table><div class='kv' style='margin-top:10px'><b>Environmental loads:</b> wave-drift 1,900&nbsp;kN · current 185&nbsp;kN · wind 196&nbsp;kN · total 2,281&nbsp;kN.<br><b>Verdict:</b> PASS — all 8 lines clear the intact requirement; min SF 2.08 vs 1.67 required, max utilisation 48%.</div>"
+  },
+  "closing": {
+    "headline": "FPSO spread-mooring: per-line tension utilisation + SF verdict.",
+    "tryThis": "Spread-mooring safety-factor check for my 12-line FPSO in 1200 m.",
+    "route": "Floating & Marine Systems"
+  }
+}

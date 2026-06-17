@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Deckhand — Tier A demos</title>
+<style>
+ *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+ body{background:#0b1220;color:#e8eef9;padding:30px;max-width:1180px;margin:0 auto}
+ h1{font-size:24px;margin-bottom:4px}.sub{color:#90a0bd;margin-bottom:22px;font-size:14px}
+ h2.chan{font-size:18px;margin:26px 0 12px;padding-bottom:7px;border-bottom:1px solid #22304f}
+ .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+ .card{background:#0f1830;border:1px solid #22304f;border-radius:13px;padding:14px}
+ .card h3{font-size:14.5px;margin-bottom:2px}.meta{color:#90a0bd;font-size:12px;margin-bottom:9px}
+ video{width:100%;border-radius:9px;border:1px solid #22304f;display:block;background:#000}
+ .row{display:flex;gap:12px;margin-top:8px}
+ a.btn{color:#06243b;background:linear-gradient(135deg,#4cc2ff,#7af0c0);padding:6px 11px;border-radius:8px;text-decoration:none;font-weight:600;font-size:12px}
+</style></head>
+<body>
+ <h1>Deckhand — Tier A demos (all 12)</h1>
+ <div class="sub">Realistic Deckhand chat per workflow: seeks the right inputs → runs → report scrolls Inputs/Methodology/Outputs → CTA. Header fixed, only the chat scrolls. Every number grounded in a real workflow run. ~37 s · 2400×1350.</div>
+
+ <h2 class="chan">🌊 Floating & Marine Systems</h2>
+ <div class="grid">
+  <div class="card"><h3>Mooring-line fatigue</h3><div class="meta">mooring-fatigue · chain 2,587 yr / wire 609 yr · Pass</div><video src="demos/mooring-fatigue.mp4" controls muted loop playsinline></video><div class="row"><a class="btn" href="demos/mooring-fatigue.mp4" download>MP4</a></div></div>
+  <div class="card"><h3>FPSO spread-mooring</h3><div class="meta">fpso-spread-mooring · max tension 5,859 kN · SF 2.08 · Pass</div><video src="demos/fpso-spread-mooring.mp4" controls muted loop playsinline></video><div class="row"><a class="btn" href="demos/fpso-spread-mooring.mp4" download>MP4</a></div></div>
+  <div class="card"><h3>Hull seakeeping</h3><div class="meta">hull-seakeeping · heave 3.62 s / pitch 6.14 s / roll 24.07 s · MSI 8.5%</div><video src="demos/hull-seakeeping.mp4" controls muted loop playsinline></video><div class="row"><a class="btn" href="demos/hull-seakeeping.mp4" download>MP4</a></div></div>
+  <div class="card"><h3>OCIMF tanker loads</h3><div class="meta">ocimf-tanker-loads · total sway 4,851 kN (current-dominated)</div><video src="demos/ocimf-tanker-loads.mp4" controls muted loop playsinline></video><div class="row"><a class="btn" href="demos/ocimf-tanker-loads.mp4" download>MP4</a></div></div>
+ </div>
+
+ <h2 class="chan">🛢️ Subsea, Pipelines & Integrity</h2>
+ <div class="grid">
+  <div class="card"><h3>Pipeline wall thickness</h3><div class="meta">wall-thickness-quickcheck · two-branch SCH 80 / SCH 140 · DNV-ST-F101</div><video src="demos/wall-thickness-quickcheck.mp4" controls muted loop playsinline></video><div class="row"><a class="btn" href="demos/wall-thickness-quickcheck.mp4" download>MP4</a></div></div>
+  <div class="card"><h3>On-bottom stability (F109)</h3><div class="meta">on-bottom-stability-f109 · Ws 2.13 kN/m · util 0.96 · Stable</div><video src="demos/on-bottom-stability-f109.mp4" controls muted loop playsinline></video><div class="row"><a class="btn" href="demos/on-bottom-stability-f109.mp4" download>MP4</a></div></div>
+  <div class="card"><h3>Free-span screening (F105)</h3><div class="meta">free-span-f105 · nat freq 0.427 Hz · VIV onset · allowable 12.4 m vs 34 m (Fail)</div><video src="demos/free-span-f105.mp4" controls muted loop playsinline></video><div class="row"><a class="btn" href="demos/free-span-f105.mp4" download>MP4</a></div></div>
+  <div class="card"><h3>Corroded-pipe FFS (API 579)</h3><div class="meta">api579-pipe-ffs-b318 · L1 RSF 0.877 → L2 RSF 1.04 → Accept</div><video src="demos/api579-pipe-ffs-b318.mp4" controls muted loop playsinline></video><div class="row"><a class="btn" href="demos/api579-pipe-ffs-b318.mp4" download>MP4</a></div></div>
+ </div>
+
+ <h2 class="chan">⛏️ Wells & Subsurface</h2>
+ <div class="grid">
+  <div class="card"><h3>Decline forecast (Arps)</h3><div class="meta">production-forecast-arps · hyperbolic b 0.5 · EUR 13,675 bbl</div><video src="demos/production-forecast-arps.mp4" controls muted loop playsinline></video><div class="row"><a class="btn" href="demos/production-forecast-arps.mp4" download>MP4</a></div></div>
+  <div class="card"><h3>Field economics</h3><div class="meta">fdas-field-npv · NPV $243.4M · IRR 23.4% · payback 2.0 yr</div><video src="demos/fdas-field-npv.mp4" controls muted loop playsinline></video><div class="row"><a class="btn" href="demos/fdas-field-npv.mp4" download>MP4</a></div></div>
+  <div class="card"><h3>Nodal analysis</h3><div class="meta">nodal-analysis · 997 bopd @ 2,458 psi (IPR/VLP)</div><video src="demos/nodal-analysis.mp4" controls muted loop playsinline></video><div class="row"><a class="btn" href="demos/nodal-analysis.mp4" download>MP4</a></div></div>
+  <div class="card"><h3>Dynacard diagnostics</h3><div class="meta">dynacard-diagnostics · pump tagging 100% · fillage 75.9% · buckling</div><video src="demos/dynacard-diagnostics.mp4" controls muted loop playsinline></video><div class="row"><a class="btn" href="demos/dynacard-diagnostics.mp4" download>MP4</a></div></div>
+ </div>
+</body></html>
