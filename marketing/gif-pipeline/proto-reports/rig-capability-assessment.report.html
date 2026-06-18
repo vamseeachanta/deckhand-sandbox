@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rig Capability Assessment — digitalmodel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --clr-primary: #1a365d;
+    --clr-secondary: #2c5282;
+    --clr-accent: #ed8936;
+    --clr-success: #38a169;
+    --clr-warning: #d69e2e;
+    --clr-danger: #e53e3e;
+    --clr-bg: #f7fafc;
+    --clr-text: #2d3748;
+    --clr-muted: #718096;
+    --clr-border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--clr-text); background: var(--clr-bg); line-height: 1.6; font-size: 15px;
+}
+.report-header {
+    background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-secondary) 100%);
+    color: white; padding: 2.5rem 3rem; position: relative; overflow: hidden;
+}
+.report-header::after {
+    content: ''; position: absolute; top: -50%; right: -10%;
+    width: 400px; height: 400px; background: rgba(255,255,255,0.03); border-radius: 50%;
+}
+.report-header .brand { font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; margin-bottom: 0.5rem; }
+.report-header h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.3rem; }
+.report-header .subtitle { font-size: 1.05rem; opacity: 0.85; font-weight: 400; }
+.report-header .case-badge { display: inline-block; background: var(--clr-accent); color: white; padding: 0.3rem 1rem; border-radius: 20px; font-weight: 700; font-size: 0.95rem; margin-top: 1rem; }
+.report-header .meta { margin-top: 1rem; font-size: 0.8rem; opacity: 0.6; }
+.report-body { max-width: 1200px; margin: 0 auto; padding: 2rem 3rem; }
+.section { margin-bottom: 2.5rem; }
+.section h2 { font-size: 1.3rem; color: var(--clr-primary); border-bottom: 2px solid var(--clr-accent); padding-bottom: 0.4rem; margin-bottom: 1rem; }
+.section h3 { font-size: 1.05rem; color: var(--clr-secondary); margin: 1rem 0 0.5rem; }
+.section p, .section li { color: var(--clr-text); margin-bottom: 0.5rem; }
+.section ul { padding-left: 1.5rem; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 1.5rem; }
+.data-table th { background: var(--clr-primary); color: white; padding: 0.6rem 0.8rem; text-align: left; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.data-table td { padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--clr-border); }
+.data-table tr:nth-child(even) { background: rgba(247,250,252,0.5); }
+.status-pass { color: var(--clr-success); font-weight: 700; }
+.status-fail { color: var(--clr-danger); font-weight: 700; }
+.status-marginal { color: var(--clr-warning); font-weight: 700; }
+.report-footer { border-top: 2px solid var(--clr-border); padding: 1.5rem 3rem; max-width: 1200px; margin: 0 auto; font-size: 0.8rem; color: var(--clr-muted); }
+.report-footer .disclaimer { font-style: italic; margin-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+    <div class="brand">digitalmodel — Engineering Intelligence</div>
+    <h1>Rig Capability Assessment</h1>
+    <div class="subtitle">Synthetic field · Cape-style enhanced-geothermal development</div>
+    <div class="case-badge">Super-spec hard-gate screen + weighted fit · onshore rig fleet</div>
+    <div class="meta">Generated 2026-06-18 · field_development · rig_capability_assessment</div>
+</div>
+
+<div class="report-body">
+
+    <div class="section">
+        <h2>Methodology</h2>
+        <p>The well-design envelope is reduced to a required-capability gate (heaviest string × 1.25 design factor for hookload, floored at the publicly-stated super-spec threshold; mud pressure; pad mode; automation and real-time data interoperability). Every candidate rig is screened pass/fail against the gate; survivors are scored on a weighted fit across capability margin, pad mobility, automation/digital, power/emissions and high-temperature readiness, then ranked. Deterministic and explainable — each score traces to a cited spec.</p>
+        <h3>Basis</h3>
+        <ul>
+            <li>Super-spec floor (Helmerich &amp; Payne FY2025 10-K): AC drive, ≥1,500&nbsp;HP drawworks, ≥750,000&nbsp;lb hookload, 7,500&nbsp;psi mud system, multi-well-pad (walking) capability.</li>
+            <li>Rig-class specs are marketing-grade, not contractual — binding capability is the per-rig IADC daily drilling report.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Required capability (derived)</h2>
+        <table class="data-table">
+            <thead><tr><th>Gate</th><th>Required</th><th>Driver</th></tr></thead>
+            <tbody>
+                <tr><td>Hookload</td><td>≥ 750,000 lb</td><td>600k lb string × 1.25 &lt; super-spec floor → floor governs</td></tr>
+                <tr><td>Drawworks</td><td>≥ 1,500 HP</td><td>super-spec floor</td></tr>
+                <tr><td>Mud system</td><td>≥ 7,500 psi</td><td>well design</td></tr>
+                <tr><td>Drive</td><td>AC</td><td>automation + efficiency</td></tr>
+                <tr><td>Pad capability</td><td>Walking</td><td>12-well factory-mode pads</td></tr>
+                <tr><td>Automation + data</td><td>Required (WITSML)</td><td>real-time drilling data integration</td></tr>
+            </tbody>
+        </table>
+        <p><b>Scoring weights:</b> HT readiness 0.20 · pad mobility 0.20 · automation/digital 0.20 · capability margin 0.25 · power/emissions 0.15.</p>
+    </div>
+
+    <div class="section">
+        <h2>Results — screen &amp; ranking</h2>
+        <p>5 candidates screened · 4 qualified · 1 disqualified</p>
+        <table class="data-table">
+            <thead><tr><th>Rank</th><th>Rig (contractor)</th><th>Hookload</th><th>Cap. margin</th><th>HT readiness</th><th>Fit</th><th>Verdict</th></tr></thead>
+            <tbody>
+                <tr><td>1</td><td>FlexRig — HT pack (H&amp;P)</td><td>750k lb</td><td>0.00</td><td>0.75</td><td>0.70</td><td class="status-pass">✅ Qualified</td></tr>
+                <tr><td>2</td><td>H&amp;P FlexRig</td><td>750k lb</td><td>0.00</td><td>0.50</td><td>0.65</td><td class="status-pass">✅ Qualified</td></tr>
+                <tr><td>3</td><td>Patterson-UTI APEX XC</td><td>1,000k lb</td><td>0.22</td><td>0.20</td><td>0.65</td><td class="status-pass">✅ Qualified</td></tr>
+                <tr><td>4</td><td>Precision ST-1500</td><td>825k lb</td><td>0.07</td><td>0.30</td><td>0.63</td><td class="status-pass">✅ Qualified</td></tr>
+                <tr><td>—</td><td>Nabors PACE-X800</td><td>750k lb</td><td>—</td><td>—</td><td>—</td><td class="status-fail">❌ Disqualified</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Verdict</h2>
+        <p>Four of five candidates clear the super-spec gate. The <strong>HT-pack FlexRig ranks first</strong> because high-temperature readiness was weighted highest — Patterson's APEX XC carries the most raw capability margin (1,000k lb hookload) but ranks third once the geothermal HT weighting is applied. <strong>Nabors PACE-X800 is disqualified</strong> on one hard gate — <strong>pad capability skidding ≠ walking</strong>: its X-Y skid system cannot factory-drill the 12-well pads this program needs.</p>
+        <p><b>Caveat:</b> Rig-class defaults are marketing-grade, not contractual. This is the screen + weighted score (stages 1–4); KPI baselining (ROP / cost-per-ft / NPT / uptime) and paid rig-level feeds are a separate step.</p>
+    </div>
+
+</div>
+
+<div class="report-footer">
+    <p class="disclaimer">These results are preliminary engineering estimates generated by automated engineering analysis. Demo uses synthetic inputs and public, marketing-grade rig-class specifications. All outputs require review by a qualified engineer before use in sourcing or operational decisions.</p>
+    <p><strong>References:</strong> H&amp;P FY2025 10-K super-spec definition · contractor public fleet/spec sheets · digitalmodel field_development.rig_capability</p>
+    <p>© 2026 digitalmodel · aceengineer.com</p>
+</div>
+
+</body>
+</html>
