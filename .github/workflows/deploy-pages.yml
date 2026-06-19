@@ -1,0 +1,34 @@
+name: Deploy deliverables to Pages
+
+# Pages serves the gh-pages branch (curated landing index.html); deliverables
+# are committed to main under domains/. This overlays the domains/ tree onto
+# gh-pages so the canonical pages_url for each deliverable resolves, preserving
+# the curated landing page. (deckhand#463)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "domains/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync domains/ deliverables to gh-pages
+        env:
+          APPLY: "1"
+        run: bash scripts/sync-deliverables-to-pages.sh
