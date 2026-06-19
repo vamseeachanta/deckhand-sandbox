@@ -13,6 +13,7 @@ from detect_report import detect
 ROOT = pathlib.Path(__file__).parent
 SEG16, SEG9 = 1900, 1500
 LOGOMARK = '<svg class="mk"><use href="#dhmark"/></svg>'
+WORDMARK = (ROOT/"assets/deckhand-wordmark.svg").read_text()   # "Deckhand" wordmark (pamphlet brand)
 SYMBOL = ('<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>'
  '<symbol id="dhmark" viewBox="-8 2 246 216">'
  '<path d="M0 10h130c58 0 100 42 100 100s-42 100-100 100H0z" fill="#0B3D91"/>'
@@ -97,7 +98,7 @@ def main(slug):
     rfile = f"{slug}_report.html"
     # 16:9
     stops = demo.get("stops") or auto_stops(det)
-    html16 = (ENGINE16.replace("__SYMBOL__",SYMBOL).replace("__MK__",LOGOMARK)
+    html16 = (ENGINE16.replace("__SYMBOL__",SYMBOL).replace("__MK__",LOGOMARK).replace("__WM__",WORDMARK)
         .replace("__IMG__",img).replace("__RFILE__",rfile).replace("__DOCH__",str(doch))
         .replace("__SEG__",str(SEG16)).replace("__STOPS__",json.dumps(stops))
         .replace("__SPEC__",json.dumps(spec, ensure_ascii=False)))
@@ -107,9 +108,9 @@ def main(slug):
     turns9 = [{**t, "side": ("out" if t.get("side")=="me" else "in")} for t in spec["turns"]]
     crops = demo.get("crops") or auto_crops(det)
     ctah = spec.get("title",{}).get("big") or spec["closing"]["headline"]
-    html9 = (ENGINE9.replace("__SYMBOL__",SYMBOL).replace("__IMG__",img).replace("__SEG__",str(SEG9))
-        .replace("__CTAH__",json.dumps(ctah)).replace("__TURNS__",json.dumps(turns9, ensure_ascii=False))
-        .replace("__CROPS__",json.dumps(crops)))
+    html9 = (ENGINE9.replace("__SYMBOL__",SYMBOL).replace("__IMG__",img).replace("__RFILE__",rfile).replace("__WM__",WORDMARK)
+        .replace("__SEG__",str(SEG9)).replace("__CTAH__",json.dumps(ctah))
+        .replace("__TURNS__",json.dumps(turns9, ensure_ascii=False)).replace("__CROPS__",json.dumps(crops)))
     (ROOT/f"demo-{slug}v.html").write_text(html9)
     (ROOT/f"demo-{slug}v.dur").write_text(str(dur9(turns9, crops)))
     print(f"{slug}: report {iw}x{ih}->1200x{doch} · tables {det['tables']} · results {det['results_y']} "

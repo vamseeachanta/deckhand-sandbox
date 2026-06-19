@@ -16,7 +16,7 @@ REPORT_FILE = "wall_thickness_quickcheck_report.html"
 #     pressure_containment governs (U=0.971, tight), SCH 80; without -> SCH 140 (propagation)
 spec = {
  "channel": {"name": "Subsea, Pipelines & Integrity", "tags": "🛢️ pipeline · structural · integrity"},
- "title": {"big": "Pipeline wall thickness, answered in chat",
+ "title": {"big": "Pipeline wall thickness, via engineering conversation",
            "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep."},
  "turns": [
   {"side":"me","time":"09:34","hold":900,"html":"I've got a 12-inch export line going into 1500&nbsp;m in the Gulf and need a quick wall-thickness screen before we lock the line pipe order. Can you check it across the codes?"},
@@ -45,6 +45,7 @@ STOPS = [
 SEG = 1900   # scroll time between stops
 
 LOGOMARK = '<svg class="mk"><use href="#dhmark"/></svg>'
+WORDMARK = (ROOT/"assets/deckhand-wordmark.svg").read_text()   # "Deckhand" wordmark (pamphlet brand)
 SYMBOL = '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="dhmark" viewBox="-8 2 246 216"><path d="M0 10h130c58 0 100 42 100 100s-42 100-100 100H0z" fill="#0B3D91"/><path d="M38 72c20-32 64-32 84 0v76c-20 32-64 32-84 0z" fill="#2BB2A6" opacity=".9"/><path d="M30 140c12 16 31 26 55 26s43-10 55-26" fill="none" stroke="#6FE8D4" stroke-width="6" stroke-linecap="round"/><path d="M30 110c12 16 31 26 55 26s43-10 55-26" fill="none" stroke="#12A6B0" stroke-width="6" stroke-linecap="round" opacity=".7"/><path d="M30 80c12 16 31 26 55 26s43-10 55-26" fill="none" stroke="#0B3D91" stroke-width="6" stroke-linecap="round" opacity=".45"/><rect x="18" y="48" width="20" height="120" fill="#0B3D91"/><path d="M16 52c0-6.6 5.4-12 12-12s12 5.4 12 12-5.4 12-12 12-12-5.4-12-12z" fill="#0B3D91"/></symbol></defs></svg>'
 
 ENGINE = r"""<!doctype html><html lang="en"><head><meta charset="utf-8"><style>
@@ -54,7 +55,7 @@ html,body{width:1200px;height:675px;background:#cdd8e3;overflow:hidden}
 #win{position:absolute;top:0;left:0;width:1200px;height:675px;transform:scale(.953);transform-origin:50% 50%;border-radius:22px;overflow:hidden;box-shadow:0 18px 55px rgba(15,35,65,.3)}
 .stage{position:relative;width:1200px;height:675px;display:flex;flex-direction:column;background:radial-gradient(circle at 20% 14%,rgba(255,255,255,.05) 0 7px,transparent 8px),radial-gradient(circle at 74% 30%,rgba(0,0,0,.022) 0 9px,transparent 10px),linear-gradient(180deg,#c6d3df,#cdd8e3);background-size:150px 150px,190px 190px,100% 100%}
 .chead{display:flex;align-items:center;gap:13px;padding:13px 24px;background:#527da5;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,.18)}
-.avatar{width:42px;height:42px;border-radius:50%;background:#eaf4ff;border:1px solid #cfe4f5;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.avatar{height:42px;border-radius:12px;background:#fff;border:1px solid #cfe4f5;display:flex;align-items:center;justify-content:center;padding:0 13px}.avatar svg{height:21px;width:auto;display:block}
 .chead .nm{font-weight:700;font-size:17px;color:#fff}.chead .st{font-size:12.5px;color:#cfe0f2}
 .chead .right{margin-left:auto;font-size:12.5px;color:#dbe8f5;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:5px 12px}
 .msgs{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:12px;padding:22px 120px 66px 28px;overflow:hidden}
@@ -72,6 +73,7 @@ table{border-collapse:collapse;width:100%;margin-top:7px;font-size:13.5px}th,td{
 th{color:#789;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px}.verdict{color:#1b9e4b;font-weight:700;white-space:nowrap}
 .overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px;color:#fff;background:radial-gradient(1300px 700px at 50% 26%,#2570e6 0%,#134fb0 45%,#0a2c66 100%);z-index:9}
 .logo-lg{width:80px;height:80px;border-radius:20px;background:#eaf4ff;border:1px solid #cfe4f5;display:flex;align-items:center;justify-content:center;margin-bottom:24px}
+.wordplate{background:#fff;border-radius:18px;padding:22px 36px;margin-bottom:26px;box-shadow:0 12px 42px rgba(0,0,0,.30);display:flex;align-items:center;justify-content:center}.wordplate svg{height:56px;width:auto;display:block}
 .big{font-size:42px;font-weight:800;letter-spacing:.2px;max-width:1000px;line-height:1.14}
 .sub{font-size:21px;color:#bfe6ff;margin-top:14px;font-weight:600}.desc{font-size:17px;color:#d3e2f5;margin-top:18px;max-width:780px;line-height:1.5}
 .try{margin-top:24px;font-size:15px;background:#0f1830;border:1px solid var(--line);border-radius:12px;padding:14px 18px;max-width:780px}.try b{color:var(--accent2)}
@@ -85,21 +87,21 @@ th{color:#789;font-weight:600;font-size:11px;text-transform:uppercase;letter-spa
 #plotwipe{position:absolute;background:#fff;display:none}
 #spot{position:absolute;border:3px solid #f0b429;border-radius:8px;box-shadow:0 0 0 4px rgba(240,180,41,.22);opacity:0}
 .docbar{position:absolute;top:0;left:0;right:0;height:40px;background:#0d1730;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px;padding:0 16px;z-index:6;color:#aebbd4;font-size:13px;opacity:0}
-.docbar .mk{width:20px;height:20px}.docbar b{color:#eaf4ff;font-weight:600}
+.docbar .wmchip{background:#fff;border-radius:6px;padding:3px 8px;display:inline-flex;align-items:center}.docbar .wmchip svg{height:14px;width:auto;display:block}.docbar b{color:#eaf4ff;font-weight:600}
 .docfoot{position:absolute;left:0;right:0;bottom:0;height:42px;background:#0d1730;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:6;opacity:0}
 .docfoot .lbl{color:#eaf4ff;font-size:14.5px;font-weight:600}
 .docfoot .eco{color:#90a0bd;font-size:12.5px}.docfoot .eco b{color:#7af0c0;font-weight:600}
 </style></head><body>
 __SYMBOL__
 <div id="win">
-<div class="stage"><div class="chead"><div class="avatar">__MK__</div><div><div class="nm" id="ch-name"></div><div class="st">Open Deck &middot; Deckhand is online</div></div><div class="right" id="ch-tags"></div></div>
+<div class="stage"><div class="chead"><div class="avatar">__WM__</div><div><div class="nm" id="ch-name"></div><div class="st">Open Deck &middot; Deckhand is online</div></div><div class="right" id="ch-tags"></div></div>
 <div class="msgs" id="msgs"></div></div>
 <div class="cap" id="cap"></div>
 <div class="docview" id="docview"><div id="scroller"><img id="docimg" src="__IMG__"><div id="plotwipe"></div><div id="spot"></div></div></div>
-<div class="docbar" id="docbar">__MK__ <span>📄 <b>__RFILE__</b> &middot; generated by Deckhand</span></div>
+<div class="docbar" id="docbar"><span class="wmchip">__WM__</span> <span>📄 <b>__RFILE__</b> &middot; generated by Deckhand</span></div>
 <div class="docfoot" id="docfoot"><span class="lbl" id="footlbl"></span><span class="eco">powered by <b>digitalmodel</b> &middot; aceengineer.com</span></div>
-<div class="overlay" id="titlecard"><div class="logo-lg">__MK__</div><div class="big" id="ti-big"></div><div class="sub" id="ti-sub"></div><div class="desc" id="ti-desc"></div></div>
-<div class="overlay" id="closecard"><div class="logo-lg">__MK__</div><div class="big" id="cl-big"></div>
+<div class="overlay" id="titlecard"><div class="wordplate">__WM__</div><div class="big" id="ti-big"></div><div class="sub" id="ti-sub"></div><div class="desc" id="ti-desc"></div></div>
+<div class="overlay" id="closecard"><div class="wordplate">__WM__</div><div class="big" id="cl-big"></div>
 <div class="desc">No spreadsheets, no setup. Just ask, in plain English.</div>
 <div class="join">Join Deckhand — Start Here &rarr;</div>
 <div class="handle">CTA link wired via #409 (onboarding contract #431)</div></div>
@@ -161,7 +163,7 @@ window.seek=seek;measure();
 var _tp=new URLSearchParams(location.search).get('t');seek(_tp!==null?parseInt(_tp,10):0);
 </script></body></html>"""
 
-html = (ENGINE.replace("__SYMBOL__", SYMBOL).replace("__MK__", LOGOMARK)
+html = (ENGINE.replace("__SYMBOL__", SYMBOL).replace("__MK__", LOGOMARK).replace("__WM__", WORDMARK)
         .replace("__IMG__", IMG).replace("__RFILE__", REPORT_FILE)
         .replace("__DOCH__", str(DOCH)).replace("__SEG__", str(SEG))
         .replace("__STOPS__", json.dumps(STOPS)).replace("__SPEC__", json.dumps(spec, ensure_ascii=False)))

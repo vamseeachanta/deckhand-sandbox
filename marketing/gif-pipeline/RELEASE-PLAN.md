@@ -1,8 +1,23 @@
 # Release plan — Deckhand v3 GTM demo distribution (ADR)
 
-Status: **proposed** — needs operator sign-off on the 4 ★ items.
+Status: **LIVE (interim canonical)** — gallery published 2026-06-18; see "Published".
 Date: 2026-06-17 · Epic deckhand#389 / #397 / #405 · funnel #431 / #409 / #407.
 **Supersedes the binary-hosting half of `HOSTING.md` (#420)** — see "What this changes".
+
+## Published 2026-06-18 — canonical = GitHub Pages
+Operator decision (revising the host of decision #1 below): **GitHub Pages is the canonical
+public demo URL** for email / Telegram / LinkedIn, not aceengineer.com.
+- **Canonical demo URL: https://vamseeachanta.github.io/deckhand-sandbox/** (gh-pages branch,
+  single self-contained `index.html`, wordmark inlined). All external links point here.
+- **Binaries:** the `demos` GitHub Release (51 assets = 34 MP4 + 17 posters); the page `<video>`s
+  reference these Release URLs + `?v=<contenthash>`. Update in place with `--clobber`.
+- **aceengineer.com only refers/echoes** this URL (a deep link / card), it does **not** re-host.
+- **Why:** $0, uncapped, link-stable across revision rounds, one place to update. Fits the
+  "few more rounds of revising" reality better than a governance PR per round.
+- **Revision round = one command:** `bash update.sh <slug>` (re-render) → `bash publish-demos.sh
+  <slug>` (clobber binaries + refresh the gh-pages page so the cache-bust takes effect). URL never
+  changes; viewers always get the latest.
+- Content is public-safe (synthetic inputs, no PII); the gallery is now publicly indexed.
 
 ## Two facts that change HOSTING.md's assumptions
 1. **v3 is real MP4**, not the v2 in-browser live-animation page. There is now a binary to host

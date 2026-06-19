@@ -5,6 +5,7 @@
 # Frame 540x960 logical (render at 2x = 1080x1920). Render: SLUG=wt-v3v bash render-anim.sh
 import json, pathlib
 ROOT = pathlib.Path(__file__).parent
+WORDMARK = (ROOT/"assets/deckhand-wordmark.svg").read_text()   # "Deckhand" wordmark (pamphlet brand)
 IMG = "file:///tmp/wt-report.png"
 
 # Telegram-styled chat turns (aligned to the real 300-bar report)
@@ -36,7 +37,7 @@ html,body{width:540px;height:960px;overflow:hidden;background:#000}
 .phone{position:relative;width:540px;height:960px;overflow:hidden;background:#cdd8e3;display:flex;flex-direction:column}
 .phone::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 22% 14%,rgba(255,255,255,.05) 0 6px,transparent 7px),radial-gradient(circle at 72% 32%,rgba(0,0,0,.025) 0 8px,transparent 9px),linear-gradient(180deg,#c6d3df,#cdd8e3);background-size:150px 150px,190px 190px,100% 100%;z-index:0}
 .hdr{position:relative;z-index:2;height:58px;background:#527da5;display:flex;align-items:center;gap:11px;padding:0 12px;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-.hdr .bk{font-size:23px;margin-right:1px}.hdr .av{width:38px;height:38px;border-radius:50%;background:#eaf4ff;display:flex;align-items:center;justify-content:center;overflow:hidden}.hdr .av .mk{width:27px;height:27px}
+.hdr .bk{font-size:23px;margin-right:1px}.hdr .av{height:38px;border-radius:11px;background:#fff;display:flex;align-items:center;justify-content:center;padding:0 11px}.hdr .av svg{height:20px;width:auto;display:block}
 .hdr .nm{font-size:16px;font-weight:600;line-height:1.15}.hdr .sub{font-size:12px;color:#cfe0f2}.hdr .badge{font-size:9px;background:rgba(255,255,255,.22);border-radius:4px;padding:1px 5px;margin-left:6px;font-weight:600}.hdr .dots{margin-left:auto;font-size:21px}
 .msgs{position:relative;z-index:1;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:7px;padding:12px 11px 8px;overflow:hidden}
 .turn{display:flex;overflow:hidden}.turn.out{justify-content:flex-end}.turn.in{justify-content:flex-start}
@@ -51,22 +52,23 @@ html,body{width:540px;height:960px;overflow:hidden;background:#000}
 .inp{position:relative;z-index:2;height:50px;background:#fff;display:flex;align-items:center;gap:11px;padding:0 14px;border-top:1px solid #dde6ee}.inp .ph{flex:1;color:#9bb0c2;font-size:15px}.inp .ic{color:#7e98ad;font-size:19px}
 /* report takeover */
 .report{position:absolute;inset:0;background:#fff;overflow:hidden;z-index:5;opacity:0}
-.report .rbar{position:absolute;top:0;left:0;right:0;height:46px;background:#0d1730;display:flex;align-items:center;gap:8px;padding:0 14px;z-index:3;color:#aebbd4;font-size:12px}.report .rbar .mk{width:20px;height:20px}.report .rbar b{color:#eaf4ff;font-weight:600;font-size:11.5px}
+.report .rbar{position:absolute;top:0;left:0;right:0;height:46px;background:#0d1730;display:flex;align-items:center;gap:8px;padding:0 14px;z-index:3;color:#aebbd4;font-size:12px}.report .rbar .mk{width:20px;height:20px}.report .rbar .wmchip{background:#fff;border-radius:6px;padding:3px 7px;display:inline-flex;align-items:center}.report .rbar .wmchip svg{height:13px;width:auto;display:block}.report .rbar b{color:#eaf4ff;font-weight:600;font-size:11.5px}
 #doc{position:absolute;top:46px;left:0;transform-origin:top left;will-change:transform,width}
 .seclabel{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);background:rgba(8,14,26,.86);border:1px solid #2a3a55;color:#fff;font-size:15.5px;font-weight:600;padding:8px 18px;border-radius:999px;z-index:6;opacity:0;white-space:nowrap}
 .cta{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;background:radial-gradient(700px 700px at 50% 36%,#13224a,#0a0f1f);z-index:9;opacity:0}
 .cta .lg{width:84px;height:84px;border-radius:21px;background:#eaf4ff;display:flex;align-items:center;justify-content:center;margin-bottom:22px}.cta .lg .mk{width:58px;height:58px}
+.cta .wordplate{background:#fff;border-radius:16px;padding:18px 28px;margin-bottom:22px;box-shadow:0 10px 34px rgba(0,0,0,.34);display:flex;align-items:center;justify-content:center}.cta .wordplate svg{height:46px;width:auto;display:block}
 .cta h2{color:#eef4ff;font-size:27px;font-weight:800;line-height:1.18;max-width:440px}.cta p{color:#9fb0c8;font-size:16px;margin-top:14px}
 .cta .btn{margin-top:26px;font-size:18px;font-weight:700;color:#06243b;background:linear-gradient(135deg,#4cc2ff,#7af0c0);padding:15px 30px;border-radius:13px}.cta .hd{margin-top:12px;font-size:12px;color:#7e90ad}
 </style></head><body>
 __SYMBOL__
 <div class="phone">
- <div class="hdr"><span class="bk">‹</span><div class="av"><svg class="mk"><use href="#dhmark"/></svg></div><div><div class="nm">Deckhand<span class="badge">BOT</span></div><div class="sub">bot · online</div></div><span class="dots">⋮</span></div>
+ <div class="hdr"><span class="bk">‹</span><div class="av">__WM__</div><div><div class="nm">Open Deck<span class="badge">BOT</span></div><div class="sub">bot · online</div></div><span class="dots">⋮</span></div>
  <div class="msgs" id="msgs"></div>
  <div class="inp"><span class="ic">😊</span><span class="ph">Message</span><span class="ic">📎</span><span class="ic">🎤</span></div>
- <div class="report" id="report"><div class="rbar"><svg class="mk"><use href="#dhmark"/></svg><span>📄 <b>wall_thickness_quickcheck_report.html</b></span></div><img id="doc" src="__IMG__"></div>
+ <div class="report" id="report"><div class="rbar"><span class="wmchip">__WM__</span><span>📄 <b>__RFILE__</b></span></div><img id="doc" src="__IMG__"></div>
  <div class="seclabel" id="seclabel"></div>
- <div class="cta" id="cta"><div class="lg"><svg class="mk"><use href="#dhmark"/></svg></div><h2 id="cta-h"></h2><p>No spreadsheets, no setup. Just ask, in plain English.</p><div class="btn">Join Deckhand — Start Here →</div><div class="hd">CTA wired via #409 (contract #431)</div></div>
+ <div class="cta" id="cta"><div class="wordplate">__WM__</div><h2 id="cta-h"></h2><p>No spreadsheets, no setup. Just ask, in plain English.</p><div class="btn">Join Deckhand — Start Here →</div><div class="hd">CTA wired via #409 (contract #431)</div></div>
 </div>
 <script>
 var TURNS=__TURNS__,CROPS=__CROPS__,SEG=__SEG__;
@@ -109,7 +111,8 @@ var _tp=new URLSearchParams(location.search).get('t');seek(_tp!==null?parseInt(_
 </script></body></html>"""
 
 html=(ENGINE.replace("__SYMBOL__",SYMBOL).replace("__IMG__",IMG).replace("__SEG__",str(SEG))
-      .replace("__CTAH__",json.dumps("Pipeline wall thickness, answered in chat."))
+      .replace("__RFILE__","wall_thickness_quickcheck_report.html").replace("__WM__",WORDMARK)
+      .replace("__CTAH__",json.dumps("Pipeline wall thickness, via engineering conversation."))
       .replace("__TURNS__",json.dumps(TURNS,ensure_ascii=False)).replace("__CROPS__",json.dumps(CROPS,ensure_ascii=False)))
 (ROOT/"demo-wt-v3v.html").write_text(html)
 cur=500

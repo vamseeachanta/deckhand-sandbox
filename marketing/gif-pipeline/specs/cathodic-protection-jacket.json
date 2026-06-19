@@ -1,6 +1,6 @@
 {
   "channel": { "name": "Cathodic Protection", "tags": "🛡️ anodes · corrosion · DNV/ABS" },
-  "title": { "big": "Jacket CP design, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "title": { "big": "Jacket CP design, via engineering conversation", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
   "turns": [
     { "side": "me", "time": "13:20", "hold": 900, "html": "Sizing the sacrificial-anode CP for a fixed steel jacket — can you run it to DNV-RP-B401?" },
     { "side": "bot", "typing": true, "hold": 1200 },

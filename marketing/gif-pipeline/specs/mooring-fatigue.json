@@ -1,6 +1,6 @@
 {
   "channel": { "name": "Floating & Marine Systems", "tags": "🌊 mooring · riser · hydrodynamics" },
-  "title": { "big": "Mooring-line fatigue, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "title": { "big": "Mooring-line fatigue, via engineering conversation", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
   "turns": [
     { "side": "me", "time": "14:21", "hold": 900, "html": "I've got a permanent mooring in 1500&nbsp;m and want to check fatigue on the most-loaded line. Can you screen it?" },
     { "side": "bot", "typing": true, "hold": 1200 },
@@ -21,7 +21,7 @@
   },
   "closing": {
     "headline": "Code-checked mooring-line fatigue life, consumed & remaining.",
-    "tryThis": "Screen the fatigue life of an R4 chain mooring in 1500 m.",
+    "tryThis": "Screen the fatigue life of an R4 chain mooring in 1,500 m.",
     "route": "Floating & Marine Systems"
   }
 }

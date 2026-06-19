@@ -31,6 +31,32 @@ realism + composer coverage, not bot-chat issues (chat-eval #390–392 covers th
    the report is a representative tubing-intake anchored to pass through that real
    point. Crossing is truthful; the VLP shape is illustrative.
 
+10. **dynacard classifiers AND the synthetic-card generator are both mis-calibrated.**
+    Two distinct upstream defects surfaced building the 2-card demo:
+    - **Classifier:** the shipped `dynacard_classifier.json` (GradientBoosting v1.0)
+      mislabels FLUID_POUND/GAS_INTERFERENCE as PARAFFIN_RESTRICTION. The legacy
+      threshold path (`PumpDiagnostics._load_model → None`) classifies FLUID_POUND
+      correctly but is **seed-sensitive** — of seeds {712,713,717,721} only **721**
+      round-tripped to FLUID_POUND; 712/713/717 came back GAS_INTERFERENCE. It also
+      emits **no confidence probability** (rule-based), shown as "rule-based" in the
+      report.
+    - **Synthetic cards:** the generator emits **implausibly high pump fillage for
+      every fault mode** (92–97%), and the GAS_LOCK card is internally contradictory
+      — a large rounded loop at 96.8% fillage while its own diagnosis text says
+      "near-zero card area." GAS_LOCK was therefore **rejected** for the demo (the
+      card visibly contradicts the label, defeating the credibility goal).
+    - **Demo as shipped:** **PUMP_TAGGING (ML, 100.0% conf, clear load-spike card) +
+      FLUID_POUND (legacy rule-based, seed 721, truncated incomplete-fillage card)** —
+      the second is the most common rod-pump fault and its card shape matches its
+      diagnosis. Operator-chosen 2026-06-17 over GAS_LOCK after seeing both rendered.
+    - **Fix-worthy upstream:** (a) retrain `dynacard_classifier.json` so fluid-pound /
+      gas-interference classify under the shipped ML; (b) fix the synthetic-card
+      fillage/area so GAS_LOCK actually looks gas-locked. Then fluid-pound can run on
+      the default classifier with a confidence number.
+    *(Cards via `DynacardWorkflow().router(cfg)` honoring `synthetic_card.mode`;
+    legacy path forced in `/tmp/run_fluidpound_legacy.py`; `compose-dynacard.py`
+    plots both real card signatures.)*
+
 ## Pipeline-level
 8. **worldenergydata cold-start ~264 s** (arps first run) — consistent with the
    known pre-warm need (#392 / #399 `prewarm-compute.sh`).
