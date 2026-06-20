@@ -1,0 +1,35 @@
+name: Protect deliverables
+
+# Keeps client-depended-upon deliverable links available: fails if any path in
+# protected-deliverables.txt is removed or renamed. (deckhand#463)
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify protected deliverables exist
+        run: |
+          list="protected-deliverables.txt"
+          [ -f "$list" ] || { echo "no $list; nothing to protect"; exit 0; }
+          missing=0
+          while IFS= read -r p; do
+            case "$p" in ""|\#*) continue ;; esac
+            if [ ! -e "$p" ]; then
+              echo "::error file=$list::protected deliverable missing: $p"
+              missing=1
+            fi
+          done < "$list"
+          if [ "$missing" = 1 ]; then
+            echo "Protected deliverables were removed/renamed — these are live client links."
+            echo "Restore them, or update protected-deliverables.txt and leave a redirect."
+            exit 1
+          fi
+          echo "All protected deliverables present."
