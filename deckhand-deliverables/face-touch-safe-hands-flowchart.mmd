@@ -1,0 +1,13 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#E8F5E9', 'primaryTextColor': '#1B5E20', 'primaryBorderColor': '#66BB6A', 'lineColor': '#455A64', 'secondaryColor': '#FFF8E1', 'tertiaryColor': '#E3F2FD', 'fontFamily': 'Arial'}}}%%
+flowchart TD
+    A[Face touch / reaching toward face] --> B[Block hand gently]
+    B --> C[Calm rule: Hands down / Do not touch face]
+    C --> D[Show safe replacement]
+    D --> D1[High five / wave / shoulder touch / hands in lap]
+    D1 --> E{Safe hands?}
+    E -- Yes --> F[Adult: Nice hands down]
+    E -- No --> G[Adult steps back 5 to 10 seconds]
+    G --> H[Return calmly with low attention]
+    H --> C
+    F --> I[Continue activity]
+    I --> J[Track safe-hands win]

@@ -1,0 +1,34 @@
+{
+  "inputs": {
+    "label": "NPS 8 X65 line, 2000 m water depth",
+    "pressure_basis": "design",
+    "buckle_arrestors": "used",
+    "geometry": {
+      "outer_diameter": 0.2191,
+      "corrosion_allowance": 0.003
+    },
+    "material": {
+      "grade": "X65",
+      "smys": 448000000.0,
+      "smts": 531000000.0
+    },
+    "loads": {
+      "internal_pressure": 20684271.879504
+    },
+    "water_depth_m": 2000.0,
+    "codes": [
+      "DNV-ST-F101",
+      "API-RP-1111"
+    ]
+  },
+  "standard_od_assumption": "NPS 8 OD 219.1 mm",
+  "seawater_density_kg_m3": 1025.0,
+  "gravity_m_s2": 9.81,
+  "design_pressure_psi": 3000,
+  "design_pressure_mpa": 20.684272,
+  "branches": {
+    "selected_default": "used",
+    "alternate": "no buckle arrestors"
+  },
+  "design_basis_caveat": "Quick screen only using the approved wall-thickness engine and open domain pack reference; not a final design basis or substitute for project code compliance, tolerances, ovality, installation, fatigue, temperature, sour-service, weld/joint, testing, route-specific pressure, or third-party verification."
+}

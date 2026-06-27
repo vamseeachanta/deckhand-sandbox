@@ -1,0 +1,19 @@
+report_template: digitalmodel:wall-thickness-quickcheck
+sections:
+  - summary
+  - objective
+  - inputs_assumptions
+  - methodology
+  - two_branch_comparison
+  - results
+  - code_checks
+  - sensitivity
+  - conclusions
+  - limitations
+  - references
+  - provenance
+selected_default_branch: with buckle arrestors (screening default; user did not state branch)
+alternate_branch: without buckle arrestors / design for propagation buckling
+design_basis_caveat: Buckle arrestor basis is design data; do not select final nominal wall until the project confirms whether propagation buckling is arrested or must be resisted by pipe wall.
+source_pack: /mnt/local-analysis/llm-wiki-packs/reports/packs/subsea-pipelines-integrity/
+approved_calculation: digitalmodel examples/structural/wall_thickness_quickcheck/quick_check.py --from-cache

@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"><title>12-inch Export Line Wall Thickness Quick Screen</title><style>body{font-family:Arial,sans-serif;max-width:900px;margin:32px auto;line-height:1.45}h1,h2{color:#17324d}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:6px 10px}</style></head><body>
+<h1>12-inch Export Line Wall Thickness Quick Screen</h1>
+<h2>summary</h2><p>Branch-dependent answer: with buckle arrestors, the first standard passing wall is SCH 80, 17.475 mm. Without buckle arrestors / design for propagation buckling, the first standard passing wall is SCH 140, 28.575 mm.</p>
+<h2>objective</h2><p>Screen wall thickness for 12-inch export line, 150 bar design pressure, 1500 m water depth.</p>
+<h2>inputs_assumptions</h2><ul><li>OD 323.9 mm for 12-inch NPS.</li><li>Assumed X65: SMYS 448 MPa, SMTS 531 MPa.</li><li>Assumed corrosion allowance 3 mm.</li><li>External pressure 15.083 MPa at 1500 m.</li><li>Codes: DNV-ST-F101 and API RP 1111 quick screen.</li></ul>
+<h2>two_branch_comparison</h2><table><tr><th>Branch</th><th>First standard wall</th><th>Non-standard minimum</th><th>Governing check</th></tr><tr><td>With buckle arrestors</td><td>SCH 80 / 17.475 mm</td><td>14.909 mm</td><td>DNV-ST-F101 collapse, U=0.629</td></tr><tr><td>Without buckle arrestors / design for propagation buckling</td><td>SCH 140 / 28.575 mm</td><td>25.408 mm</td><td>DNV-ST-F101 propagation buckling, U=0.719</td></tr></table>
+<h2>methodology</h2><p>Deterministic multi-code wall-thickness sweep using the approved wall-thickness quick-check calculation. Burst/containment is checked at design pressure with zero external pressure; collapse and propagation are checked for the empty line at full water depth.</p>
+<h2>results</h2><p>Use SCH 80 only if buckle arrestors are part of the design basis. If propagation buckling must be resisted by pipe wall alone, the screen points to SCH 140.</p>
+<h2>code_checks</h2><p>Governing code checks are DNV-ST-F101 collapse for the arrested branch and DNV-ST-F101 propagation buckling for the non-arrested branch. API RP 1111 checks are included in the sweep.</p>
+<h2>sensitivity</h2><p>The buckle-arrestor basis changes the standard wall from 17.475 mm to 28.575 mm, about a 64% increase in wall thickness.</p>
+<h2>conclusions</h2><p>The wall selection cannot be collapsed to one number until buckle-arrestor philosophy is confirmed.</p>
+<h2>limitations</h2><p>Quick screen only. It excludes installation bending, fatigue, route-specific pressure profiles, material derating, fracture, manufacturing tolerance, and project safety-class details.</p>
+<h2>references</h2><p>DNV-ST-F101; API RP 1111; Subsea, Pipelines &amp; Integrity knowledge pack manifest.</p>
+<h2>provenance</h2><p>Generated from approved wall-thickness quick-check output for the stated case. Design-basis caveat: Buckle-arrestor philosophy is design-basis data. Do not select a procurement wall until the project confirms whether propagation buckling is arrested or must be designed through.</p>
+</body></html>

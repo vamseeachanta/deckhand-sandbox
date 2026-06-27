@@ -1,0 +1,25 @@
+selected_default_branch: with buckle arrestors (screening default; user did not state branch)
+alternate_branch: without buckle arrestors / design for propagation buckling
+design_basis_caveat: Buckle arrestor basis changes the selected standard wall materially and must be confirmed before design selection.
+with_buckle_arrestors:
+  selected_standard_label: SCH 80
+  selected_standard_wall_mm: 17.475
+  selected_standard_wall_in: 0.688
+  nonstandard_minimum_wall_mm: 14.909
+  governing_check: DNV-ST-F101 collapse
+  governing_utilisation: 0.629046
+  propagation_treatment: excluded from headline, reported separately
+without_buckle_arrestors:
+  selected_standard_label: SCH 140
+  selected_standard_wall_mm: 28.575
+  selected_standard_wall_in: 1.125
+  nonstandard_minimum_wall_mm: 25.408
+  governing_check: DNV-ST-F101 propagation_buckling
+  governing_utilisation: 0.718566
+buckle_arrestor_screen:
+  arrestor_type: integral buckle arrestor
+  pipe_wall_mm: 17.475
+  arrestor_wall_mm: 25.5
+  additional_wall_mm: 8.025
+  arrestor_length_m: 0.648
+  length_basis: 2.0D screening length for integral arrestor section

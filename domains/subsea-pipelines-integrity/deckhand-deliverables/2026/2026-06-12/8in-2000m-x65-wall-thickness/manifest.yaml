@@ -1,0 +1,18 @@
+{
+  "deliverable": "8in-2000m-x65-wall-thickness",
+  "created_utc": "2026-06-12",
+  "domain_pack": "/mnt/local-analysis/llm-wiki-packs/reports/packs/subsea-pipelines-integrity/manifest.json",
+  "approved_capability": "digitalmodel examples/structural/wall_thickness_quickcheck/README.md",
+  "engine_validation": "stable fixed-case command run successfully before parameterized run",
+  "files": [
+    "manifest.yaml",
+    "inputs.yaml",
+    "results.yaml",
+    "report.html"
+  ],
+  "branches": {
+    "selected_default": "used",
+    "alternate": "no buckle arrestors"
+  },
+  "design_basis_caveat": "Quick screen only using the approved wall-thickness engine and open domain pack reference; not a final design basis or substitute for project code compliance, tolerances, ovality, installation, fatigue, temperature, sour-service, weld/joint, testing, route-specific pressure, or third-party verification."
+}

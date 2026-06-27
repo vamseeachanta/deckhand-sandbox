@@ -1,0 +1,38 @@
+headline:
+  selected_default_branch: with_arrestors
+  with_arrestors:
+    include_propagation: false
+    nonstandard_minimum_wall_mm: 17.076
+    selected_standard_wall_mm: 17.475
+    selected_standard_wall_in: 0.688
+    selected_standard_label: SCH 80
+    governing_check: "DNV-ST-F101 pressure_containment"
+    governing_utilisation: 0.971345
+    margin_to_utilisation_1_0: 0.028655
+  alternate_branch: without_arrestors
+  without_arrestors:
+    include_propagation: true
+    nonstandard_minimum_wall_mm: 25.408
+    selected_standard_wall_mm: 28.575
+    selected_standard_wall_in: 1.125
+    selected_standard_label: SCH 140
+    governing_check: "DNV-ST-F101 propagation_buckling"
+    governing_utilisation: 0.718566
+    margin_to_utilisation_1_0: 0.281434
+external_pressure_mpa: 15.082875
+load_premises: "burst/containment checked at p_i = design pressure with zero external pressure (route minimum); collapse and propagation checked for the empty line (p_i = 0) at full water depth"
+buckle_arrestor_sizing:
+  type: integral buckle arrestor
+  pipe_wall_mm: 17.475
+  arrestor_wall_mm: 25.5
+  additional_wall_mm: 8.025
+  arrestor_length_m: 0.648
+  length_basis: 2.0D screening length for integral arrestor section
+  governing_code: "DNV-ST-F101"
+  crossover_pressure_mpa: 15.238
+design_basis_caveat: "Pack supports DNV-ST-F101 + API RP 1111 quick screen only. Gulf of America/Gulf of Mexico final design needs project-specific regulatory basis confirmation; this is not a full Gulf regulatory compliance review."
+approved_capability:
+  manifest_path: "/mnt/local-analysis/llm-wiki-packs/reports/packs/subsea-pipelines-integrity/manifest.json"
+  repo: digitalmodel
+  path: examples/structural/wall_thickness_quickcheck/README.md
+  engine: digitalmodel.structural.analysis.wall_thickness via wall_thickness_quickcheck

@@ -1,0 +1,14 @@
+created_at_utc: "2026-06-12T19:39:20.147313+00:00"
+deliverable_set: "12in-1500m-300bar-gulf-wall-thickness"
+domain: "subsea-pipelines-integrity"
+objective: "quick wall-thickness/collapse/propagation screen"
+approved_pack_manifest: "/mnt/local-analysis/llm-wiki-packs/reports/packs/subsea-pipelines-integrity/manifest.json"
+approved_capability: digitalmodel examples/structural/wall_thickness_quickcheck/README.md
+selected_default_buckle_arrestor_branch: with_arrestors
+alternate_buckle_arrestor_branch: without_arrestors
+design_basis_caveat: "Pack supports DNV-ST-F101 + API RP 1111 quick screen only. Gulf of America/Gulf of Mexico final design needs project-specific regulatory basis confirmation; this is not a full Gulf regulatory compliance review."
+files:
+  - manifest.yaml
+  - inputs.yaml
+  - results.yaml
+  - report.html

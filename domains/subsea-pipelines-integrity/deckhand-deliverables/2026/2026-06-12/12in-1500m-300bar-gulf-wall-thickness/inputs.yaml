@@ -1,0 +1,16 @@
+line: "12-inch export line"
+outer_diameter_mm: 323.9
+water_depth_m: 1500.0
+design_pressure_bar: 300.0
+region: Gulf of America/Gulf of Mexico
+material:
+  grade: X65
+  smys_mpa: 448.0
+  smts_mpa: 531.0
+corrosion_allowance_mm: 3.0
+seawater_density_kg_m3: 1025.0
+codes: "DNV-ST-F101 + API RP 1111 quick screen"
+buckle_arrestor_branches:
+  - with_arrestors (selected/default)
+  - without_arrestors (alternate)
+design_basis_caveat: "Pack supports DNV-ST-F101 + API RP 1111 quick screen only. Gulf of America/Gulf of Mexico final design needs project-specific regulatory basis confirmation; this is not a full Gulf regulatory compliance review."

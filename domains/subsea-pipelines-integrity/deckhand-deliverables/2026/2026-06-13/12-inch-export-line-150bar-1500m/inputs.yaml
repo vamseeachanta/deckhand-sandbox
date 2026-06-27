@@ -1,0 +1,24 @@
+objective: wall thickness quick screen
+configuration:
+  line: 12-inch export line
+  od_mm: 323.9
+  od_basis: 12.75 in OD / NPS 12
+water_depth_m: 1500
+design_pressure_bar: 150
+external_pressure_mpa: 15.082875
+material:
+  grade: X65
+  smys_mpa: 448
+  smts_mpa: 531
+corrosion_allowance_mm: 3
+code_basis:
+  - DNV-ST-F101
+  - API RP 1111
+buckle_arrestors: unresolved
+selected_default_branch: with buckle arrestors
+alternate_branch: without buckle arrestors / design for propagation buckling
+load_premises: "burst/containment checked at p_i = design pressure with zero external pressure (route minimum); collapse and propagation checked for the empty line (p_i = 0) at full water depth"
+assumption_confidence:
+  material_grade: assumed X65 from approved representative quick-check, medium confidence
+  corrosion_allowance: assumed 3 mm from approved representative quick-check, medium confidence
+  safety_class: not assessed in quick screen

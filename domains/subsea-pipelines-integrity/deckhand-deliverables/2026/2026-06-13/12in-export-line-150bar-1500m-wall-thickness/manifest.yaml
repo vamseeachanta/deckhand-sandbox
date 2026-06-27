@@ -1,0 +1,21 @@
+report_template: digitalmodel:wall-thickness-quickcheck
+sections:
+- summary
+- objective
+- inputs_assumptions
+- two_branch_comparison
+- methodology
+- results
+- code_checks
+- sensitivity
+- conclusions
+- limitations
+- references
+- provenance
+selected_default_buckle_arrestor_branch: 'unresolved: no single design basis selected;
+  both branches presented'
+alternate_buckle_arrestor_branch: with buckle arrestors and without buckle arrestors/design
+  for propagation buckling
+design_basis_caveat: Buckle-arrestor philosophy is design-basis data. Do not select
+  a procurement wall until the project confirms whether propagation buckling is arrested
+  or must be designed through.

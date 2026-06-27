@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"><title>8 in 2000 m X65 wall thickness quick screen</title><style>body{font-family:Arial,sans-serif;margin:28px;max-width:1000px}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:7px}th{background:#eee;text-align:left}.callout{background:#f2f7f2;border-left:5px solid #26734d;padding:12px}</style></head><body>
+<h1>8 in, 2000 m, X65 wall thickness quick screen</h1>
+<p class="callout"><b>Selected/default branch: buckle arrestors used.</b> Required non-standard wall 12.036 mm; selected NPS 8 standard wall 12.700 mm (XS / SCH 80). Governing included check: DNV-ST-F101 collapse, U=0.855, margin 0.145.</p>
+<h2>Inputs</h2><ul><li>OD: 219.1 mm (NPS 8 assumed)</li><li>Water depth: 2000 m; external pressure 20.110 MPa using seawater density 1025 kg/m3</li><li>Material: X65, SMYS 448 MPa, SMTS 531 MPa</li><li>Design pressure: 3000 psi (20.684 MPa)</li><li>Corrosion allowance: 3 mm</li></ul>
+<h2>Selected branch checks</h2><table><tr><th>Code</th><th>Check</th><th>Utilisation</th><th>Included</th><th>Status</th></tr><tr><td>DNV-ST-F101</td><td>pressure_containment</td><td>0.676</td><td>yes</td><td>PASS</td></tr>
+<tr><td>DNV-ST-F101</td><td>collapse</td><td>0.855</td><td>yes</td><td>PASS</td></tr>
+<tr><td>DNV-ST-F101</td><td>propagation_buckling</td><td>4.070</td><td>reported only</td><td>FAIL</td></tr>
+<tr><td>DNV-ST-F101</td><td>combined_loading</td><td>0.653</td><td>yes</td><td>PASS</td></tr>
+<tr><td>API-RP-1111</td><td>burst</td><td>0.530</td><td>yes</td><td>PASS</td></tr>
+<tr><td>API-RP-1111</td><td>collapse</td><td>0.561</td><td>yes</td><td>PASS</td></tr>
+<tr><td>API-RP-1111</td><td>propagation</td><td>2.174</td><td>reported only</td><td>FAIL</td></tr></table>
+<h2>Alternate branch: no buckle arrestors</h2><p>Required non-standard wall 20.006 mm; selected NPS 8 standard wall 22.225 mm (XXS); governing DNV-ST-F101 propagation_buckling, U=0.736, margin 0.264.</p>
+<h2>Buckle arrestor sizing screen</h2><p>Integral arrestor wall 20.100 mm, length 0.438 m, governing crossover DNV-ST-F101.</p>
+<h2>Design-basis caveat</h2><p>Quick screen only using the approved wall-thickness engine and open domain pack reference; not a final design basis or substitute for project code compliance, tolerances, ovality, installation, fatigue, temperature, sour-service, weld/joint, testing, route-specific pressure, or third-party verification.</p>
+</body></html>

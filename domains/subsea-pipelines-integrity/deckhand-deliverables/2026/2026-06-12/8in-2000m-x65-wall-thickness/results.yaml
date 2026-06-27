@@ -1,0 +1,84 @@
+{
+  "headline": {
+    "selected_default_branch": "buckle arrestors used",
+    "required_nonstandard_wall_mm": 12.036,
+    "selected_standard_wall_mm": 12.7,
+    "selected_standard_wall_in": 0.5,
+    "selected_standard_label": "XS / SCH 80",
+    "governing_check": "DNV-ST-F101 collapse",
+    "governing_utilisation": 0.855017,
+    "margin_to_U1": 0.144983
+  },
+  "alternate_branch_no_buckle_arrestors": {
+    "required_nonstandard_wall_mm": 20.006,
+    "selected_standard_wall_mm": 22.225,
+    "selected_standard_wall_in": 0.875,
+    "selected_standard_label": "XXS",
+    "governing_check": "DNV-ST-F101 propagation_buckling",
+    "governing_utilisation": 0.735965,
+    "margin_to_U1": 0.264035
+  },
+  "external_pressure_mpa": 20.1105,
+  "buckle_arrestor_sizing": {
+    "type": "integral buckle arrestor",
+    "pipe_wall_mm": 12.7,
+    "arrestor_wall_mm": 20.1,
+    "additional_wall_mm": 7.4,
+    "arrestor_length_m": 0.438,
+    "length_basis": "2.0D screening length for integral arrestor section",
+    "governing_code": "DNV-ST-F101",
+    "crossover_pressure_mpa": 20.389
+  },
+  "selected_wall_check_rows": [
+    {
+      "code": "DNV-ST-F101",
+      "check": "pressure_containment",
+      "utilisation": 0.676295,
+      "included": true,
+      "status": "PASS"
+    },
+    {
+      "code": "DNV-ST-F101",
+      "check": "collapse",
+      "utilisation": 0.855017,
+      "included": true,
+      "status": "PASS"
+    },
+    {
+      "code": "DNV-ST-F101",
+      "check": "propagation_buckling",
+      "utilisation": 4.069992,
+      "included": false,
+      "status": "FAIL"
+    },
+    {
+      "code": "DNV-ST-F101",
+      "check": "combined_loading",
+      "utilisation": 0.653333,
+      "included": true,
+      "status": "PASS"
+    },
+    {
+      "code": "API-RP-1111",
+      "check": "burst",
+      "utilisation": 0.529893,
+      "included": true,
+      "status": "PASS"
+    },
+    {
+      "code": "API-RP-1111",
+      "check": "collapse",
+      "utilisation": 0.561046,
+      "included": true,
+      "status": "PASS"
+    },
+    {
+      "code": "API-RP-1111",
+      "check": "propagation",
+      "utilisation": 2.173984,
+      "included": false,
+      "status": "FAIL"
+    }
+  ],
+  "design_basis_caveat": "Quick screen only using the approved wall-thickness engine and open domain pack reference; not a final design basis or substitute for project code compliance, tolerances, ovality, installation, fatigue, temperature, sour-service, weld/joint, testing, route-specific pressure, or third-party verification."
+}
