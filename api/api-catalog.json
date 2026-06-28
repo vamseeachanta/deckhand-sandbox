@@ -1,0 +1,195 @@
+{
+  "source": "config/deckhand/routing/domain-workflows.yaml",
+  "note": "Public-safe API-path catalog - live_public + roadmap only. Private/internal client paths are reduced to private_internal_count (no client scope codenames, refs, or descriptions).",
+  "private_internal_count": 4,
+  "records": [
+    {
+      "ref": "floating_marine_mooring_screen",
+      "kind": "workflow",
+      "domain": "floating-marine",
+      "subdomains": [
+        "mooring"
+      ],
+      "required_inputs": [
+        "objective",
+        "configuration",
+        "environment",
+        "line_material",
+        "data_available",
+        "deadline"
+      ],
+      "deliverable_shape": "summary-first chat reply + #148 sandbox run dir",
+      "status": "live_public",
+      "claimable_public": true,
+      "report_url_example": "https://vamseeachanta.github.io/deckhand-sandbox/domains/floating-marine/deckhand-deliverables/<run-id>/report.html",
+      "analytical_paths": [
+        "digitalmodel:fpso-spread-mooring",
+        "digitalmodel:mooring-fatigue",
+        "digitalmodel:mooring-fatigue-atlas-query",
+        "digitalmodel:fpso-mooring-full",
+        "digitalmodel:fpso-mooring-atlas-query",
+        "digitalmodel:api-2sk-mooring",
+        "digitalmodel:synthetic-rope-mooring-fatigue",
+        "digitalmodel:synthetic-rope-atlas-query",
+        "digitalmodel:catenary",
+        "digitalmodel:viv-analysis",
+        "digitalmodel:viv-atlas-query",
+        "digitalmodel:api-rp-2rd-riser",
+        "digitalmodel:code-check-atlas-query",
+        "digitalmodel:dnv-os-f201-riser",
+        "digitalmodel:riser-stackup",
+        "digitalmodel:tsj-sizing",
+        "digitalmodel:spectral-fatigue",
+        "digitalmodel:spectral-fatigue-atlas-query",
+        "digitalmodel:orcawave-input-prep",
+        "digitalmodel:aqwa-diffraction-deck-prep",
+        "digitalmodel:hydro-coefficients",
+        "digitalmodel:wave-spectra",
+        "digitalmodel:rao-tabulation",
+        "digitalmodel:rao-atlas-query",
+        "digitalmodel:passing-ship",
+        "worldenergydata:marine-safety-stats",
+        "digitalmodel:ocimf-tanker-loads",
+        "digitalmodel:naval-arch-yaw-moment",
+        "digitalmodel:damage-stability",
+        "digitalmodel:platform-stability",
+        "digitalmodel:hull-resistance",
+        "digitalmodel:hull-seakeeping",
+        "digitalmodel:propeller-rudder-interaction",
+        "digitalmodel:rudder-stock-torque",
+        "digitalmodel:vessel-seakeeping",
+        "digitalmodel:orcaflex-6dbuoy-dnvrph103",
+        "digitalmodel:rigging",
+        "digitalmodel:jumper-installation",
+        "digitalmodel:lifting-lug-design",
+        "digitalmodel:weather-window"
+      ],
+      "owner_repo": "deckhand",
+      "description": "Open Deck floating/marine mooring screening workflow."
+    },
+    {
+      "ref": "subsea_pipeline_wall_thickness_screen",
+      "kind": "workflow",
+      "domain": "subsea-pipelines-integrity",
+      "subdomains": [
+        "pipeline"
+      ],
+      "required_inputs": [
+        "objective",
+        "configuration",
+        "environment",
+        "design_pressure_rating",
+        "buckle_arrestors",
+        "data_available",
+        "deadline"
+      ],
+      "deliverable_shape": "summary-first chat reply + HTML report package in a dated #148 sandbox run dir whose manifest carries the #248 branch-basis fields",
+      "status": "live_public",
+      "claimable_public": true,
+      "report_url_example": "https://vamseeachanta.github.io/deckhand-sandbox/domains/subsea-pipelines-integrity/deckhand-deliverables/<run-id>/report.html",
+      "analytical_paths": [
+        "digitalmodel:pipe-capacity",
+        "digitalmodel:wall-thickness-quickcheck",
+        "digitalmodel:on-bottom-stability-f109",
+        "digitalmodel:free-span-f105",
+        "digitalmodel:free-span-atlas-query",
+        "digitalmodel:pipeline-lateral-buckling",
+        "digitalmodel:pipeline-upheaval-buckling",
+        "digitalmodel:span-rectification",
+        "digitalmodel:fatigue-analysis",
+        "digitalmodel:plate-buckling",
+        "digitalmodel:time-series",
+        "digitalmodel:jacket-member-joint-checks",
+        "digitalmodel:rao-spectral-fatigue",
+        "digitalmodel:anchor-capacity",
+        "digitalmodel:anchor-capacity-atlas-query",
+        "digitalmodel:pile-capacity",
+        "digitalmodel:pile-capacity-atlas-query",
+        "digitalmodel:scour-assessment",
+        "digitalmodel:mudmat-bearing-capacity",
+        "digitalmodel:liquefaction-triggering",
+        "digitalmodel:cathodic-protection",
+        "digitalmodel:cathodic-protection-pipeline",
+        "digitalmodel:cathodic-protection-jacket",
+        "digitalmodel:cathodic-protection-manifold",
+        "digitalmodel:cathodic-protection-monopile",
+        "digitalmodel:cathodic-protection-fpso",
+        "digitalmodel:api579-pipe-ffs-b314",
+        "digitalmodel:api579-pipe-ffs-b318",
+        "worldenergydata:pipeline-safety-ffs",
+        "digitalmodel:inspection-planning"
+      ],
+      "owner_repo": "deckhand",
+      "description": "Open Deck subsea pipeline wall-thickness screening workflow."
+    },
+    {
+      "ref": "roadmap:cad",
+      "kind": "roadmap",
+      "domain": "cad",
+      "subdomains": [
+        "cad"
+      ],
+      "required_inputs": [],
+      "deliverable_shape": "",
+      "status": "roadmap",
+      "claimable_public": false,
+      "owner_repo": "deckhand",
+      "description": "Bound channel domain 'cad' - escalate-only; workflow row owed later."
+    },
+    {
+      "ref": "roadmap:codes-standards-maritime-law",
+      "kind": "roadmap",
+      "domain": "codes-standards-maritime-law",
+      "subdomains": [],
+      "required_inputs": [],
+      "deliverable_shape": "",
+      "status": "roadmap",
+      "claimable_public": false,
+      "owner_repo": "deckhand",
+      "description": "Bound channel domain 'codes-standards-maritime-law' - escalate-only; workflow row owed later."
+    },
+    {
+      "ref": "roadmap:electrical",
+      "kind": "roadmap",
+      "domain": "electrical",
+      "subdomains": [
+        "electrical"
+      ],
+      "required_inputs": [],
+      "deliverable_shape": "",
+      "status": "roadmap",
+      "claimable_public": false,
+      "owner_repo": "deckhand",
+      "description": "Bound channel domain 'electrical' - escalate-only; workflow row owed later."
+    },
+    {
+      "ref": "roadmap:manufacturing",
+      "kind": "roadmap",
+      "domain": "manufacturing",
+      "subdomains": [
+        "manufacturing"
+      ],
+      "required_inputs": [],
+      "deliverable_shape": "",
+      "status": "roadmap",
+      "claimable_public": false,
+      "owner_repo": "deckhand",
+      "description": "Bound channel domain 'manufacturing' - escalate-only; workflow row owed later."
+    },
+    {
+      "ref": "roadmap:wells-subsurface",
+      "kind": "roadmap",
+      "domain": "wells-subsurface",
+      "subdomains": [
+        "wells",
+        "field-development"
+      ],
+      "required_inputs": [],
+      "deliverable_shape": "",
+      "status": "roadmap",
+      "claimable_public": false,
+      "owner_repo": "deckhand",
+      "description": "Bound channel domain 'wells-subsurface' - escalate-only; workflow row owed later."
+    }
+  ]
+}

@@ -4,8 +4,8 @@
 > This sandbox holds the public **deliverables** of Deckhand API paths: each `report.html` here is what a
 > `POST /api/run` call returns — a **standards-traceable HTML report URL**, deterministic, built on real
 > code mapped to industry codes and standards (same input, same output, every time).
-> Browse the gallery above · live API paths → https://aceengineer.com/api-catalog.html · API reference:
-> deckhand `docs/deckhand/API.md`
+> Browse the gallery above · **API catalog & spec** → https://vamseeachanta.github.io/deckhand-sandbox/api/
+> · live API paths → https://aceengineer.com/api-catalog.html · API reference: deckhand `docs/deckhand/API.md`
 
 Public **sandbox** for **Open Deck**, the free / open tier of **Deckhand** (by **Digital Model**).
 
