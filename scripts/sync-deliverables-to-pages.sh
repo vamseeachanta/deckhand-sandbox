@@ -30,6 +30,15 @@ trap 'git worktree remove --force "$work" 2>/dev/null || true' EXIT
 # are never touched.
 mkdir -p "$work/domains"
 rsync -a --delete "$root/domains/" "$work/domains/"
+
+# Overlay the public API read tier (catalog + OpenAPI spec + static page) so the
+# advertised .../deckhand-sandbox/api/ URLs resolve. Same scoped --delete
+# discipline as domains/. (deckhand#499 phase 1)
+if [ -d "$root/api" ]; then
+  mkdir -p "$work/api"
+  rsync -a --delete "$root/api/" "$work/api/"
+fi
+
 [ -f "$work/.nojekyll" ] || touch "$work/.nojekyll"
 
 # Generate an always-current index of deliverables (sustainable discovery link
@@ -47,7 +56,7 @@ rsync -a --delete "$root/domains/" "$work/domains/"
 } > "$work/domains/index.html"
 
 cd "$work"
-git add -A domains .nojekyll
+git add -A domains api .nojekyll
 if git diff --cached --quiet; then
   echo "gh-pages already up to date"
   exit 0

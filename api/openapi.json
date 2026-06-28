@@ -1,0 +1,469 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Deckhand API",
+    "version": "0.1.0",
+    "summary": "Every workflow is an API path. One call returns a standards-traceable HTML report URL.",
+    "description": "Generated from the Deckhand workflow catalog (`config/deckhand/routing/domain-workflows.yaml`) so the reference can never drift from the routable paths. Chat (Telegram/WhatsApp/Slack) is one client of this API. Endpoints currently bind to 127.0.0.1 (operator-only); public hosting/auth lands under deckhand#499."
+  },
+  "paths": {
+    "/api/channels": {
+      "get": {
+        "operationId": "listChannels",
+        "summary": "List Open Deck channels that have firable workflows.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "channels"
+                  ],
+                  "properties": {
+                    "channels": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "subsea-pipelines-integrity",
+                          "floating-marine",
+                          "wells-subsurface"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "channels": [
+                    "subsea-pipelines-integrity",
+                    "floating-marine"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/workflows": {
+      "get": {
+        "operationId": "listWorkflows",
+        "summary": "List the capability rows for one channel, with the routing coordinate (subdomain + resolved algo version) per row.",
+        "parameters": [
+          {
+            "name": "domain",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "subsea-pipelines-integrity",
+                "floating-marine",
+                "wells-subsurface"
+              ]
+            },
+            "description": "Channel domain to list capability rows for."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "domain",
+                    "workflows"
+                  ],
+                  "properties": {
+                    "domain": {
+                      "type": "string"
+                    },
+                    "workflows": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/WorkflowRow"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "domain": "subsea-pipelines-integrity",
+                  "workflows": [
+                    {
+                      "ref": "digitalmodel:wall-thickness-quickcheck",
+                      "cta": "Pipeline wall-thickness screen",
+                      "runtime": "offline",
+                      "subdomain": "pipeline",
+                      "version": 1,
+                      "status": "stable",
+                      "firable": true,
+                      "reason": ""
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/run": {
+      "post": {
+        "operationId": "runWorkflow",
+        "summary": "Run one workflow synchronously. ref may pin a version with '@N' (unpinned = latest-stable); domain/subdomain stamp provenance.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunRequest"
+              },
+              "example": {
+                "ref": "digitalmodel:mooring-fatigue@2",
+                "domain": "floating-marine",
+                "subdomain": "mooring"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunResponse"
+                },
+                "example": {
+                  "ref": "digitalmodel:mooring-fatigue@2",
+                  "status": "PASS",
+                  "duration_s": 12.4,
+                  "detail": "",
+                  "report_url": "https://vamseeachanta.github.io/deckhand-sandbox/.../report.html",
+                  "artifacts": [
+                    {
+                      "name": "report.html",
+                      "present": true,
+                      "path": "out/report.html"
+                    }
+                  ],
+                  "coordinate": {
+                    "repo": "digitalmodel",
+                    "domain": "floating-marine",
+                    "subdomain": "mooring",
+                    "workflow_id": "mooring-fatigue",
+                    "requested_version": 2,
+                    "resolved_version": 2,
+                    "version_status": "stable"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/spec": {
+      "get": {
+        "operationId": "getSpec",
+        "summary": "This endpoint reference, with a default request for each route.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "endpoints": [
+                    "\u2026 this list \u2026"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Coordinate": {
+        "type": "object",
+        "description": "Resolved routing address stamped on every run: repo / domain / subdomain / workflow @ version.",
+        "properties": {
+          "repo": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "subdomain": {
+            "type": "string"
+          },
+          "workflow_id": {
+            "type": "string"
+          },
+          "requested_version": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "resolved_version": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "version_status": {
+            "type": "string",
+            "description": "stable | deprecated | experimental"
+          }
+        },
+        "required": [
+          "repo",
+          "domain",
+          "subdomain",
+          "workflow_id",
+          "resolved_version",
+          "version_status"
+        ]
+      },
+      "Artifact": {
+        "type": "object",
+        "description": "A declared deliverable of the run, with whether it is present after the run and its path relative to the compute checkout.",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "present": {
+            "type": "boolean"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "present",
+          "path"
+        ]
+      },
+      "RunRequest": {
+        "type": "object",
+        "description": "Run one workflow synchronously.",
+        "required": [
+          "ref"
+        ],
+        "properties": {
+          "ref": {
+            "type": "string",
+            "description": "Routable path: '<repo>:<workflow-id>[@version]'. Pin a version with '@N'; unpinned = latest stable. The enum is derived from the live workflow catalog.",
+            "enum": [
+              "digitalmodel:anchor-capacity",
+              "digitalmodel:anchor-capacity-atlas-query",
+              "digitalmodel:api-2sk-mooring",
+              "digitalmodel:api-rp-2rd-riser",
+              "digitalmodel:api579-pipe-ffs-b314",
+              "digitalmodel:api579-pipe-ffs-b318",
+              "digitalmodel:aqwa-diffraction-deck-prep",
+              "digitalmodel:artificial-lift-field-health",
+              "digitalmodel:capex-estimate",
+              "digitalmodel:catenary",
+              "digitalmodel:cathodic-protection",
+              "digitalmodel:cathodic-protection-fpso",
+              "digitalmodel:cathodic-protection-jacket",
+              "digitalmodel:cathodic-protection-manifold",
+              "digitalmodel:cathodic-protection-monopile",
+              "digitalmodel:cathodic-protection-pipeline",
+              "digitalmodel:code-check-atlas-query",
+              "digitalmodel:concept-selection",
+              "digitalmodel:ct-hydraulics",
+              "digitalmodel:damage-stability",
+              "digitalmodel:dnv-os-f201-riser",
+              "digitalmodel:dynacard-diagnostics",
+              "digitalmodel:esp-pump-hydraulics",
+              "digitalmodel:fatigue-analysis",
+              "digitalmodel:fpso-mooring-atlas-query",
+              "digitalmodel:fpso-mooring-full",
+              "digitalmodel:fpso-spread-mooring",
+              "digitalmodel:free-span-atlas-query",
+              "digitalmodel:free-span-f105",
+              "digitalmodel:hull-resistance",
+              "digitalmodel:hull-seakeeping",
+              "digitalmodel:hydro-coefficients",
+              "digitalmodel:inspection-planning",
+              "digitalmodel:jacket-member-joint-checks",
+              "digitalmodel:jumper-installation",
+              "digitalmodel:lifting-lug-design",
+              "digitalmodel:liquefaction-triggering",
+              "digitalmodel:mooring-fatigue",
+              "digitalmodel:mooring-fatigue-atlas-query",
+              "digitalmodel:mudmat-bearing-capacity",
+              "digitalmodel:naval-arch-yaw-moment",
+              "digitalmodel:nodal-analysis",
+              "digitalmodel:ocimf-tanker-loads",
+              "digitalmodel:on-bottom-stability-f109",
+              "digitalmodel:opex-estimate",
+              "digitalmodel:orcaflex-6dbuoy-dnvrph103",
+              "digitalmodel:orcawave-input-prep",
+              "digitalmodel:passing-ship",
+              "digitalmodel:pile-capacity",
+              "digitalmodel:pile-capacity-atlas-query",
+              "digitalmodel:pipe-capacity",
+              "digitalmodel:pipeline-lateral-buckling",
+              "digitalmodel:pipeline-upheaval-buckling",
+              "digitalmodel:plate-buckling",
+              "digitalmodel:platform-stability",
+              "digitalmodel:propeller-rudder-interaction",
+              "digitalmodel:rao-atlas-query",
+              "digitalmodel:rao-spectral-fatigue",
+              "digitalmodel:rao-tabulation",
+              "digitalmodel:rigging",
+              "digitalmodel:riser-stackup",
+              "digitalmodel:rop-analysis",
+              "digitalmodel:rudder-stock-torque",
+              "digitalmodel:scour-assessment",
+              "digitalmodel:span-rectification",
+              "digitalmodel:spectral-fatigue",
+              "digitalmodel:spectral-fatigue-atlas-query",
+              "digitalmodel:synthetic-rope-atlas-query",
+              "digitalmodel:synthetic-rope-mooring-fatigue",
+              "digitalmodel:time-series",
+              "digitalmodel:tsj-sizing",
+              "digitalmodel:tubular-design-envelope",
+              "digitalmodel:vessel-seakeeping",
+              "digitalmodel:viv-analysis",
+              "digitalmodel:viv-atlas-query",
+              "digitalmodel:vlp-correlations",
+              "digitalmodel:wall-thickness-quickcheck",
+              "digitalmodel:wave-spectra",
+              "digitalmodel:weather-window",
+              "digitalmodel:well-bore-design",
+              "digitalmodel:well-hydraulics",
+              "digitalmodel:wellpath",
+              "worldenergydata:bsee-production-summary",
+              "worldenergydata:bsee-well-comparison",
+              "worldenergydata:marine-safety-stats",
+              "worldenergydata:pipeline-safety-ffs",
+              "worldenergydata:production-forecast-arps",
+              "worldenergydata:sodir-field-summary",
+              "worldenergydata:texas-rrc-production-summary"
+            ],
+            "examples": [
+              "digitalmodel:mooring-fatigue@2"
+            ]
+          },
+          "domain": {
+            "type": "string",
+            "description": "Channel domain the ref was routed through (stamps provenance onto the run).",
+            "enum": [
+              "subsea-pipelines-integrity",
+              "floating-marine",
+              "wells-subsurface"
+            ]
+          },
+          "subdomain": {
+            "type": "string",
+            "description": "Subdomain the ref was reached through."
+          }
+        }
+      },
+      "RunResponse": {
+        "type": "object",
+        "description": "Result of one run. Always carries report_url + artifacts (deckhand#498) so 'one call returns the report URL' holds.",
+        "properties": {
+          "ref": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PASS",
+              "FAIL",
+              "ERROR",
+              "SKIPPED"
+            ]
+          },
+          "returncode": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "duration_s": {
+            "type": "number"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "report_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "description": "Public HTML report for the run; null until the deliverable is published."
+          },
+          "artifacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Artifact"
+            }
+          },
+          "coordinate": {
+            "$ref": "#/components/schemas/Coordinate"
+          }
+        },
+        "required": [
+          "ref",
+          "status",
+          "report_url",
+          "artifacts",
+          "coordinate"
+        ]
+      },
+      "WorkflowRow": {
+        "type": "object",
+        "description": "A capability row for one channel \u2014 the routing coordinate plus whether the path is firable now.",
+        "properties": {
+          "ref": {
+            "type": "string"
+          },
+          "cta": {
+            "type": "string"
+          },
+          "runtime": {
+            "type": "string"
+          },
+          "subdomain": {
+            "type": "string"
+          },
+          "version": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string"
+          },
+          "firable": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref",
+          "cta",
+          "firable"
+        ]
+      }
+    }
+  }
+}

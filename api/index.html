@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deckhand API — catalog &amp; spec</title>
+<link rel="canonical" href="https://vamseeachanta.github.io/deckhand-sandbox/api/">
+<style>
+  body{font:15px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;margin:2.5em auto;max-width:880px;padding:0 1em;color:#0f172a}
+  h1{margin-bottom:.15em}
+  .lede{font-size:1.05em;color:#334155;margin:.2em 0 1.4em}
+  h2{margin-top:1.8em;border-bottom:1px solid #e2e8f0;padding-bottom:.25em}
+  table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:14px}
+  th,td{text-align:left;vertical-align:top;padding:.5em .6em;border-bottom:1px solid #e2e8f0}
+  th{background:#f8fafc;font-weight:600}
+  code{font:13px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:#f1f5f9;padding:.1em .35em;border-radius:4px}
+  a{color:#0b5394}
+  .pill{display:inline-block;font-size:12px;font-weight:600;padding:.1em .5em;border-radius:999px}
+  .live{background:#dcfce7;color:#166534}
+  .road{background:#fef3c7;color:#92400e}
+  .files a{margin-right:1.2em}
+  .note{color:#64748b;font-size:13px;margin-top:2.2em}
+</style>
+</head>
+<body>
+
+<h1>Deckhand API — catalog &amp; spec</h1>
+<p class="lede">Every workflow is an API path; one call returns a standards-traceable report URL —
+deterministic, built on real code + industry codes and standards.</p>
+
+<p class="files">
+  <strong>Machine-readable surface:</strong>
+  <a href="openapi.json">openapi.json</a> (OpenAPI 3.1)
+  <a href="api-catalog.json">api-catalog.json</a> (path catalog)
+</p>
+
+<h2>Live paths <span class="pill live">live_public</span></h2>
+<p>Open, public workflow paths you can run today. Each returns an HTML report URL in the public sandbox.</p>
+<table>
+  <thead><tr><th>Ref</th><th>Domain / subdomain</th><th>Deliverable</th><th>Example report URL</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>floating_marine_mooring_screen</code></td>
+      <td>floating-marine / mooring</td>
+      <td>Summary-first chat reply + sandbox run directory (HTML report package)</td>
+      <td><a href="https://vamseeachanta.github.io/deckhand-sandbox/domains/floating-marine/deckhand-deliverables/&lt;run-id&gt;/report.html">domains/floating-marine/&hellip;/report.html</a></td>
+    </tr>
+    <tr>
+      <td><code>subsea_pipeline_wall_thickness_screen</code></td>
+      <td>subsea-pipelines-integrity / pipeline</td>
+      <td>Summary-first chat reply + dated HTML report package with branch-basis manifest</td>
+      <td><a href="https://vamseeachanta.github.io/deckhand-sandbox/domains/subsea-pipelines-integrity/deckhand-deliverables/&lt;run-id&gt;/report.html">domains/subsea-pipelines-integrity/&hellip;/report.html</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Roadmap (onboarding) <span class="pill road">roadmap</span></h2>
+<p>Bound channel domains, escalate-only. <strong>Not shipped</strong> — listed for transparency; a runnable
+workflow row is owed for each before it becomes a live path.</p>
+<table>
+  <thead><tr><th>Ref</th><th>Domain</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td><code>roadmap:cad</code></td><td>cad</td><td>roadmap — escalate-only</td></tr>
+    <tr><td><code>roadmap:codes-standards-maritime-law</code></td><td>codes-standards-maritime-law</td><td>roadmap — escalate-only</td></tr>
+    <tr><td><code>roadmap:electrical</code></td><td>electrical</td><td>roadmap — escalate-only</td></tr>
+    <tr><td><code>roadmap:manufacturing</code></td><td>manufacturing</td><td>roadmap — escalate-only</td></tr>
+    <tr><td><code>roadmap:wells-subsurface</code></td><td>wells-subsurface</td><td>roadmap — escalate-only</td></tr>
+  </tbody>
+</table>
+
+<p class="note">
+  This is the public read tier of the Deckhand API. Private/internal client paths are not listed here
+  (reduced to a count in <a href="api-catalog.json"><code>api-catalog.json</code></a>). The catalog and spec are
+  generated from the workflow routing config so the reference can never drift from the routable paths.
+  Part of the Deckhand API — by Digital Model. Open / MIT-licensed sandbox content.
+</p>
+
+</body></html>
