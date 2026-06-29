@@ -114,7 +114,7 @@
     "/api/run": {
       "post": {
         "operationId": "runWorkflow",
-        "summary": "Run one workflow synchronously. ref may pin a version with '@N' (unpinned = latest-stable); domain/subdomain stamp provenance.",
+        "summary": "Run one workflow synchronously. ref may pin a version with '@N' (unpinned = latest-stable); domain/subdomain stamp provenance. When 'params' is supplied AND the repo exposes a workflow_api, the run is in-process: params are validated against the registry request_schema (fail-closed) and a typed ResultEnvelope (result + provenance + determinism) is returned (engine='in-process'). Without params, or for repos with no workflow_api, the subprocess PASS/FAIL path runs (engine='subprocess').",
         "requestBody": {
           "required": true,
           "content": {
@@ -123,9 +123,12 @@
                 "$ref": "#/components/schemas/RunRequest"
               },
               "example": {
-                "ref": "digitalmodel:mooring-fatigue@2",
+                "ref": "assetutilities:data_exploration",
                 "domain": "floating-marine",
-                "subdomain": "mooring"
+                "subdomain": "mooring",
+                "params": {
+                  "depth": 1500.0
+                }
               }
             }
           }
@@ -139,25 +142,39 @@
                   "$ref": "#/components/schemas/RunResponse"
                 },
                 "example": {
-                  "ref": "digitalmodel:mooring-fatigue@2",
+                  "ref": "assetutilities:data_exploration",
                   "status": "PASS",
-                  "duration_s": 12.4,
-                  "detail": "",
-                  "report_url": "https://vamseeachanta.github.io/deckhand-sandbox/.../report.html",
-                  "artifacts": [
-                    {
-                      "name": "report.html",
-                      "present": true,
-                      "path": "out/report.html"
-                    }
-                  ],
+                  "engine": "in-process",
+                  "result": {
+                    "kind": "files",
+                    "outputs": [
+                      {
+                        "basename": "summary.csv"
+                      }
+                    ]
+                  },
+                  "provenance": {
+                    "code_version": {
+                      "package_version": "0.1.0",
+                      "git_sha": "deadbeef"
+                    },
+                    "standard_revisions": [],
+                    "data_as_of": "2026-06-28T00:00:00Z",
+                    "input_hash": "\u2026sha256\u2026"
+                  },
+                  "determinism": {
+                    "result_hash": "\u2026sha256\u2026",
+                    "reproducible": null
+                  },
+                  "confidence": null,
+                  "warnings": [],
                   "coordinate": {
-                    "repo": "digitalmodel",
+                    "repo": "assetutilities",
                     "domain": "floating-marine",
                     "subdomain": "mooring",
-                    "workflow_id": "mooring-fatigue",
-                    "requested_version": 2,
-                    "resolved_version": 2,
+                    "workflow_id": "data_exploration",
+                    "requested_version": null,
+                    "resolved_version": 1,
                     "version_status": "stable"
                   }
                 }
@@ -280,11 +297,13 @@
               "digitalmodel:cathodic-protection-monopile",
               "digitalmodel:cathodic-protection-pipeline",
               "digitalmodel:code-check-atlas-query",
+              "digitalmodel:compare-tool",
               "digitalmodel:concept-selection",
               "digitalmodel:ct-hydraulics",
               "digitalmodel:damage-stability",
               "digitalmodel:dnv-os-f201-riser",
               "digitalmodel:dynacard-diagnostics",
+              "digitalmodel:elastic-buckling",
               "digitalmodel:esp-pump-hydraulics",
               "digitalmodel:fatigue-analysis",
               "digitalmodel:fpso-mooring-atlas-query",
@@ -302,18 +321,22 @@
               "digitalmodel:liquefaction-triggering",
               "digitalmodel:mooring-fatigue",
               "digitalmodel:mooring-fatigue-atlas-query",
+              "digitalmodel:mudmat-bearing-atlas-query",
               "digitalmodel:mudmat-bearing-capacity",
               "digitalmodel:naval-arch-yaw-moment",
               "digitalmodel:nodal-analysis",
+              "digitalmodel:nodal-analysis-ipr-vlp",
               "digitalmodel:ocimf-tanker-loads",
               "digitalmodel:on-bottom-stability-f109",
               "digitalmodel:opex-estimate",
               "digitalmodel:orcaflex-6dbuoy-dnvrph103",
               "digitalmodel:orcawave-input-prep",
               "digitalmodel:passing-ship",
+              "digitalmodel:pile-axial-capacity",
               "digitalmodel:pile-capacity",
               "digitalmodel:pile-capacity-atlas-query",
               "digitalmodel:pipe-capacity",
+              "digitalmodel:pipe-ovality",
               "digitalmodel:pipeline-lateral-buckling",
               "digitalmodel:pipeline-upheaval-buckling",
               "digitalmodel:plate-buckling",
@@ -323,13 +346,18 @@
               "digitalmodel:rao-spectral-fatigue",
               "digitalmodel:rao-tabulation",
               "digitalmodel:rigging",
+              "digitalmodel:riser-fatigue",
+              "digitalmodel:riser-fatigue-atlas-query",
               "digitalmodel:riser-stackup",
+              "digitalmodel:riser-stackup-parametric",
               "digitalmodel:rop-analysis",
               "digitalmodel:rudder-stock-torque",
               "digitalmodel:scour-assessment",
               "digitalmodel:span-rectification",
               "digitalmodel:spectral-fatigue",
               "digitalmodel:spectral-fatigue-atlas-query",
+              "digitalmodel:stress-strain",
+              "digitalmodel:stress-strain-parametric",
               "digitalmodel:synthetic-rope-atlas-query",
               "digitalmodel:synthetic-rope-mooring-fatigue",
               "digitalmodel:time-series",
@@ -339,6 +367,7 @@
               "digitalmodel:viv-analysis",
               "digitalmodel:viv-atlas-query",
               "digitalmodel:vlp-correlations",
+              "digitalmodel:von-mises",
               "digitalmodel:wall-thickness-quickcheck",
               "digitalmodel:wave-spectra",
               "digitalmodel:weather-window",
