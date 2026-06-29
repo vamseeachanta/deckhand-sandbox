@@ -9,6 +9,7 @@
   h1{margin-bottom:.15em}
   .lede{font-size:1.05em;color:#334155;margin:.2em 0 1.4em}
   h2{margin-top:1.8em;border-bottom:1px solid #e2e8f0;padding-bottom:.25em}
+  h3{margin:1.4em 0 .3em;color:#0b5394}
   table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:14px}
   th,td{text-align:left;vertical-align:top;padding:.5em .6em;border-bottom:1px solid #e2e8f0}
   th{background:#f8fafc;font-weight:600}
@@ -19,6 +20,19 @@
   .road{background:#fef3c7;color:#92400e}
   .files a{margin-right:1.2em}
   .note{color:#64748b;font-size:13px;margin-top:2.2em}
+  .card{border:1px solid #e2e8f0;border-radius:8px;padding:.9em 1.1em;margin:.9em 0;background:#fff}
+  .card h4{margin:.1em 0 .5em;font-size:15px}
+  .card h4 code{font-size:13px}
+  .meta{margin:.2em 0;font-size:14px;color:#334155}
+  .meta b{color:#0f172a}
+  .meta .in{display:inline-block;margin:.1em .35em .1em 0}
+  details{margin:.5em 0 0}
+  summary{cursor:pointer;font-size:13px;color:#0b5394;font-weight:600}
+  .wf{columns:2;column-gap:1.4em;margin:.5em 0 0;font-size:13px}
+  .wf li{break-inside:avoid;list-style:none;padding:.05em 0}
+  .wf code{background:none;padding:0;color:#334155}
+  .count{color:#64748b;font-weight:400;font-size:.85em}
+  @media(max-width:560px){.wf{columns:1}}
 </style>
 </head>
 <body>
@@ -33,39 +47,11 @@ deterministic, built on real code + industry codes and standards.</p>
   <a href="api-catalog.json">api-catalog.json</a> (path catalog)
 </p>
 
-<h2>Live paths <span class="pill live">live_public</span></h2>
-<p>Open, public workflow paths you can run today. Each returns an HTML report URL in the public sandbox.</p>
-<table>
-  <thead><tr><th>Ref</th><th>Domain / subdomain</th><th>Deliverable</th><th>Example report URL</th></tr></thead>
-  <tbody>
-    <tr>
-      <td><code>floating_marine_mooring_screen</code></td>
-      <td>floating-marine / mooring</td>
-      <td>Summary-first chat reply + sandbox run directory (HTML report package)</td>
-      <td><a href="https://vamseeachanta.github.io/deckhand-sandbox/domains/floating-marine/deckhand-deliverables/&lt;run-id&gt;/report.html">domains/floating-marine/&hellip;/report.html</a></td>
-    </tr>
-    <tr>
-      <td><code>subsea_pipeline_wall_thickness_screen</code></td>
-      <td>subsea-pipelines-integrity / pipeline</td>
-      <td>Summary-first chat reply + dated HTML report package with branch-basis manifest</td>
-      <td><a href="https://vamseeachanta.github.io/deckhand-sandbox/domains/subsea-pipelines-integrity/deckhand-deliverables/&lt;run-id&gt;/report.html">domains/subsea-pipelines-integrity/&hellip;/report.html</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<h2>Roadmap (onboarding) <span class="pill road">roadmap</span></h2>
-<p>Bound channel domains, escalate-only. <strong>Not shipped</strong> — listed for transparency; a runnable
-workflow row is owed for each before it becomes a live path.</p>
-<table>
-  <thead><tr><th>Ref</th><th>Domain</th><th>Status</th></tr></thead>
-  <tbody>
-    <tr><td><code>roadmap:cad</code></td><td>cad</td><td>roadmap — escalate-only</td></tr>
-    <tr><td><code>roadmap:codes-standards-maritime-law</code></td><td>codes-standards-maritime-law</td><td>roadmap — escalate-only</td></tr>
-    <tr><td><code>roadmap:electrical</code></td><td>electrical</td><td>roadmap — escalate-only</td></tr>
-    <tr><td><code>roadmap:manufacturing</code></td><td>manufacturing</td><td>roadmap — escalate-only</td></tr>
-    <tr><td><code>roadmap:wells-subsurface</code></td><td>wells-subsurface</td><td>roadmap — escalate-only</td></tr>
-  </tbody>
-</table>
+<div id="app">
+  <p id="loading" class="note">Loading the live catalog from
+    <a href="api-catalog.json"><code>api-catalog.json</code></a>&hellip;
+    If this does not render, the same data is in that file.</p>
+</div>
 
 <p class="note">
   This is the public read tier of the Deckhand API. Private/internal client paths are not listed here
@@ -73,5 +59,95 @@ workflow row is owed for each before it becomes a live path.</p>
   generated from the workflow routing config so the reference can never drift from the routable paths.
   Part of the Deckhand API — by Digital Model. Open / MIT-licensed sandbox content.
 </p>
+
+<script>
+const DOMAIN_LABEL = {
+  "floating-marine": "Floating &amp; Marine",
+  "subsea-pipelines-integrity": "Subsea Pipelines &amp; Integrity",
+  "wells-subsurface": "Wells &amp; Subsurface",
+  "cad": "CAD",
+  "manufacturing": "Manufacturing",
+  "electrical": "Electrical",
+  "codes-standards-maritime-law": "Codes, Standards &amp; Maritime Law"
+};
+const LIVE_DOMAIN_ORDER = ["floating-marine", "subsea-pipelines-integrity", "wells-subsurface"];
+
+function esc(s){
+  return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+}
+function label(dom){ return DOMAIN_LABEL[dom] || esc(dom); }
+
+function screenCard(r){
+  const sub = (r.subdomains && r.subdomains.length) ? r.subdomains.join(", ") : "—";
+  const inputs = (r.required_inputs || []).map(i => '<code class="in">'+esc(i)+'</code>').join(" ");
+  const paths = r.analytical_paths || [];
+  const wf = paths.map(p => '<li><code>'+esc(p)+'</code></li>').join("");
+  const url = r.report_url_example || "";
+  return ''
+    + '<div class="card">'
+    + '<h4><code>'+esc(r.ref)+'</code></h4>'
+    + '<p class="meta"><b>Subdomain:</b> '+esc(sub)+'</p>'
+    + '<p class="meta"><b>Required inputs:</b> '+(inputs || "—")+'</p>'
+    + '<p class="meta"><b>Deliverable:</b> '+esc(r.deliverable_shape || "—")+'</p>'
+    + (url ? '<p class="meta"><b>Example report URL:</b> <a href="'+esc(url)+'"><code>'+esc(url)+'</code></a></p>' : '')
+    + '<details><summary>Workflows surfaced <span class="count">('+paths.length+')</span></summary>'
+    + '<ul class="wf">'+wf+'</ul></details>'
+    + '</div>';
+}
+
+function render(cat){
+  const recs = cat.records || [];
+  const live = recs.filter(r => r.status === "live_public");
+  const road = recs.filter(r => r.status === "roadmap");
+
+  const distinct = new Set();
+  live.forEach(r => (r.analytical_paths || []).forEach(p => distinct.add(p)));
+
+  let html = '';
+  html += '<h2>Live API paths <span class="pill live">live_public</span></h2>';
+  html += '<p>Open, public workflow paths you can run today, grouped by domain. '
+       +  '<b>'+live.length+'</b> live screens surface <b>'+distinct.size+'</b> distinct workflows; '
+       +  'each call returns an HTML report URL in the public sandbox.</p>';
+
+  LIVE_DOMAIN_ORDER.forEach(dom => {
+    const inDom = live.filter(r => r.domain === dom);
+    if (!inDom.length) return;
+    html += '<h3>'+label(dom)+' <span class="count">'+inDom.length+' screen'+(inDom.length>1?'s':'')+'</span></h3>';
+    inDom.forEach(r => { html += screenCard(r); });
+  });
+  // any live domains not in the explicit order (defensive)
+  live.filter(r => LIVE_DOMAIN_ORDER.indexOf(r.domain) === -1).forEach(r => {
+    html += '<h3>'+label(r.domain)+'</h3>' + screenCard(r);
+  });
+
+  html += '<h2>Roadmap (onboarding) <span class="pill road">roadmap</span></h2>';
+  html += '<p>Bound channel domains, escalate-only. <strong>Not shipped</strong> — listed for transparency; '
+       +  'a runnable workflow row is owed for each before it becomes a live path.</p>';
+  html += '<table><thead><tr><th>Ref</th><th>Domain</th><th>Status</th></tr></thead><tbody>';
+  road.forEach(r => {
+    html += '<tr><td><code>'+esc(r.ref)+'</code></td><td>'+label(r.domain)
+         +  '</td><td><span class="pill road">not shipped</span> — escalate-only</td></tr>';
+  });
+  html += '</tbody></table>';
+
+  if (typeof cat.private_internal_count === "number"){
+    html += '<p class="note">Plus <b>'+cat.private_internal_count+'</b> private/internal client path'
+         +  (cat.private_internal_count === 1 ? '' : 's')
+         +  ' not listed here (count only; no client scopes, refs, or descriptions).</p>';
+  }
+
+  document.getElementById("app").innerHTML = html;
+}
+
+fetch("api-catalog.json", {cache: "no-store"})
+  .then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+  .then(render)
+  .catch(e => {
+    document.getElementById("loading").innerHTML =
+      'Could not load the catalog inline ('+esc(e.message)+'). '
+      + 'The full catalog is in <a href="api-catalog.json"><code>api-catalog.json</code></a> '
+      + 'and the spec in <a href="openapi.json"><code>openapi.json</code></a>.';
+  });
+</script>
 
 </body></html>
