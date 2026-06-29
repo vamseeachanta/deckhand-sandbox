@@ -1,0 +1,27 @@
+artifact_id: installation-vessel-pamphlet-bokalift2
+created_at: '2026-06-28T00:00:00Z'
+scope: open-deck
+visibility: public
+domain: floating-marine
+subdomain: installation-marine-operations
+channel: open-deck
+files:
+- report.html
+prompt_summary: "Installation vessel pamphlet — BokaLift 2: crane lift suitability\
+  \ (2 mudmats / 2 structures / 2 rigid jumpers), DNV operational + per-structure splash-zone\
+  \ Hs/Tp envelopes, weather-window operability, DP/mooring failure-risk, and a live\
+  \ weather-window monitor — from the deterministic installation_pamphlet workflow."
+provenance:
+  stream: 'installation_pamphlet workflow (digitalmodel #1105)'
+  method: "deterministic config-driven workflow: vessel_db + vessel_suitability\
+    \ + operation_envelope + weather_window + DNV-RP-H103 closed-form splash-zone"
+  rao_basis: "ship-shaped (drillship) parametric proxy; vessel-specific BokaLift 2\
+    \ OrcaWave RAO dispatched (run lr_acma_3bd7c32b74db, #1111) — pamphlet auto-upgrades\
+    \ to actual on solve completion"
+  references: 'DNV-RP-H103 / DNV-ST-N001 (marine ops); IMCA DP incident stats; HSE RR444 (mooring)'
+  data_source: "public reference catalogs (mudmat/jumper/subsea-structure) + BokaLift 2\
+    \ public particulars; no client PII"
+  caveat: 'DRAFT desktop screening — not for marine-warranty issue; confirm against vessel-specific RAO + MWS'
+sandbox_pr: {}
+promotion:
+  status: ready
