@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:540px;height:960px;overflow:hidden;background:#000;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.frame{position:relative;width:540px;height:960px;overflow:hidden;background:#fff}
+.bar{position:absolute;top:0;left:0;right:0;height:46px;background:#0d1730;display:flex;align-items:center;gap:8px;padding:0 14px;z-index:3;color:#aebbd4;font-size:12.5px}
+.bar .mk{width:20px;height:20px}.bar b{color:#eaf4ff;font-weight:600;font-size:12px}
+#doc{position:absolute;top:46px;left:0;transform-origin:top left}
+.cap{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);background:rgba(8,14,26,.85);border:1px solid #2a3a55;color:#fff;font-size:16px;font-weight:600;padding:8px 18px;border-radius:999px;z-index:4}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs><symbol id="dhmark" viewBox="-8 2 246 216"><path d="M0 10h130c58 0 100 42 100 100s-42 100-100 100H0z" fill="#0B3D91"/><path d="M38 72c20-32 64-32 84 0v76c-20 32-64 32-84 0z" fill="#2BB2A6" opacity=".9"/><path d="M30 140c12 16 31 26 55 26s43-10 55-26" fill="none" stroke="#6FE8D4" stroke-width="6" stroke-linecap="round"/><path d="M30 110c12 16 31 26 55 26s43-10 55-26" fill="none" stroke="#12A6B0" stroke-width="6" stroke-linecap="round" opacity=".7"/><rect x="18" y="48" width="20" height="120" fill="#0B3D91"/><path d="M16 52c0-6.6 5.4-12 12-12s12 5.4 12 12-5.4 12-12 12-12-5.4-12-12z" fill="#0B3D91"/></symbol></defs></svg>
+<div class="frame">
+  <div class="bar"><svg class="mk"><use href="#dhmark"/></svg><span>📄 <b>wall_thickness_quickcheck_report.html</b></span></div>
+  <img id="doc" src="file:///tmp/wt-report.png">
+  <div class="cap" id="cap"></div>
+</div>
+<script>
+// states: w=displayed report width (px), x,y = translate, cap label
+var S={
+ over:  {w:540,  x:0,    y:0,    cap:'The report you receive'},
+ verdict:{w:1180, x:-150, y:-560, cap:'Results — SCH 80, U 0.97'},
+ plot:  {w:900,  x:-150, y:-1020,cap:'Utilisation plot'}
+}[new URLSearchParams(location.search).get('s')||'over'];
+var d=document.getElementById('doc');
+d.style.width=S.w+'px';
+d.style.transform='translate('+S.x+'px,'+S.y+'px)';
+document.getElementById('cap').textContent=S.cap;
+</script>
+</body></html>

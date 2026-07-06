@@ -1,0 +1,21 @@
+selected_default_buckle_arrestor_branch: 'unresolved: both branches presented'
+alternate_buckle_arrestor_branch: with buckle arrestors vs without buckle arrestors/design
+  for propagation buckling
+design_basis_caveat: Buckle-arrestor philosophy is design-basis data. Do not select
+  a procurement wall until the project confirms whether propagation buckling is arrested
+  or must be designed through.
+with_buckle_arrestors:
+  standard_wall: SCH 80
+  wall_in: 0.688
+  wall_mm: 17.475
+  nonstandard_min_mm: 14.909
+  governing_check: DNV-ST-F101 collapse
+  utilisation: 0.629
+without_buckle_arrestors:
+  standard_wall: SCH 140
+  wall_in: 1.125
+  wall_mm: 28.575
+  nonstandard_min_mm: 25.408
+  governing_check: DNV-ST-F101 propagation buckling
+  utilisation: 0.719
+screening_status: branch-dependent

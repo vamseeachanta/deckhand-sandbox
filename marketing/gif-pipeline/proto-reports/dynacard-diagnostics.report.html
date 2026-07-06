@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rod-Pump Dynamometer Card Diagnostics — digitalmodel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+    <style>
+:root {
+    --clr-primary: #1a365d;
+    --clr-secondary: #2c5282;
+    --clr-accent: #ed8936;
+    --clr-success: #38a169;
+    --clr-warning: #d69e2e;
+    --clr-danger: #e53e3e;
+    --clr-bg: #f7fafc;
+    --clr-text: #2d3748;
+    --clr-muted: #718096;
+    --clr-border: #e2e8f0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--clr-text);
+    background: var(--clr-bg);
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.report-header {
+    background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-secondary) 100%);
+    color: white;
+    padding: 2.5rem 3rem;
+    position: relative;
+    overflow: hidden;
+}
+.report-header::after {
+    content: '';
+    position: absolute;
+    top: -50%; right: -10%;
+    width: 400px; height: 400px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 50%;
+}
+.report-header .brand {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+}
+.report-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+.report-header .subtitle {
+    font-size: 1.05rem;
+    opacity: 0.85;
+    font-weight: 400;
+}
+.report-header .case-badge {
+    display: inline-block;
+    background: var(--clr-accent);
+    color: white;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-top: 1rem;
+}
+.report-header .meta {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+/* ── Content ────────────────────────────────────────────────── */
+.report-body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 3rem;
+}
+
+.section {
+    margin-bottom: 2.5rem;
+}
+.section h2 {
+    font-size: 1.3rem;
+    color: var(--clr-primary);
+    border-bottom: 2px solid var(--clr-accent);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+}
+.section h3 {
+    font-size: 1.05rem;
+    color: var(--clr-secondary);
+    margin: 1rem 0 0.5rem;
+}
+.section p, .section li {
+    color: var(--clr-text);
+    margin-bottom: 0.5rem;
+}
+.section ul { padding-left: 1.5rem; }
+
+/* ── Charts ─────────────────────────────────────────────────── */
+.chart-container {
+    background: white;
+    border: 1px solid var(--clr-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.chart-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--clr-primary);
+    margin-bottom: 0.3rem;
+}
+.chart-subtitle {
+    font-size: 0.85rem;
+    color: var(--clr-muted);
+    margin-bottom: 1rem;
+}
+
+/* ── Tables ─────────────────────────────────────────────────── */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+.data-table th {
+    background: var(--clr-primary);
+    color: white;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.data-table td {
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid var(--clr-border);
+}
+.data-table tr:nth-child(even) { background: rgba(247,250,252,0.5); }
+.data-table tr:hover { background: rgba(44,82,130,0.04); }
+
+.status-pass { color: var(--clr-success); font-weight: 700; }
+.status-fail { color: var(--clr-danger); font-weight: 700; }
+.status-marginal { color: var(--clr-warning); font-weight: 700; }
+
+/* ── Live Mode Teaser ───────────────────────────────────────── */
+.live-mode-teaser {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    color: white;
+    padding: 2rem 2.5rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+.live-mode-teaser::before {
+    content: 'LIVE';
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+    background: var(--clr-danger);
+    color: white;
+    padding: 0.2rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    animation: pulse-live 2s infinite;
+}
+@keyframes pulse-live {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+.live-mode-teaser h3 {
+    color: var(--clr-accent);
+    font-size: 1.15rem;
+    margin-bottom: 0.8rem;
+}
+.live-mode-teaser p {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+.live-mode-teaser .cta {
+    display: inline-block;
+    margin-top: 1rem;
+    background: var(--clr-accent);
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* ── Funding Badge ──────────────────────────────────────────── */
+.funding-badge {
+    background: rgba(237,137,54,0.1);
+    border: 1px solid var(--clr-accent);
+    border-radius: 6px;
+    padding: 0.8rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    color: var(--clr-text);
+}
+.funding-badge strong { color: var(--clr-accent); }
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.report-footer {
+    border-top: 2px solid var(--clr-border);
+    padding: 1.5rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 0.8rem;
+    color: var(--clr-muted);
+}
+.report-footer .disclaimer {
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+/* ── Print / PDF ────────────────────────────────────────────── */
+@media print {
+    body { background: white; font-size: 12px; }
+    .report-header { padding: 1.5rem 2rem; }
+    .report-body { padding: 1rem 2rem; }
+    .chart-container { break-inside: avoid; page-break-inside: avoid; }
+    .live-mode-teaser { break-inside: avoid; }
+    .no-print { display: none !important; }
+    @page { margin: 1.5cm; }
+}
+</style>
+</head>
+<body>
+
+<div class="report-header">
+    <div class="brand">digitalmodel — Engineering Intelligence</div>
+    <h1>Rod-Pump Dynamometer Card Diagnostics</h1>
+    <div class="subtitle">Sucker-rod pump fault diagnosis · digitalmodel artificial_lift</div>
+    <div class="case-badge">digitalmodel artificial_lift · automated card diagnosis</div>
+    <div class="meta">Generated 2026-06-17 22:36 UTC · dynacard_diagnostics</div>
+</div>
+
+<div class="report-body">
+    
+        <div class="section">
+            <h2>Methodology</h2>
+            <p>A surface dynamometer card (rod load vs position over a pump stroke) is converted to the downhole pump card via the Gibbs wave equation, then classified against rod-pump fault signatures — pump fillage, card area/shape, and load spikes. Two common conditions are diagnosed below.</p>
+            <h3>Applicable Codes & Standards</h3><ul><li>digitalmodel artificial_lift.dynacard</li><li>Gibbs wave-equation surface→downhole</li></ul>
+        </div>
+        
+
+        <div class="section">
+            <h2>Assumptions & Limitations</h2>
+            <ul><li>Sucker-rod pump · 1.0 in rod × 5000 ft · 1.75 in pump at 5000 ft · 10 SPM · 144 in stroke</li><li>Surface cards generated by the digitalmodel synthetic-card engine; diagnosed by its default classifier</li></ul>
+        </div>
+        
+
+        <div class="section">
+            <h2>Diagnoses</h2>
+            <p>Two diagnosed cards</p>
+            <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Condition</th>
+      <th>Classifier</th>
+      <th>Pump fillage</th>
+      <th>Rod buckling</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Pump Tagging</td>
+      <td>100.0%</td>
+      <td>75.9%</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>Fluid Pound</td>
+      <td>rule-based</td>
+      <td>92.2%</td>
+      <td>yes</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+        
+<div class="section"><h2>Pump Tagging — diagnosis</h2><p><strong>Pump Tagging</strong> (100.0% confidence, 75.9% pump fillage). Mechanical contact between plunger and standing valve or top of pump. WARNING: Mechanical buckling detected in rod string.</p></div>
+<div class="section"><h2>Fluid Pound — diagnosis</h2><p><strong>Fluid Pound</strong> (rule-based classifier, 92.2% pump fillage). Incomplete pump fillage. Pump speed may be too high for current inflow. WARNING: Mechanical buckling detected in rod string.</p></div>
+<div class="section"><h2>Verdict</h2><p>Two distinct rod-pump faults diagnosed from their card signatures: <strong>Pump Tagging</strong> (load spike from plunger contact, 76% fillage) and <strong>Fluid Pound</strong> (incomplete fillage as inflow lags the pump speed, 92% fillage). Each carries a recommended action so the pump can be restored without a slickline trip.</p></div>
+    
+            <div class="chart-container">
+                <div class='chart-title'>Pump Tagging card</div>
+                <div class='chart-subtitle'>100.0% confidence · fillage 75.9%</div>
+                <div style="height:360px; width:100%;">                            <div id="chart-pump_tagging" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("chart-pump_tagging")) {                    Plotly.newPlot(                        "chart-pump_tagging",                        [{"fill":"toself","fillcolor":"rgba(11,61,145,0.09)","line":{"color":"#0B3D91","width":2.5},"mode":"lines","x":[0.0,0.1205449921797291,0.48168462348922536,1.0819348937192423,1.9188292457561094,2.988928701194047,4.287835991835035,5.810213629007093,7.549805836450103,9.499464256642327,11.65117732493477,13.996103190788821,16.524606050836653,19.226295744464167,22.09007044920964,25.104162300533517,28.256185748498023,31.533188452648574,34.92170450595895,38.40780976913166,41.97717908787311,45.615145158025285,49.30675879666462,53.03685037150133,56.79009213615227,60.55106121513865,64.3043029797896,68.0343945546263,71.72600819326566,75.36397426341782,78.93334358215927,82.41944884533198,85.80796489864234,89.08496760279291,92.23699105075741,95.2510829020813,98.11485760682676,100.81654730045429,103.34505016050211,105.68997602635615,107.8416890946486,109.79134751484082,111.53093972228385,113.0533173594559,114.3522246500969,115.42232410553483,116.2592184575717,116.85946872780171,117.22060835911121,117.34115335129094,117.34115335129094,117.22060835911121,116.85946872780171,116.2592184575717,115.42232410553483,114.3522246500969,113.0533173594559,111.53093972228385,109.79134751484084,107.84168909464863,105.68997602635618,103.34505016050214,100.81654730045429,98.11485760682679,95.25108290208132,92.23699105075745,89.08496760279296,85.80796489864235,82.41944884533201,78.9333435821593,75.36397426341782,71.72600819326567,68.03439455462635,64.30430297978964,60.55106121513867,56.790092136152296,53.03685037150137,49.306758796664624,45.61514515802529,41.977179087873154,38.40780976913171,34.92170450595896,31.5331884526486,28.256185748498016,25.104162300533517,22.09007044920965,19.226295744464192,16.524606050836685,13.99610319078886,11.651177324934784,9.499464256642346,7.549805836450103,5.810213629007099,4.287835991835041,2.9889287011940597,1.918829245756129,1.0819348937192423,0.48168462348923186,0.1205449921797291,0.0],"y":[4825.409269808341,8555.755476804996,11889.541262846176,14951.92183850573,18827.56993839148,18781.509611493242,18316.253408078726,18706.58460941434,18968.78875571064,18734.959025646873,18494.93080213039,18792.239861229882,18470.268491940176,18625.68287744484,19139.846234341057,19060.34254553229,18366.860378903733,18701.646203412824,19014.79319282711,18197.063139776692,19085.161103480357,18335.74254437183,18832.786317666156,18423.306969446967,18867.103298169925,18819.271169760243,18751.751809507186,19028.083431602012,18312.658965820865,18662.30424563805,18533.274798833238,18691.369437625683,18493.50772588312,18645.72007584569,18834.350435753913,18326.43231409479,19015.53326660656,18739.967094466287,18783.073497758007,18573.161888731986,18686.81074496843,18427.105026877816,18731.430794316173,18852.272755261663,18702.278246696333,23556.094842321727,28933.916139844947,33062.29401358841,37879.82626397861,42701.25026318763,38031.66749969333,29791.289838554,21327.2483215717,13492.652386663733,4906.779818489584,4875.67970098323,4750.902627329329,5250.190250764902,4839.034268184404,4435.937245308796,5027.201432304079,4918.6208172730985,5188.9220297233005,4878.633595749481,4766.6091657048755,4603.435262356156,4968.929785841503,4789.717750890187,4794.836409174507,5087.2230914237,4297.078062500218,4600.631383239247,5412.161328283555,4735.486923909744,4650.440211472896,5189.919342110474,4873.174154697679,4504.903305276806,4641.089855387869,5355.151097995011,4789.9683817347905,5181.695417381467,4825.272634257161,5207.999536088262,4752.077092736594,4787.27579603627,4651.441160260385,4488.020506283185,5118.709606519218,4810.747038306406,4467.401380307191,4248.5821782497615,4538.685418682046,4593.302456071704,4659.986500346273,4624.858257414115,5070.024245984071,4654.606047951861,5068.594596279814,4576.346016272756],"type":"scatter"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"margin":{"t":40,"l":60,"r":30,"b":60},"title":{"text":"Dynamometer card \u2014 Pump Tagging"},"height":360,"xaxis":{"title":{"text":"Rod position (in)"}},"yaxis":{"title":{"text":"Load (lbs)"}},"font":{"family":"Inter, sans-serif","size":13,"color":"#2d3748"},"hoverlabel":{"font":{"size":12,"family":"Inter, sans-serif"},"bgcolor":"white"},"paper_bgcolor":"#ffffff","plot_bgcolor":"#ffffff"},                        {"displayModeBar": true, "modeBarButtonsToRemove": ["lasso2d", "select2d"], "displaylogo": false, "toImageButtonOptions": {"format": "png", "filename": "dynacard_diagnostics_pump_tagging", "height": 600, "width": 1000, "scale": 2}, "responsive": true}                    )                };            </script>        </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class='chart-title'>Fluid Pound card</div>
+                <div class='chart-subtitle'>rule-based classifier · fillage 92.2%</div>
+                <div style="height:360px; width:100%;">                            <div id="chart-fluid_pound" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("chart-fluid_pound")) {                    Plotly.newPlot(                        "chart-fluid_pound",                        [{"fill":"toself","fillcolor":"rgba(43,178,166,0.11)","line":{"color":"#2BB2A6","width":2.5},"mode":"lines","x":[0.0,0.12105111149343438,0.4837070209912242,1.0864774975718068,1.9268856280530342,3.001477995159796,4.3058388683562985,5.834608349030051,7.581504395464941,9.539348637098144,11.70009587198451,14.054867126257072,16.59398613973516,19.30701912775308,22.182817655819317,25.2095644509252,28.374821961254472,31.665583464751595,35.06832651653258,38.569068515511546,42.15342416190789,45.80666456952871,49.51377778992145,53.25953049969025,57.02853059748922,60.80529045346853,64.5742905512675,68.32004326103629,72.02715648142905,75.68039688904986,79.2647525354462,82.76549453442517,86.16823758620615,89.45899908970328,92.62425660003255,95.65100339513843,98.52680192320467,101.2398349112226,103.77895392470069,106.13372517897324,108.29447241385961,110.2523166554928,111.9992127019277,113.52798218260146,114.83234305579796,115.90693542290474,116.74734355338596,117.35011402996653,117.71276993946434,117.83382105095777,117.83382105095777,117.71276993946434,117.35011402996653,116.74734355338596,115.90693542290474,114.83234305579796,113.52798218260146,111.9992127019277,110.25231665549282,108.29447241385964,106.13372517897326,103.7789539247007,101.2398349112226,98.5268019232047,95.65100339513846,92.6242566000326,89.45899908970333,86.16823758620616,82.7654945344252,79.26475253544623,75.68039688904986,72.02715648142906,68.32004326103633,64.57429055126755,60.80529045346854,57.028530597489244,53.25953049969029,49.513777789921456,45.80666456952872,42.153424161907935,38.569068515511596,35.06832651653259,31.665583464751624,28.374821961254465,25.2095644509252,22.18281765581933,19.307019127753104,16.593986139735193,14.054867126257111,11.700095871984523,9.539348637098163,7.581504395464941,5.8346083490300575,4.305838868356306,3.001477995159809,1.9268856280530537,1.0864774975718068,0.48370702099123075,0.12105111149343438,0.0],"y":[4559.225436652695,7038.805136510546,9583.16736608746,11965.925228056396,14359.66268615852,13964.360225126413,13910.970894399974,14140.743310387525,14315.57056660223,14381.226983400176,14033.725291346123,14239.583443166006,14132.545533831048,14172.630986223603,14493.07526037936,14092.202073403025,14288.654880140966,14121.80335124982,14569.903760167861,14478.710956216428,14521.900651247492,14004.234180367817,14066.048730622222,14407.200174054038,14267.372246537772,14066.786937111567,14261.382063423835,14171.448031433558,14456.970031835146,13848.784123284817,13914.88140514497,14525.021343828706,14170.189026485537,13997.304401050216,14018.073989094706,14419.524767158146,14317.529333578674,14181.000044722266,14408.266583464332,14449.831501769377,14100.13988409002,14278.879337481912,14289.29777039732,14436.125421743329,14513.644815309857,14105.07635502511,14313.23032410185,14531.473777771043,14361.567551238055,14063.501575120188,14259.91094540514,11589.075597305431,9359.58195317218,7261.9552106518595,4777.520457156295,4787.7354197464665,4636.096014769331,4559.498589375083,4790.07190755552,4714.848648462664,4461.927518914727,4647.851039584889,4855.046654998259,4601.665673632067,4631.435462289187,-1103.6867563845117,-1103.6867563845117,-882.8601655986179,-662.033574812724,-441.20698402683024,-220.38039324093643,0.4461975449573856,221.2727883308512,442.099379116745,662.9259699026388,883.7525606885326,1104.5791514744265,1325.40574226032,1546.232333046214,1767.0589238321081,1987.8855146180017,2208.7121054038953,2429.5386961897893,2650.3652869756834,2871.191877761577,3092.0184685474705,3312.8450593333646,3533.6716501192586,3754.4982409051518,3975.324831691046,4196.15142247694,4416.978013262834,4637.804604048728,4858.631194834621,5079.457785620515,5300.284376406409,5521.110967192302,5741.937557978196,5962.76414876409,6183.590739549984],"type":"scatter"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"margin":{"t":40,"l":60,"r":30,"b":60},"title":{"text":"Dynamometer card \u2014 Fluid Pound"},"height":360,"xaxis":{"title":{"text":"Rod position (in)"}},"yaxis":{"title":{"text":"Load (lbs)"}},"font":{"family":"Inter, sans-serif","size":13,"color":"#2d3748"},"hoverlabel":{"font":{"size":12,"family":"Inter, sans-serif"},"bgcolor":"white"},"paper_bgcolor":"#ffffff","plot_bgcolor":"#ffffff"},                        {"displayModeBar": true, "modeBarButtonsToRemove": ["lasso2d", "select2d"], "displaylogo": false, "toImageButtonOptions": {"format": "png", "filename": "dynacard_diagnostics_fluid_pound", "height": 600, "width": 1000, "scale": 2}, "responsive": true}                    )                };            </script>        </div>
+            </div>
+            
+</div>
+
+<div class="report-footer">
+    <p class="disclaimer">
+        These results are preliminary engineering estimates generated by automated
+        engineering analysis. All outputs require review by a qualified engineer
+        before use in design or operational decisions.
+    </p>
+    <p><strong>References:</strong> digitalmodel artificial_lift.dynacard · Gibbs wave-equation surface→downhole</p>
+    <p>© 2026 digitalmodel · aceengineer.com</p>
+</div>
+
+</body>
+</html>

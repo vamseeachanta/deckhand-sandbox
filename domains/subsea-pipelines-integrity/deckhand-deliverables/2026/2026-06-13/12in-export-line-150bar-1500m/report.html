@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><title>12-inch Export Line Wall Thickness Quick Screen</title><style>body{font-family:Arial,sans-serif;max-width:900px;margin:2rem auto;line-height:1.45;color:#1f2937}h1{color:#0f172a}section{border-top:1px solid #ddd;padding-top:1rem;margin-top:1rem}li{margin:.35rem 0}.warn{background:#fff7ed;border-left:4px solid #f97316;padding:.75rem}</style></head><body><h1>12-inch Export Line Wall Thickness Quick Screen</h1><p class="warn">Buckle arrestor basis is unresolved; both branches are reported.</p><section id="summary"><h2>summary</h2>
+<p><b>Quick-screen result:</b> with buckle arrestors, smallest passing standard wall is <b>17.475 mm (SCH 80)</b>. Without buckle arrestors, design for propagation buckling gives <b>28.575 mm (SCH 140)</b>.</p><p><b>Design-basis caveat:</b> buckle arrestor basis is not supplied, so both branches are reported; do not treat one branch as final design.</p>
+</section>
+<section id="objective"><h2>objective</h2>
+<p>Screen wall thickness for a 12-inch export line at 150 bar internal design pressure and 1500 m water depth.</p>
+</section>
+<section id="inputs_assumptions"><h2>inputs_assumptions</h2>
+<ul><li>OD 323.9 mm, X65, SMYS 448 MPa, SMTS 531 MPa.</li><li>Corrosion allowance 3 mm.</li><li>External pressure 15.083 MPa from seawater at 1500 m.</li><li>Codes checked: DNV-ST-F101 and API RP 1111.</li><li>Buckle arrestors unresolved; both branches shown.</li></ul>
+</section>
+<section id="two_branch_comparison"><h2>two_branch_comparison</h2>
+<ul><li><b>With buckle arrestors:</b> 17.475 mm (SCH 80); non-standard minimum 14.909 mm; governing DNV-ST-F101 collapse, utilisation 0.629.</li><li><b>Without buckle arrestors:</b> 28.575 mm (SCH 140); non-standard minimum 25.408 mm; governing DNV-ST-F101 propagation_buckling, utilisation 0.719.</li></ul>
+</section>
+<section id="methodology"><h2>methodology</h2>
+<p>Approved deterministic quick check sweeps wall thickness and selects the smallest ASME B36.10 standard wall with all applicable utilisation ratios ≤ 1.0. burst/containment checked at p_i = design pressure with zero external pressure (route minimum); collapse and propagation checked for the empty line (p_i = 0) at full water depth.</p>
+</section>
+<section id="results"><h2>results</h2>
+<ul><li>Selected/default branch recorded: with buckle arrestors.</li><li>Alternate branch recorded: without buckle arrestors / propagation buckling included.</li><li>Integral buckle arrestor screening: pipe wall 17.475 mm, arrestor wall 25.500 mm over 0.648 m (2.0D screening length for integral arrestor section).</li></ul>
+</section>
+<section id="code_checks"><h2>code_checks</h2>
+<p>DNV-ST-F101 and API RP 1111 quick-screen checks were run. DNV collapse governs the with-arrestor branch; DNV propagation buckling governs the no-arrestor branch.</p>
+</section>
+<section id="sensitivity"><h2>Assumptions &amp; Sensitivity</h2>
+<p>The wall changes strongly with the buckle-arrestor decision: SCH 80 with arrestors versus SCH 140 without arrestors. Material grade, corrosion allowance, ovality, installation strain, mill tolerance, and safety-class factors can move the final purchase wall.</p>
+</section>
+<section id="conclusions"><h2>conclusions</h2>
+<p>For this quick screen, use 17.5 mm only if buckle arrestors are part of the design basis. If not, use about 28.6 mm for propagation buckling screening before detailed design checks.</p>
+</section>
+<section id="limitations"><h2>limitations</h2>
+<p>Quick screen only. It excludes installation bending/strain, fatigue, free spans, on-bottom stability, thermal expansion, route-specific low/high points, local regulation, fabrication tolerance, and project design factors not supplied.</p>
+</section>
+<section id="references"><h2>references</h2>
+<ul><li>DNV-ST-F101 pipeline wall-thickness checks.</li><li>API RP 1111 offshore hydrocarbon pipeline design checks.</li><li>Subsea, Pipelines & Integrity pack manifest and knowledge index.</li></ul>
+</section>
+<section id="provenance"><h2>provenance</h2>
+<p>Generated from the channel-approved wall-thickness quick-check calculation and the Subsea, Pipelines & Integrity knowledge pack.</p>
+</section></body></html>

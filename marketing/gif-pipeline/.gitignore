@@ -3,3 +3,10 @@ demo-*.dur
 .frames-*/
 pal-*.png
 web/
+# v3 build artifacts (regenerable; MP4s publish to a GitHub Release per HOSTING.md #420)
+__pycache__/
+*.raw.png
+proto-reports/*.png
+posters/
+web-v3/
+youtube-upload-manifest.csv

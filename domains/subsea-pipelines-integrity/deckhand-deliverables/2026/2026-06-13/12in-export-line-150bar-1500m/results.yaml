@@ -1,0 +1,28 @@
+report_template: digitalmodel:wall-thickness-quickcheck
+selected_default_branch: with buckle arrestors / propagation excluded from continuous pipe headline
+alternate_branch: without buckle arrestors / design for propagation buckling
+design_basis_caveat: buckle arrestor basis is design data; unresolved here, so both branches are reported and no single nominal wall is recommended as final design.
+with_buckle_arrestors:
+  selected_standard_wall_mm: 17.475
+  selected_standard_wall_in: 0.688
+  selected_standard_label: SCH 80
+  nonstandard_minimum_wall_mm: 14.909
+  governing_check: DNV-ST-F101 collapse
+  governing_utilisation: 0.629046
+without_buckle_arrestors:
+  selected_standard_wall_mm: 28.575
+  selected_standard_wall_in: 1.125
+  selected_standard_label: SCH 140
+  nonstandard_minimum_wall_mm: 25.408
+  governing_check: DNV-ST-F101 propagation_buckling
+  governing_utilisation: 0.718566
+buckle_arrestor_screen:
+  type: integral buckle arrestor
+  pipe_wall_mm: 17.475
+  arrestor_wall_mm: 25.5
+  additional_wall_mm: 8.025
+  arrestor_length_m: 0.648
+  length_basis: 2.0D screening length for integral arrestor section
+  governing_code: DNV-ST-F101
+  crossover_pressure_mpa: 15.238
+status: quick screen only, not issued-for-design

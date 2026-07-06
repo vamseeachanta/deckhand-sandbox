@@ -1,0 +1,12 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#E8F5E9', 'primaryTextColor': '#1B5E20', 'primaryBorderColor': '#66BB6A', 'lineColor': '#455A64', 'secondaryColor': '#FFF8E1', 'tertiaryColor': '#E3F2FD', 'fontFamily': 'Arial'}}}%%
+flowchart TD
+    A[Mad voice / loud voice] --> B[Adult: Take a deep breath]
+    B --> C[Child takes deep breath]
+    C --> D[Adult: Count to 4]
+    D --> E[Child counts: 1, 2, 3, 4]
+    E --> F{Softer voice and calmer body?}
+    F -- Yes --> G[Adult: Nice calm voice]
+    F -- No --> H[Repeat calmly: Deep breath, count to 4]
+    H --> C
+    G --> I[Return to activity]
+    I --> J[Track calm-down win]

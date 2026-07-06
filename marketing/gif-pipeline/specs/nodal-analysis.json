@@ -21,7 +21,7 @@
   },
   "closing": {
     "headline": "Nodal analysis: IPR/VLP operating point (rate + BHP).",
-    "tryThis": "IPR/VLP operating point for this well?",
+    "tryThis": "IPR/VLP operating point for a well?",
     "route": "Wells & Subsurface"
   }
 }

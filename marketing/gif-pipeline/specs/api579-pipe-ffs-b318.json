@@ -21,7 +21,7 @@
   },
   "closing": {
     "headline": "Corroded-pipe fitness-for-service (API 579): Level 1 & 2 verdict.",
-    "tryThis": "Fitness-for-service on my corroded line from these readings (API 579).",
+    "tryThis": "Fitness-for-service on a corroded line from these readings (API 579).",
     "route": "Subsea, Pipelines & Integrity"
   }
 }

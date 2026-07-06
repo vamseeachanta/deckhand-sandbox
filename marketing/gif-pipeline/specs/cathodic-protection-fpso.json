@@ -1,6 +1,6 @@
 {
   "channel": { "name": "Cathodic Protection", "tags": "🛡️ anodes · corrosion · DNV/ABS" },
-  "title": { "big": "FPSO-hull CP design, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "title": { "big": "FPSO-hull CP design, via engineering conversation", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
   "turns": [
     { "side": "me", "time": "16:45", "hold": 900, "html": "I need a hull-anode CP estimate for an FPSO to ABS offshore guidance — can you run it?" },
     { "side": "bot", "typing": true, "hold": 1200 },
@@ -21,7 +21,7 @@
   },
   "closing": {
     "headline": "FPSO-hull CP (ABS): protective current & aluminium anode mass.",
-    "tryThis": "Size hull anodes for my FPSO to ABS offshore guidance (8,000 m²).",
+    "tryThis": "Size hull anodes for an FPSO to ABS offshore guidance (8,000 m²).",
     "route": "Subsea, Pipelines & Integrity"
   }
 }

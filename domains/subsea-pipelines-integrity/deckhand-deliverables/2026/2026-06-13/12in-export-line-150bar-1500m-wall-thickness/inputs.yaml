@@ -1,0 +1,14 @@
+objective: Quick wall-thickness screen for a 12-inch export line at 150 bar in 1500
+  m water depth
+outer_diameter_mm: 323.9
+design_pressure_bar: 150
+water_depth_m: 1500
+external_pressure_mpa: 15.083
+material_grade_assumed: X65
+smys_mpa: 448
+smts_mpa: 531
+corrosion_allowance_mm_assumed: 3
+codes:
+- DNV-ST-F101
+- API RP 1111
+buckle_arrestors: unresolved; both branches presented

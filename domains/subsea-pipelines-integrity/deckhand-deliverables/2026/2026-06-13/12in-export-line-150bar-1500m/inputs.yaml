@@ -1,0 +1,22 @@
+objective: quick wall-thickness screen for a 12-inch export line at 150 bar and 1500 m water depth
+configuration:
+  line_size: 12-inch nominal export line
+  outer_diameter_mm: 323.9
+  outer_diameter_basis: ASME B36.10 12 NPS OD used by approved quick-check
+water_depth_m: 1500
+external_pressure_mpa: 15.082875
+material:
+  grade: X65
+  smys_mpa: 448
+  smts_mpa: 531
+corrosion_allowance_mm: 3
+design_code:
+  - DNV-ST-F101
+  - API RP 1111
+environment: seawater, rho 1025 kg/m3, g 9.81 m/s2
+design_pressure_rating:
+  internal_design_pressure_bar: 150
+  pressure_basis: design
+buckle_arrestors: unresolved in user request; both branches reported
+data_available: quick-screen inputs only; installation, thermal, route, fatigue, coating, ovality, mill tolerance, safety-class details not supplied
+deadline: inline quick screen

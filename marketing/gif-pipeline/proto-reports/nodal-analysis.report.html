@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Well Nodal Analysis — IPR / VLP — digitalmodel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+    <style>
+:root {
+    --clr-primary: #1a365d;
+    --clr-secondary: #2c5282;
+    --clr-accent: #ed8936;
+    --clr-success: #38a169;
+    --clr-warning: #d69e2e;
+    --clr-danger: #e53e3e;
+    --clr-bg: #f7fafc;
+    --clr-text: #2d3748;
+    --clr-muted: #718096;
+    --clr-border: #e2e8f0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--clr-text);
+    background: var(--clr-bg);
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.report-header {
+    background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-secondary) 100%);
+    color: white;
+    padding: 2.5rem 3rem;
+    position: relative;
+    overflow: hidden;
+}
+.report-header::after {
+    content: '';
+    position: absolute;
+    top: -50%; right: -10%;
+    width: 400px; height: 400px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 50%;
+}
+.report-header .brand {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+}
+.report-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+.report-header .subtitle {
+    font-size: 1.05rem;
+    opacity: 0.85;
+    font-weight: 400;
+}
+.report-header .case-badge {
+    display: inline-block;
+    background: var(--clr-accent);
+    color: white;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-top: 1rem;
+}
+.report-header .meta {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+/* ── Content ────────────────────────────────────────────────── */
+.report-body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 3rem;
+}
+
+.section {
+    margin-bottom: 2.5rem;
+}
+.section h2 {
+    font-size: 1.3rem;
+    color: var(--clr-primary);
+    border-bottom: 2px solid var(--clr-accent);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+}
+.section h3 {
+    font-size: 1.05rem;
+    color: var(--clr-secondary);
+    margin: 1rem 0 0.5rem;
+}
+.section p, .section li {
+    color: var(--clr-text);
+    margin-bottom: 0.5rem;
+}
+.section ul { padding-left: 1.5rem; }
+
+/* ── Charts ─────────────────────────────────────────────────── */
+.chart-container {
+    background: white;
+    border: 1px solid var(--clr-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.chart-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--clr-primary);
+    margin-bottom: 0.3rem;
+}
+.chart-subtitle {
+    font-size: 0.85rem;
+    color: var(--clr-muted);
+    margin-bottom: 1rem;
+}
+
+/* ── Tables ─────────────────────────────────────────────────── */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+.data-table th {
+    background: var(--clr-primary);
+    color: white;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.data-table td {
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid var(--clr-border);
+}
+.data-table tr:nth-child(even) { background: rgba(247,250,252,0.5); }
+.data-table tr:hover { background: rgba(44,82,130,0.04); }
+
+.status-pass { color: var(--clr-success); font-weight: 700; }
+.status-fail { color: var(--clr-danger); font-weight: 700; }
+.status-marginal { color: var(--clr-warning); font-weight: 700; }
+
+/* ── Live Mode Teaser ───────────────────────────────────────── */
+.live-mode-teaser {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    color: white;
+    padding: 2rem 2.5rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+.live-mode-teaser::before {
+    content: 'LIVE';
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+    background: var(--clr-danger);
+    color: white;
+    padding: 0.2rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    animation: pulse-live 2s infinite;
+}
+@keyframes pulse-live {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+.live-mode-teaser h3 {
+    color: var(--clr-accent);
+    font-size: 1.15rem;
+    margin-bottom: 0.8rem;
+}
+.live-mode-teaser p {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+.live-mode-teaser .cta {
+    display: inline-block;
+    margin-top: 1rem;
+    background: var(--clr-accent);
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* ── Funding Badge ──────────────────────────────────────────── */
+.funding-badge {
+    background: rgba(237,137,54,0.1);
+    border: 1px solid var(--clr-accent);
+    border-radius: 6px;
+    padding: 0.8rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    color: var(--clr-text);
+}
+.funding-badge strong { color: var(--clr-accent); }
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.report-footer {
+    border-top: 2px solid var(--clr-border);
+    padding: 1.5rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 0.8rem;
+    color: var(--clr-muted);
+}
+.report-footer .disclaimer {
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+/* ── Print / PDF ────────────────────────────────────────────── */
+@media print {
+    body { background: white; font-size: 12px; }
+    .report-header { padding: 1.5rem 2rem; }
+    .report-body { padding: 1rem 2rem; }
+    .chart-container { break-inside: avoid; page-break-inside: avoid; }
+    .live-mode-teaser { break-inside: avoid; }
+    .no-print { display: none !important; }
+    @page { margin: 1.5cm; }
+}
+</style>
+</head>
+<body>
+
+<div class="report-header">
+    <div class="brand">digitalmodel — Engineering Intelligence</div>
+    <h1>Well Nodal Analysis — IPR / VLP</h1>
+    <div class="subtitle">Operating point from Vogel IPR × Hagedorn-Brown VLP intersection</div>
+    <div class="case-badge">Vogel IPR × Hagedorn-Brown VLP · single well operating point</div>
+    <div class="meta">Generated 2026-06-17 14:49 UTC · nodal_analysis</div>
+</div>
+
+<div class="report-body">
+    
+        <div class="section">
+            <h2>Methodology</h2>
+            <p>The well's inflow (reservoir → sandface) is described by a Vogel IPR anchored on reservoir pressure, bubble point, and productivity index. The outflow (sandface → surface) is the Hagedorn-Brown vertical lift performance (VLP) curve for the tubing string. Their intersection is the well's natural operating point — the rate and flowing bottom-hole pressure at which inflow equals outflow.</p>
+            <h3>Applicable Codes & Standards</h3><ul><li>Vogel (1968) IPR</li><li>Hagedorn & Brown VLP correlation</li><li>digitalmodel nodal_analysis</li></ul>
+        </div>
+        
+
+        <div class="section">
+            <h2>Assumptions & Limitations</h2>
+            <ul><li>IPR model: Vogel · reservoir pressure 3,000 psi · bubble point 2,500 psi · PI 2.0 bopd/psi.</li><li>Tubing: 8,000 ft deep · 2.992 in ID.</li><li>Fluid: 35 °API · gas gravity 0.65 · 180 °F.</li><li>Surface: WHP 200 psi · water cut 20% · GOR 400 scf/bbl · test-quality score 85.</li></ul>
+        </div>
+        
+
+        <div class="section">
+            <h2>Results — operating point</h2>
+            <p>IPR × VLP intersection with measurement-quality confidence rating</p>
+            <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Quantity</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Operating rate q</td>
+      <td>997 bopd</td>
+    </tr>
+    <tr>
+      <td>Flowing BHP pwf</td>
+      <td>2,458 psi</td>
+    </tr>
+    <tr>
+      <td>Rate uncertainty band</td>
+      <td>947 – 1,047 bopd (±5%)</td>
+    </tr>
+    <tr>
+      <td>Confidence</td>
+      <td>Green</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+        
+<div class="section"><h2>Verdict</h2><p>The well flows naturally at <strong>997 bopd</strong> with a flowing bottom-hole pressure of <strong>2,458 psi</strong>, against a 3,000 psi reservoir. The measurement-quality confidence is <strong>Green</strong>, giving a ±5% rate band of 947–1,047 bopd.</p></div>
+    
+            <div class="chart-container">
+                <div class='chart-title'>IPR / VLP intersection</div>
+                <div class='chart-subtitle'>Inflow (Vogel) and outflow (tubing) curves cross at the real computed operating point</div>
+                <div>                            <div id="chart-nodal" class="plotly-graph-div" style="height:440px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("chart-nodal")) {                    Plotly.newPlot(                        "chart-nodal",                        [{"line":{"color":"#0B3D91","width":2.5},"mode":"lines","name":"IPR (Vogel inflow)","x":[3777.777777777778,3770.791111111111,3763.164444444444,3754.897777777778,3745.991111111111,3736.4444444444443,3726.257777777778,3715.431111111111,3703.964444444445,3691.857777777778,3679.1111111111113,3665.7244444444445,3651.697777777778,3637.0311111111114,3621.7244444444445,3605.777777777778,3589.1911111111112,3571.964444444445,3554.0977777777775,3535.591111111111,3516.4444444444443,3496.6577777777775,3476.231111111111,3455.164444444444,3433.457777777778,3411.1111111111113,3388.124444444444,3364.497777777778,3340.231111111111,3315.3244444444445,3289.777777777778,3263.591111111111,3236.7644444444445,3209.297777777778,3181.1911111111112,3152.4444444444443,3123.057777777778,3093.0311111111114,3062.364444444445,3031.057777777778,2999.1111111111113,2966.5244444444443,2933.297777777778,2899.431111111111,2864.924444444444,2829.777777777778,2793.9911111111105,2757.5644444444447,2720.4977777777776,2682.791111111111,2644.444444444445,2605.4577777777777,2565.831111111111,2525.5644444444442,2484.6577777777775,2443.1111111111113,2400.924444444444,2358.0977777777775,2314.6311111111113,2270.5244444444443,2225.777777777778,2180.391111111111,2134.3644444444444,2087.697777777778,2040.391111111111,1992.4444444444441,1943.8577777777778,1894.6311111111104,1844.7644444444445,1794.257777777778,1743.111111111111,1691.3244444444445,1638.8977777777777,1585.831111111111,1532.1244444444444,1477.7777777777774,1422.791111111111,1367.164444444444,1310.8977777777773,1253.9911111111114,1196.4444444444448,1138.2577777777776,1079.4311111111112,1019.9644444444443,960.0,900.0,840.0,780.0,720.0,660.0,600.0,540.0,480.0,420.0,360.0,300.0,240.0,180.0,120.0,60.0,0.0],"y":[0.0,30.0,60.0,90.0,120.0,150.0,180.0,210.0,240.0,270.0,300.0,330.0,360.0,390.0,420.0,450.0,480.0,510.0,540.0,570.0,600.0,630.0,660.0,690.0,720.0,750.0,780.0,810.0,840.0,870.0,900.0,930.0,960.0,990.0,1020.0,1050.0,1080.0,1110.0,1140.0,1170.0,1200.0,1230.0,1260.0,1290.0,1320.0,1350.0,1380.0,1410.0,1440.0,1470.0,1500.0,1530.0,1560.0,1590.0,1620.0,1650.0,1680.0,1710.0,1740.0,1770.0,1800.0,1830.0,1860.0,1890.0,1920.0,1950.0,1980.0,2010.0,2040.0,2070.0,2100.0,2130.0,2160.0,2190.0,2220.0,2250.0,2280.0,2310.0,2340.0,2370.0,2400.0,2430.0,2460.0,2490.0,2520.0,2550.0,2580.0,2610.0,2640.0,2670.0,2700.0,2730.0,2760.0,2790.0,2820.0,2850.0,2880.0,2910.0,2940.0,2970.0,3000.0],"type":"scatter"},{"line":{"color":"#2BB2A6","width":2.5},"mode":"lines","name":"VLP (tubing outflow)","x":[0.0,16.612120335129067,33.22424067025813,49.8363610053872,66.44848134051627,83.06060167564533,99.6727220107744,116.28484234590346,132.89696268103253,149.50908301616158,166.12120335129066,182.73332368641974,199.3454440215488,215.95756435667784,232.5696846918069,249.18180502693602,265.79392536206507,282.4060456971941,299.01816603232317,315.63028636745224,332.2424067025813,348.8545270377104,365.4666473728395,382.07876770796855,398.6908880430976,415.30300837822665,431.91512871335567,448.5272490484848,465.1393693836138,481.7514897187429,498.36361005387204,514.9757303890011,531.5878507241301,548.1999710592592,564.8120913943882,581.4242117295173,598.0363320646463,614.6484523997755,631.2605727349045,647.8726930700336,664.4848134051626,681.0969337402917,697.7090540754208,714.3211744105498,730.933294745679,747.545415080808,764.1575354159371,780.7696557510661,797.3817760861951,813.9938964213242,830.6060167564533,847.2181370915823,863.8302574267113,880.4423777618406,897.0544980969696,913.6666184320986,930.2787387672277,946.8908591023568,963.5029794374858,980.1150997726148,996.7272201077441,1013.3393404428731,1029.9514607780022,1046.5635811131312,1063.1757014482603,1079.7878217833893,1096.3999421185183,1113.0120624536473,1129.6241827887764,1146.2363031239054,1162.8484234590346,1179.4605437941636,1196.0726641292927,1212.684784464422,1229.296904799551,1245.90902513468,1262.521145469809,1279.1332658049382,1295.7453861400672,1312.3575064751963,1328.9696268103253,1345.5817471454543,1362.1938674805833,1378.8059878157123,1395.4181081508416,1412.0302284859706,1428.6423488210996,1445.2544691562287,1461.866589491358,1478.478709826487,1495.090830161616],"y":[200.0,200.62726044735456,202.5090417894182,205.64534402619097,210.03616715767285,215.68151118386382,222.5813761047639,230.73576192037308,240.14466863069137,250.80809623571878,262.7260447354553,275.8985141299009,290.3255044190556,306.0070156029194,322.9430476814923,341.13360065477445,360.5786745227655,381.27826928546574,403.23238494287506,426.44102149499355,450.9041789418211,476.6218572833578,503.5940565196036,531.8207766505584,561.3020176762224,592.0377795965956,624.0280624116776,657.2728661214691,691.7721907259694,727.5260362251788,764.5344026190977,802.7972899077254,842.314698091062,883.0866271691079,925.1130771418628,968.3940480093272,1012.9295397715002,1058.719552428383,1105.7640859799742,1154.063140426275,1203.6167157672844,1254.4248120030031,1306.4874291334313,1359.804567158568,1414.3762260784144,1470.2024058929694,1527.2831066022338,1585.6183282062073,1645.2080707048895,1706.052334098281,1768.151118386382,1831.5044235691917,1896.1122496467106,1961.9745966189391,2029.0914644858763,2097.462853247522,2167.0887629038775,2237.9691934549423,2310.1041449007153,2383.493617241198,2458.137610476391,2534.036124606291,2611.1891596309015,2689.596715550221,2769.258792364248,2850.1753900729855,2932.3465086764318,3015.772148174587,3100.4523085674514,3186.386989855025,3273.576192037309,3362.0199151143,3451.718159086001,3542.670923952412,3634.8782097135313,3728.3400163693595,3823.056343919897,3919.0271923651444,4016.2525617050997,4114.732451939764,4214.466863069138,4315.45579509322,4417.6992480120125,4521.197221825513,4625.949716533725,4731.956732136644,4839.218268634272,4947.73432602661,5057.504904313658,5168.530003495413,5280.809623571878],"type":"scatter"},{"marker":{"color":"#ed8936","size":13,"symbol":"x"},"mode":"markers+text","name":"Operating point","text":["  997 bopd @ 2,458 psi"],"textposition":"top right","x":[996.727220107744],"y":[2458.1376104763904],"type":"scatter"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmapgl":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmapgl"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"legend":{"orientation":"h"},"title":{"text":"Nodal analysis \u2014 IPR \u002f VLP crossing"},"xaxis":{"title":{"text":"Liquid rate (bopd)"}},"yaxis":{"title":{"text":"Flowing BHP (psi)"}},"height":440,"font":{"family":"Inter, sans-serif","size":13,"color":"#2d3748"},"margin":{"l":60,"r":30,"t":40,"b":60},"hoverlabel":{"font":{"size":12,"family":"Inter, sans-serif"},"bgcolor":"white"},"paper_bgcolor":"#ffffff","plot_bgcolor":"#ffffff"},                        {"displayModeBar": true, "modeBarButtonsToRemove": ["lasso2d", "select2d"], "displaylogo": false, "toImageButtonOptions": {"format": "png", "filename": "nodal_analysis_nodal", "height": 600, "width": 1000, "scale": 2}, "responsive": true}                    )                };                            </script>        </div>
+            </div>
+            
+</div>
+
+<div class="report-footer">
+    <p class="disclaimer">
+        These results are preliminary engineering estimates generated by automated
+        engineering analysis. All outputs require review by a qualified engineer
+        before use in design or operational decisions.
+    </p>
+    <p><strong>References:</strong> Vogel (1968) IPR · Hagedorn & Brown VLP correlation · digitalmodel nodal_analysis</p>
+    <p>© 2026 digitalmodel · aceengineer.com</p>
+</div>
+
+</body>
+</html>
