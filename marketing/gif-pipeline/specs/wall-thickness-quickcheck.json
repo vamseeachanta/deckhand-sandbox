@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Subsea, Pipelines & Integrity", "tags": "🛢️ pipeline · structural · integrity" },
+  "title": { "big": "Pipeline wall thickness, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "09:34", "hold": 900, "html": "I've got a 12-inch export line going into 1500&nbsp;m and need a quick wall-thickness screen before we lock the line pipe order. Can you check it across the codes?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "09:34", "hold": 4100, "html": "Happy to screen it — two things drive the wall, so let me get them straight first:<ul><li><b>Pressure basis</b> — is the rating you'll give me the <i>operating</i> pressure or the <i>design</i> pressure? I size containment on design, so I need to know which one you're quoting.</li><li><b>Buckle arrestors</b> — are you running them, or not? Without arrestors I have to carry the full propagation-buckle wall along the line, which is a much heavier pipe. With arrestors I only need the collapse wall between them. It swings the answer a lot, so I'll run whichever you've planned.</li></ul>Then the basics: line size, steel grade, and water depth.<br><span class='note'>I screen carbon-steel line pipe against DNV-ST-F101, ASME B31 and PD 8010. Flexibles and risers are a different check, so I'd flag those and pass them on.</span>" },
+    { "side": "me", "time": "09:36", "hold": 4000, "file": { "name": "line_datasheet.csv", "size": "1.4 KB" }, "html": "12.75-inch OD, grade X65, 1500&nbsp;m water depth. The 150&nbsp;bar I'm giving you is the <b>design</b> pressure, and we're planning <b>buckle arrestors</b>. Datasheet attached — 3&nbsp;mm corrosion allowance in there too." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "09:36", "hold": 4400, "html": "Got it — design pressure 150&nbsp;bar, X65, 1500&nbsp;m, with buckle arrestors. Basis I'll use: containment checked at design pressure, and collapse and propagation checked for the empty line at full depth. Codes: DNV-ST-F101, ASME B31 and PD 8010, then I pick the next standard schedule above the minimum. Running it now…" },
+    { "side": "bot", "wide": true, "time": "09:37", "hold": 3000, "file": { "name": "wall_thickness_quickcheck_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's the wall-thickness screen, with and without arrestors so you can see the trade:<table><tr><th>Case</th><th>Governing check</th><th>Min wall</th><th>Selected</th><th>Margin</th></tr><tr><td>With arrestors</td><td>DNV-ST-F101 collapse</td><td>14.9&nbsp;mm</td><td>SCH&nbsp;80 · 17.5&nbsp;mm</td><td class='verdict'>✅ 59%</td></tr><tr><td>Without arrestors</td><td>DNV-ST-F101 propagation</td><td>25.4&nbsp;mm</td><td>SCH&nbsp;140 · 28.6&nbsp;mm</td><td class='verdict'>✅ 39%</td></tr></table><span class='note'>DNV-ST-F101 governs both cases. With the arrestors you planned, SCH&nbsp;80 carries it — dropping them would push you to SCH&nbsp;140 line pipe.</span>" }
+  ],
+  "report": {
+    "title": "Pipeline Wall-Thickness Screen",
+    "sub": "digitalmodel · wall-thickness-quickcheck · Report · 2026-06-16",
+    "foot": "wall_thickness_quickcheck_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Line</b><br>12.75&nbsp;in OD · grade X65 (SMYS 448&nbsp;MPa, SMTS 531&nbsp;MPa)<br>Water depth 1500&nbsp;m · Corrosion allowance 3&nbsp;mm<br><br><b>Pressure basis</b><br>Design pressure 150&nbsp;bar (15&nbsp;MPa) — containment sized on design<br>Collapse &amp; propagation checked empty at full depth<br><br><b>Branch</b><br>With buckle arrestors (collapse wall) · also screened without (propagation wall)</div>",
+    "methodology": "<div class='kv'>1&nbsp;· Containment (burst) checked at design pressure with zero external pressure — the route minimum.<br>2&nbsp;· Collapse and propagation buckling checked for the empty line at the full 1500&nbsp;m external head.<br>3&nbsp;· Each wall stepped through DNV-ST-F101, ASME B31 and PD 8010; the highest utilisation governs.<br>4&nbsp;· Minimum wall = thinnest section that keeps every check at or below 1.0.<br>5&nbsp;· Selected wall = next standard pipe schedule above the minimum.<br>6&nbsp;· Branch: with arrestors needs only the collapse wall; without, the heavier propagation wall.</div>",
+    "outputs": "<table><tr><th>Case</th><th>Governing check</th><th>Utilisation</th><th>Min wall</th><th>Selected</th></tr><tr><td>With arrestors</td><td>DNV-ST-F101 collapse</td><td>0.63</td><td>14.91&nbsp;mm</td><td>SCH&nbsp;80 · 17.48&nbsp;mm</td></tr><tr><td>Without arrestors</td><td>DNV-ST-F101 propagation</td><td>0.72</td><td>25.41&nbsp;mm</td><td>SCH&nbsp;140 · 28.58&nbsp;mm</td></tr></table><div class='kv' style='margin-top:10px'><b>Verdict:</b> With buckle arrestors, SCH&nbsp;80 (17.48&nbsp;mm) carries the line at 59% margin. Without arrestors the propagation wall governs and you step up to SCH&nbsp;140 (28.58&nbsp;mm). DNV-ST-F101 is the governing code in both cases.</div>"
+  },
+  "closing": {
+    "headline": "Pipeline wall thickness: min WT across codes + capacity margin.",
+    "tryThis": "Min wall thickness for a 12-inch X65 line at 250 bar?",
+    "route": "Subsea, Pipelines & Integrity"
+  }
+}

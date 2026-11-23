@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Cathodic Protection", "tags": "🛡️ anodes · corrosion · DNV/ABS" },
+  "title": { "big": "Subsea-manifold CP design, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "09:31", "hold": 900, "html": "Can you size the sacrificial anodes for a subsea manifold to DNV-RP-B401?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "09:31", "hold": 4100, "html": "Happy to — a few details so I run it right:<ul><li>Wetted (submerged) area, and the coating category?</li><li>Design life?</li><li>Seabed seawater temperature and resistivity?</li><li>Anode type and unit mass?</li></ul><span class='note'>This runs the DNV-RP-B401 screen for a fully submerged structure — current demand, anode mass, and a current-output check on the count.</span>" },
+    { "side": "me", "time": "09:33", "hold": 4100, "file": { "name": "cp_manifold.yml", "size": "0.6 KB" }, "html": "Subsea manifold — 850&nbsp;m² submerged, coating cat&nbsp;III. 25-year design life. Deepwater seabed at 6&nbsp;°C, resistivity 0.33&nbsp;Ω·m. Aluminium stand-off anodes, 80&nbsp;kg each, utilisation 0.85. It's in the file." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "09:33", "hold": 4400, "html": "Got it — a single submerged zone, so I'll run DNV-RP-B401 directly. Basis I'll use: current demand from area × density × coating breakdown (mean density 0.04&nbsp;A/m² for the ≤7&nbsp;°C band), total charge → anode mass, then a current-output check that the bank delivers the final demand. Running it now…" },
+    { "side": "bot", "wide": true, "time": "09:34", "hold": 3000, "file": { "name": "cp_manifold_b401_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's the design — and it clears:<table><tr><th>Quantity</th><th>Result</th><th>Check</th><th>Verdict</th></tr><tr><td>Mean current demand</td><td>29.8&nbsp;A</td><td>final 34.0&nbsp;A</td><td>—</td></tr><tr><td>Required anode mass</td><td>3,833&nbsp;kg</td><td>—</td><td>—</td></tr><tr><td>Stand-off anodes (80&nbsp;kg)</td><td>48</td><td>output 46.1&nbsp;A</td><td class='verdict'>✅ Adequate</td></tr></table><span class='note'>48 stand-off anodes (80&nbsp;kg) — mean demand 29.8&nbsp;A over 25 years, and the bank delivers 46.1&nbsp;A, comfortably past the 34.0&nbsp;A final demand, so both mass and current-output are satisfied.</span>" }
+  ],
+  "report": {
+    "title": "Subsea-Manifold CP Design (DNV-RP-B401)",
+    "sub": "digitalmodel · cathodic-protection-manifold · Report · 2026-06-16",
+    "foot": "cp_manifold_b401_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Structure</b><br>Subsea manifold · submerged area 850&nbsp;m² · coating cat&nbsp;III<br><br><b>Design &amp; environment</b><br>Design life 25&nbsp;yr · deepwater seabed 6&nbsp;°C · resistivity 0.33&nbsp;Ω·m<br><br><b>Anodes</b><div class='mono'>Al stand-off · 80&nbsp;kg each · utilisation 0.85<br>capacity 2,000&nbsp;Ah/kg · resistance 0.261&nbsp;Ω</div></div>",
+    "methodology": "<div class='kv'>1&nbsp;· Current demand = area × density × coating breakdown (cat&nbsp;III: initial 0.25 / mean 0.875 / final 1.0).<br>2&nbsp;· Mean current density 0.04&nbsp;A/m² (DNV-RP-B401, ≤7&nbsp;°C band).<br>3&nbsp;· Total charge over 25&nbsp;yr (219,000&nbsp;h) → anode mass (capacity 2,000&nbsp;Ah/kg, utilisation 0.85).<br>4&nbsp;· Current-output check: anode-bank output through the anode resistance vs final demand.</div>",
+    "outputs": "<table><tr><th>Quantity</th><th>Value</th><th>Note</th></tr><tr><td>Submerged area</td><td>850&nbsp;m²</td><td>coating cat&nbsp;III</td></tr><tr><td>Current demand (mean / final)</td><td>29.75 / 34.0&nbsp;A</td><td>over life</td></tr><tr><td>Required anode mass</td><td>3,832.5&nbsp;kg</td><td>48 × 80&nbsp;kg</td></tr><tr><td>Anode-bank output</td><td>46.1&nbsp;A</td><td>0.96&nbsp;A each</td></tr></table><div class='kv' style='margin-top:10px'><b>Verdict:</b> ADEQUATE — 48 stand-off anodes satisfy both mass (3,833&nbsp;kg) and current output (46.1&nbsp;A &gt; 34.0&nbsp;A final demand).</div>"
+  },
+  "closing": {
+    "headline": "Subsea-manifold CP (DNV-RP-B401): current demand, anode mass & output.",
+    "tryThis": "Size DNV-RP-B401 anodes for my subsea manifold (850 m² submerged).",
+    "route": "Subsea, Pipelines & Integrity"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Cathodic Protection", "tags": "🛡️ anodes · corrosion · DNV/ABS" },
+  "title": { "big": "Jacket CP design, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "13:20", "hold": 900, "html": "Sizing the sacrificial-anode CP for a fixed steel jacket — can you run it to DNV-RP-B401?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "13:20", "hold": 4200, "html": "Happy to — a few details so I run it right:<ul><li>Exposure zones and wetted areas — submerged, splash, atmospheric?</li><li>Coating category in each zone?</li><li>Design life, and the seawater temperature &amp; resistivity?</li><li>Anode type and unit mass?</li></ul><span class='note'>This runs the DNV-RP-B401 zone-by-zone screen — current demand per zone, anode mass from charge, then a current-output check on the anode count.</span>" },
+    { "side": "me", "time": "13:22", "hold": 4300, "file": { "name": "cp_jacket.yml", "size": "0.9 KB" }, "html": "Fixed steel jacket — 5,000&nbsp;m² submerged (coating cat&nbsp;I), 300&nbsp;m² splash (cat&nbsp;III), 200&nbsp;m² atmospheric (cat&nbsp;I). 25-year design life, seawater 10&nbsp;°C, resistivity 0.30&nbsp;Ω·m. Aluminium stand-off anodes, 200&nbsp;kg each, utilisation 0.85. Make-up's in the file." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "13:22", "hold": 4400, "html": "Got it — three exposure zones, so I'll run DNV-RP-B401 zone by zone. Basis I'll use: current demand per zone from area × density × coating breakdown (initial/final), total charge → anode mass, then a current-output check that the anode bank can actually deliver the final demand. Running it now…" },
+    { "side": "bot", "wide": true, "time": "13:23", "hold": 3000, "file": { "name": "cp_jacket_b401_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's the design — and it flags the governing criterion:<table><tr><th>Quantity</th><th>Result</th><th>Check</th><th>Verdict</th></tr><tr><td>Mean current demand</td><td>101.9&nbsp;A</td><td>final 168.6&nbsp;A</td><td>—</td></tr><tr><td>Required anode mass</td><td>13,121&nbsp;kg</td><td>—</td><td>—</td></tr><tr><td>Anodes by mass (200&nbsp;kg)</td><td>66</td><td>—</td><td>—</td></tr><tr><td>Anodes by current output</td><td>109</td><td>governs</td><td class='verdict'>✅ Use 109</td></tr></table><span class='note'>Mass alone needs 66 stand-off anodes, but to push the 168.6&nbsp;A final demand through the anode resistance you need 109 — so the current-output check governs. Deckhand flags the higher count so the jacket actually stays protected.</span>" }
+  ],
+  "report": {
+    "title": "Jacket CP Design (DNV-RP-B401)",
+    "sub": "digitalmodel · cathodic-protection-jacket · Report · 2026-06-16",
+    "foot": "cp_jacket_b401_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Structure — exposure zones</b><br>Submerged 5,000&nbsp;m² · coating cat&nbsp;I<br>Splash 300&nbsp;m² · coating cat&nbsp;III<br>Atmospheric 200&nbsp;m² · coating cat&nbsp;I<br><br><b>Design &amp; environment</b><br>Design life 25&nbsp;yr · seawater 10&nbsp;°C · resistivity 0.30&nbsp;Ω·m<br><br><b>Anodes</b><div class='mono'>Al stand-off · 200&nbsp;kg each · utilisation 0.85<br>capacity 2,000&nbsp;Ah/kg · resistance 0.161&nbsp;Ω</div></div>",
+    "methodology": "<div class='kv'>1&nbsp;· Current demand per zone = area × density × coating breakdown (mean &amp; final).<br>2&nbsp;· Coating breakdown — submerged 0.30/0.55 · splash 0.875/1.0 · atmospheric 0.30/0.55.<br>3&nbsp;· Total charge over 25&nbsp;yr (219,000&nbsp;h) → anode mass (capacity 2,000&nbsp;Ah/kg, utilisation 0.85).<br>4&nbsp;· Anode count by mass, then by current output (Ohm's law through the anode resistance at final demand).<br>5&nbsp;· The larger count governs.</div>",
+    "outputs": "<table><tr><th>Quantity</th><th>Value</th><th>Note</th></tr><tr><td>Total wetted area</td><td>5,500&nbsp;m²</td><td>3 zones</td></tr><tr><td>Demand — submerged</td><td>75.0 / 137.5&nbsp;A</td><td>mean / final</td></tr><tr><td>Demand — splash</td><td>26.3 / 30.0&nbsp;A</td><td>mean / final</td></tr><tr><td>Demand — atmospheric</td><td>0.6 / 1.1&nbsp;A</td><td>mean / final</td></tr><tr><td>Total current demand</td><td>101.9 / 168.6&nbsp;A</td><td>mean / final</td></tr><tr><td>Required anode mass</td><td>13,120.7&nbsp;kg</td><td>66 × 200&nbsp;kg</td></tr><tr><td>Anodes by current output</td><td>109</td><td>1.55&nbsp;A each</td></tr></table><div class='kv' style='margin-top:10px'><b>Verdict:</b> USE 109 ANODES — mass needs 66, but the current-output check (final demand 168.6&nbsp;A vs 102.2&nbsp;A from 66 anodes) governs at 109.</div>"
+  },
+  "closing": {
+    "headline": "Fixed-jacket CP (DNV-RP-B401): zone demand, anode mass & governing count.",
+    "tryThis": "Run DNV-RP-B401 CP for my fixed steel jacket (submerged/splash/atmospheric).",
+    "route": "Subsea, Pipelines & Integrity"
+  }
+}

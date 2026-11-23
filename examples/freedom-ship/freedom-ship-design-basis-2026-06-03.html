@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Freedom Ship — Preliminary Design Basis Document</title>
+  <style>
+    :root{--bg:#0b1220;--panel:#111827;--panel2:#162033;--ink:#e5e7eb;--muted:#a7b0c0;--line:#334155;--accent:#38bdf8;--warn:#f59e0b;--bad:#fb7185;--good:#34d399;}
+    body{margin:0;background:linear-gradient(180deg,#07101f,#0b1220 30%,#0f172a);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;}
+    header{padding:48px 28px 32px;border-bottom:1px solid var(--line);background:radial-gradient(circle at 20% 0%,rgba(56,189,248,.22),transparent 35%),linear-gradient(135deg,#0b1220,#111827);}
+    main{max-width:1180px;margin:0 auto;padding:28px;}
+    h1{font-size:42px;line-height:1.05;margin:0 0 12px;} h2{font-size:26px;margin:34px 0 12px;border-bottom:1px solid var(--line);padding-bottom:8px;} h3{font-size:20px;margin:24px 0 8px;color:#dbeafe;}
+    p{margin:8px 0 12px}.muted{color:var(--muted)}.tag{display:inline-block;border:1px solid var(--line);background:rgba(56,189,248,.1);color:#bae6fd;border-radius:999px;padding:4px 10px;margin:3px 5px 3px 0;font-size:13px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:16px}.big{font-size:24px;font-weight:750;color:white}.label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    table{width:100%;border-collapse:collapse;margin:12px 0 18px;background:rgba(17,24,39,.72);border:1px solid var(--line);border-radius:12px;overflow:hidden}th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}th{background:#1e293b;color:#dbeafe}tr:last-child td{border-bottom:0}.warn{color:var(--warn)}.bad{color:var(--bad)}.good{color:var(--good)}.callout{border-left:4px solid var(--accent);background:rgba(56,189,248,.08);padding:14px 16px;border-radius:10px;margin:16px 0}.risk{border-left-color:var(--bad);background:rgba(251,113,133,.08)}.assumption{border-left-color:var(--warn);background:rgba(245,158,11,.08)}
+    ul{margin-top:6px}li{margin:4px 0}.small{font-size:13px;color:var(--muted)}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Freedom Ship — Preliminary Design Basis Document</h1>
+  <p class="muted">Concept-level engineering basis for a modular floating city platform. Prepared from public Freedom Ship data and naval-architecture first principles. Generated: 2026-06-03T18:28:06-05:00.</p>
+  <span class="tag">Pre-FEED / concept basis</span><span class="tag">Floating city</span><span class="tag">Cellular hull</span><span class="tag">Slow-speed ocean-going platform</span><span class="tag">Not a cruise ship</span>
+</header>
+<main>
+<section>
+  <h2>0. Status and limits</h2>
+  <div class="callout risk"><strong>This is not a final class-approved design.</strong> It is a disciplined design basis: dimensions, architecture, assumptions, system boundaries, risks, and the engineering roadmap required before FEED. Numerical values are preliminary and must be validated by hydrostatics, structural finite-element analysis, seakeeping analysis, evacuation simulation, model tests, class review, and regulatory negotiation.</div>
+  <p><strong>Source hierarchy used:</strong> current official Freedom Ship public dimensions are treated as controlling where they conflict with older third-party descriptions. Older public values are retained only as context.</p>
+</section>
+
+<section>
+  <h2>1. Principal particulars</h2>
+  <div class="grid">
+    <div class="card"><div class="label">Length overall</div><div class="big">1,609.34 m</div><div class="small">5,280 ft; official current site</div></div>
+    <div class="card"><div class="label">Beam</div><div class="big">228.60 m</div><div class="small">750 ft; official current site</div></div>
+    <div class="card"><div class="label">L/B ratio</div><div class="big">7.04</div><div class="small">Calculated from current dimensions</div></div>
+    <div class="card"><div class="label">Waterplane footprint envelope</div><div class="big">367,895 m²</div><div class="small">0.368 km² / 90.9 acres</div></div>
+    <div class="card"><div class="label">Gross 25-deck envelope</div><div class="big">9.20M m²</div><div class="small">Before voids, structure, services, setbacks</div></div>
+    <div class="card"><div class="label">Recommended service speed</div><div class="big">6–8 kn</div><div class="small">Slow-speed mobility; weather routing primary</div></div>
+  </div>
+  <h3>Population design cases</h3>
+  <table><thead><tr><th>Case</th><th>Persons onboard</th><th>Use</th></tr></thead><tbody>
+    <tr><td>Phase 1 operation</td><td>25,000–40,000</td><td>Early live-city commissioning, reduced program, lower risk.</td></tr>
+    <tr><td>Mature steady state</td><td>60,000–80,000</td><td>Primary design case for utilities, life safety, healthcare, logistics, and civic services.</td></tr>
+    <tr><td>Surge / visitors</td><td>90,000–100,000</td><td>Short-duration maximum persons onboard for hospitality/event load and emergency planning.</td></tr>
+  </tbody></table>
+  <p>At 80,000 persons, the 25-deck envelope yields preliminary net-area indicators of ~51.7 m²/person at 45% net, ~63.2 m²/person at 55% net, and ~74.7 m²/person at 65% net.</p>
+</section>
+
+<section>
+  <h2>2. Design intent and governing philosophy</h2>
+  <p><strong>Design type:</strong> modular, cellular, slow-speed, ocean-going floating city platform with distributed propulsion, redundant municipal-scale utilities, segregated urban districts, and continuous maintainability.</p>
+  <h3>Primary objectives</h3>
+  <ul>
+    <li><strong>Permanent habitability:</strong> motion, vibration, acoustic comfort, daylight, air quality, and daily logistics dominate over cruise-style novelty.</li>
+    <li><strong>Survivability:</strong> local flooding, fire, machinery loss, cyberattack, medical emergency, or severe weather must not escalate into whole-city loss.</li>
+    <li><strong>Maintainability:</strong> normal drydocking is not credible at this scale; design must support underwater inspection, cofferdams, replaceable modules, and robotic hull maintenance.</li>
+    <li><strong>Mobility:</strong> slow global movement with weather routing, seasonal route planning, and safe loitering.</li>
+    <li><strong>Regulatory acceptability:</strong> class/flag/IMO-equivalent safety basis must be negotiated from day one.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>3. Hull, structure, hydrostatics, and seakeeping basis</h2>
+  <h3>Hull architecture</h3>
+  <p>Use a <strong>modular cellular displacement hull</strong>, not a conventional slender passenger-ship hull. The basic architecture should include:</p>
+  <ul>
+    <li>deep double-bottom cellular pontoon;</li><li>longitudinal buoyancy lanes and transverse watertight bulkheads;</li><li>side ballast and damage-stability compartments;</li><li>protected sea chests and redundant seawater intakes;</li><li>sacrificial outer shell/fender/impact zones;</li><li>service and utility tunnels above machinery level.</li>
+  </ul>
+  <h3>Module grid</h3>
+  <table><thead><tr><th>Element</th><th>Preliminary basis</th><th>Reason</th></tr></thead><tbody>
+    <tr><td>Longitudinal primary modules</td><td>~16 modules at ~100 m each</td><td>Compatible with multi-yard construction and offshore joining.</td></tr>
+    <tr><td>Transverse cell lanes</td><td>4–6 major lanes across beam</td><td>Subdivision, distributed services, damage stability, construction logic.</td></tr>
+    <tr><td>Vertical zones</td><td>Ballast/double bottom → machinery/utilities → logistics → city decks → parks/solar/aviation</td><td>Low CG, segregated services, maintainability.</td></tr>
+  </tbody></table>
+  <h3>Structural verification basis</h3>
+  <ul>
+    <li>Still-water and wave-induced global bending moments.</li><li>Oblique-sea torsion and long-span global flexure.</li><li>Module-joint fatigue and residual-stress management.</li><li>Slamming, green-water, bow/quarter impact, and accidental collision/grounding.</li><li>Progressive-collapse resistance after local fire/flood/impact damage.</li></ul>
+  <div class="callout assumption"><strong>Stability principle:</strong> maximize safety, not GM. Very high GM from the wide beam can drive uncomfortable roll accelerations. The target is safe but comfortable GM using low CG, ballast control, passive/active damping, and controlled mass distribution.</div>
+  <h3>Required hydrodynamic program</h3>
+  <ol><li>Hydrostatic model and weight estimate.</li><li>Potential-flow diffraction/radiation model.</li><li>Global wave-load and spectral fatigue model.</li><li>CFD for bow, stern, internal harbor, wake, and maneuvering effects.</li><li>Physical model basin testing.</li><li>Maneuvering and station-keeping simulation.</li><li>Route-weather operability simulation.</li><li>Motion-comfort assessment against habitable-space acceleration criteria.</li></ol>
+</section>
+
+<section>
+  <h2>4. System architecture</h2>
+  <h3>Propulsion and maneuvering</h3>
+  <ul><li>Distributed electric propulsion with multiple separated machinery rooms.</li><li>Azimuthing pods at stern/quarters plus selected bow/side thrusters for low-speed control.</li><li>Dynamic-positioning-like control for harbor interface and station keeping; not full offshore DP dependency for normal city life.</li><li>Design service speed 6–8 kn; maximum 10 kn only if resistance/power/structural studies justify it.</li></ul>
+  <h3>Power and microgrid</h3>
+  <p>Renewables are useful supplements, not credible baseload for a city-scale permanent platform. The dependable basis should be firm distributed generation plus storage and renewables.</p>
+  <ul><li>Dual-fuel engines/turbines: LNG, methanol, or renewable-diesel capable.</li><li>Battery energy storage for load smoothing and critical ride-through.</li><li>Flywheels for transient stabilization.</li><li>Solar/wind/wave-energy features as supplemental sources after maintainability and safety screening.</li><li>Waste-heat recovery for desalination and district thermal systems.</li><li>Islandable grid zones: propulsion, residential/hotel, hospital/life safety, data/comms, industrial/services, emergency.</li></ul>
+  <h3>Water, wastewater, and waste</h3>
+  <ul><li>Reverse-osmosis desalination plus thermal desalination from waste heat.</li><li>Potable, non-potable, firefighting, chilled-water, and hot-water loops with district isolation.</li><li>Greywater reuse, blackwater treatment, MBR/tertiary/UV-ozone polishing.</li><li>Source-separated solid waste: food, recyclables, hazardous, medical, e-waste, sludge, oily waste.</li><li>Residual waste must be containerized and compliantly offloaded; “zero waste” is an aspiration, not a design guarantee.</li></ul>
+  <h3>Food and agriculture</h3>
+  <p>Hydroponics/aeroponics/bio-harvest systems should support fresh produce, education, and partial resilience. They should not be assumed to fully feed 60,000–100,000 people without a dedicated agricultural area/power/water model.</p>
+</section>
+
+<section>
+  <h2>5. Deck and zone allocation</h2>
+  <table><thead><tr><th>Zone</th><th>Location basis</th><th>Primary functions</th><th>Critical rule</th></tr></thead><tbody>
+    <tr><td>Arrival / departure</td><td>Aft/stern with artificial calm-water harbor and heliport</td><td>Tenders, ferries, customs/immigration, logistics intake, security, medevac, visitor reception</td><td>Connect to city center without pushing transient traffic through residential districts.</td></tr>
+    <tr><td>City core</td><td>Adjacent to harbor, central spine</td><td>Civic plaza, administration, main transit, public safety command, retail, hospital access, culture</td><td>Separate civic access from security/logistics and from visitor surge.</td></tr>
+    <tr><td>Hospitality / event district</td><td>Near transport hubs, buffered from residences</td><td>Hotels, convention center, waterpark, stadium/arena, short-stay services</td><td>Serve visitors without subordinating resident life.</td></tr>
+    <tr><td>Residential neighborhoods</td><td>Midship toward bow per public concept</td><td>Courtyard housing, schools, clinics, parks, local retail, childcare, elder care</td><td>Prioritize low motion/noise/vibration and protected local emergency routes.</td></tr>
+  </tbody></table>
+  <h3>Mobility hierarchy</h3>
+  <ol><li>Pedestrian-first central boulevard/atrium and neighborhood streets.</li><li>Automated longitudinal people mover with stops at major zones.</li><li>Segregated service logistics deck using AGVs/electric carts.</li><li>Separate waste/goods/emergency routes from resident and visitor circulation.</li><li>Stretcher-capable vertical circulation and protected emergency stairs.</li></ol>
+</section>
+
+<section>
+  <h2>6. Life safety, health, security, and external access</h2>
+  <h3>Fire and evacuation philosophy</h3>
+  <div class="callout risk"><strong>Lifeboats alone are not a credible city-scale safety concept.</strong> The primary safety case must prevent incident propagation, shelter people in protected districts, move occupants internally first, and use external evacuation only when required.</div>
+  <ul><li>District-level fire/flood/smoke compartments.</li><li>Protected refuge areas and refuge floors by zone.</li><li>Redundant evacuation corridors and vertical circulation.</li><li>Onboard professional fire brigade, medical response, and public-safety command.</li><li>Sprinkler/water-mist systems, smoke extraction, emergency lighting, multilingual alerting.</li><li>Crowd-flow simulation and regular district drills.</li></ul>
+  <h3>Healthcare basis</h3>
+  <p>A real floating city needs a municipal health system: primary clinics by district, emergency department, surgical capability, ICU, maternity, dental, pharmacy, diagnostics, imaging, mental health, infectious disease isolation, morgue, and medevac interface.</p>
+  <h3>Security basis</h3>
+  <ul><li>Resident credentialing and visitor access segmentation.</li><li>Arrival screening, customs/immigration integration, contraband control.</li><li>Cyber-physical security operations center.</li><li>CCTV with privacy governance, tender tracking, drone detection, maritime exclusion monitoring.</li><li>High-risk cargo and medical quarantine isolation.</li></ul>
+  <h3>External access</h3>
+  <p>Assume the platform rarely docks conventionally. Normal access is offshore anchorage/station plus protected internal harbor, tenders, ferries, cargo barges, service boats, and helicopter medevac. The artificial harbor is a mission-critical system and must be analyzed for waves, wakes, traffic, disabled-craft recovery, security, and emergency operations.</p>
+</section>
+
+<section>
+  <h2>7. Class, regulatory, and environmental basis</h2>
+  <p>The platform is a hybrid of ship, offshore installation, floating city, special-purpose passenger vessel, and municipal infrastructure. Existing rule sets will not fully cover it.</p>
+  <h3>Required engagement</h3>
+  <ul><li>Flag state and class society: ABS, DNV, Lloyd's Register, Bureau Veritas, or equivalent.</li><li>IMO/SOLAS equivalency review for life safety, subdivision, fire, evacuation, and safe-return/safe-loitering.</li><li>MARPOL compliance for waste, sewage, ballast, oily water, and emissions.</li><li>Port-state control, customs/immigration, health/quarantine, aviation regulators, insurers, and labor authorities.</li></ul>
+  <h3>Environmental basis</h3>
+  <ul><li>District HVAC with seawater heat exchange, humidity control, smoke isolation, and hospital-grade zones.</li><li>Corrosion control: coatings, impressed-current cathodic protection, monitoring, splash-zone hardening, and robotic inspection.</li><li>Noise/vibration control: machinery raft mounting, acoustic breaks, resilient residential floors, quiet propulsors, and service-corridor isolation.</li></ul>
+</section>
+
+<section>
+  <h2>8. Risk register</h2>
+  <table><thead><tr><th>Risk</th><th>Severity</th><th>Why it matters</th><th>Required mitigation</th></tr></thead><tbody>
+    <tr><td>Global structural loads and fatigue</td><td class="bad">Critical</td><td>1.6 km floating structure is outside normal ship assumptions.</td><td>FE global model, spectral fatigue, model tests, conservative module-joint design.</td></tr>
+    <tr><td>Evacuation and refuge</td><td class="bad">Critical</td><td>80,000+ persons cannot be treated like cruise passengers.</td><td>District safety case, refuge strategy, crowd simulation, external evacuation fleet planning.</td></tr>
+    <tr><td>Regulatory classification</td><td class="bad">Critical</td><td>Unclear rule basis can kill financing/design approval.</td><td>Early flag/class/IMO-equivalent basis and special-case design code.</td></tr>
+    <tr><td>Power demand realism</td><td class="warn">High</td><td>Renewables cannot be assumed to support city baseload.</td><td>Firm distributed generation, storage, load shedding, black start, fuel logistics.</td></tr>
+    <tr><td>Water/waste municipal scaling</td><td class="warn">High</td><td>Shipboard systems are insufficient at city scale.</td><td>Municipal utility design with district isolation and port offload contracts.</td></tr>
+    <tr><td>Motion comfort</td><td class="warn">High</td><td>Permanent residents require stricter comfort than short-stay passengers.</td><td>Seakeeping study, damping appendages, route/weather limits, mass distribution control.</td></tr>
+    <tr><td>Construction and joining</td><td class="warn">High</td><td>Multi-yard modular assembly creates alignment, stress, coating, and QA risks.</td><td>Prototype module, joining trials, metrology plan, class inspection plan.</td></tr>
+    <tr><td>Maintenance without drydock</td><td class="warn">High</td><td>Normal drydock options are not available.</td><td>Robotic inspection, cofferdams, replaceable external elements, sectional maintenance.</td></tr>
+  </tbody></table>
+</section>
+
+<section>
+  <h2>9. Phased engineering roadmap</h2>
+  <ol>
+    <li><strong>Feasibility and rule-basis phase:</strong> confirm dimensions, mission profile, route, class/flag basis, population cases, financing, and environmental strategy.</li>
+    <li><strong>Concept validation phase:</strong> hydrostatics, weight budget, preliminary structure, seakeeping, power/water/waste sizing, life-safety concept.</li>
+    <li><strong>Prototype module:</strong> build and test a representative hull/superstructure/utility/residential module.</li>
+    <li><strong>Pilot platform:</strong> join 2–4 modules and prove harbor, microgrid, desalination, wastewater, transit, and emergency systems.</li>
+    <li><strong>Core spine build:</strong> arrival zone, city core, control systems, central utilities, and marine operations.</li>
+    <li><strong>Residential expansion:</strong> add neighborhoods in controlled blocks with commissioning gates.</li>
+    <li><strong>Hospitality/event expansion:</strong> add hotels, convention, waterpark, and stadium only after core systems prove reliable.</li>
+    <li><strong>Full operational maturity:</strong> continuous upgrade, inspection, module replacement, and route/port operations.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>10. Immediate next engineering work packages</h2>
+  <ol>
+    <li><strong>Weight and area model:</strong> deck-by-deck area, mass, CG, payload, reserves, and growth margin.</li>
+    <li><strong>Hydrostatic baseline:</strong> displacement, draft alternatives, GM targets, ballast envelope, damage cases.</li>
+    <li><strong>Structural concept model:</strong> primary girder/cell layout, module joints, global bending/torsion envelopes.</li>
+    <li><strong>Seakeeping feasibility model:</strong> preliminary RAOs, accelerations, route-weather operability, damping strategy.</li>
+    <li><strong>Life-safety concept:</strong> district compartments, refuge capacities, evacuation fleet assumptions, fire/smoke zones.</li>
+    <li><strong>Utilities sizing:</strong> firm power, fuel, water, wastewater, solid waste, HVAC, emergency reserves.</li>
+    <li><strong>Regulatory basis memorandum:</strong> proposed classification path and SOLAS/MARPOL equivalency matrix.</li>
+  </ol>
+</section>
+</main>
+</body>
+</html>

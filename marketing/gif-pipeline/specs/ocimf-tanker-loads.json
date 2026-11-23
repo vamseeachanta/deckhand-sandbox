@@ -1,0 +1,76 @@
+{
+  "channel": {
+    "name": "Floating & Marine Systems",
+    "tags": "🌊 mooring · riser · hydrodynamics"
+  },
+  "title": {
+    "big": "Wind & current loads on a tanker, answered in chat",
+    "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep."
+  },
+  "turns": [
+    {
+      "side": "me",
+      "time": "10:42",
+      "hold": 900,
+      "html": "I need the wind and current loads on a moored VLCC — the surge and sway force and the yaw moment for a given heading. Can you screen it?"
+    },
+    {
+      "side": "bot",
+      "typing": true,
+      "hold": 1200
+    },
+    {
+      "side": "bot",
+      "time": "10:42",
+      "hold": 4100,
+      "html": "Happy to. A few details so I screen it the right way:<ul><li>Tanker size and loading condition — give me length, beam, draft and displacement (or just tell me it's a loaded VLCC and I'll work from that).</li><li>Wind speed and the heading it's coming from.</li><li>Current speed and its heading.</li></ul><span class='note'>I work this with the OCIMF wind- and current-coefficient method for tankers. Heading is measured off the bow, so 0° is head-on and 90° is on the beam.</span>"
+    },
+    {
+      "side": "me",
+      "time": "10:43",
+      "hold": 4000,
+      "file": {
+        "name": "vessel_conditions.csv",
+        "size": "0.4 KB"
+      },
+      "html": "Loaded VLCC — 330&nbsp;m LOA, 60&nbsp;m beam, 22&nbsp;m draft, 250,000&nbsp;t displacement. Wind 20&nbsp;m/s coming from 60°, current 1.5&nbsp;m/s from 30°. Details attached."
+    },
+    {
+      "side": "bot",
+      "typing": true,
+      "hold": 1200
+    },
+    {
+      "side": "bot",
+      "time": "10:43",
+      "hold": 4400,
+      "html": "Got it — loaded VLCC, wind 20&nbsp;m/s at 60° and current 1.5&nbsp;m/s at 30°. Here's the plan: pull the OCIMF coefficients for each heading, work out the wind force on the above-water profile and the current force on the hull, then add them to get the total surge force, sway force and yaw moment on the vessel. Running it now…"
+    },
+    {
+      "side": "bot",
+      "wide": true,
+      "time": "10:44",
+      "hold": 3000,
+      "file": {
+        "name": "ocimf_tanker_loads_report",
+        "size": "inputs · method · results",
+        "deliver": true
+      },
+      "html": "Here's the load breakdown — longitudinal (surge), lateral (sway) and yaw moment:<table><tr><th>Source</th><th>Surge Fx</th><th>Sway Fy</th><th>Yaw Mz</th></tr><tr><td>Wind (60°)</td><td>74&nbsp;kN</td><td>665&nbsp;kN</td><td>58&nbsp;MN·m</td></tr><tr><td>Current (30°)</td><td>1,394&nbsp;kN</td><td>4,186&nbsp;kN</td><td>670&nbsp;MN·m</td></tr><tr><td>Total</td><td class='verdict'>1,468&nbsp;kN</td><td class='verdict'>4,851&nbsp;kN</td><td class='verdict'>728&nbsp;MN·m</td></tr></table><span class='note'>Current dominates — it carries about 86% of the sway force and the bulk of the yaw moment. The total sway load is roughly 4.85&nbsp;MN, which is the number your mooring pattern has to hold.</span>"
+    }
+  ],
+  "report": {
+    "title": "OCIMF Tanker Load Screen",
+    "sub": "digitalmodel · ocimf-tanker-loads · Report · 2026-06-16",
+    "foot": "ocimf_tanker_loads_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Vessel</b><br>Loaded VLCC · LOA 330&nbsp;m · beam 60&nbsp;m · draft 22&nbsp;m · displacement 250,000&nbsp;t<br><br><b>Environment</b><div class='mono'>Wind:&nbsp;&nbsp;&nbsp; 20.0&nbsp;m/s from 60° · air density 1.225&nbsp;kg/m³<br>Current: 1.5&nbsp;m/s from 30° · water density 1025&nbsp;kg/m³</div><br><b>Profile areas</b><br>Above-water frontal 600&nbsp;m² · lateral 3,300&nbsp;m² · submerged frontal 1,320&nbsp;m² · lateral 7,260&nbsp;m²</div>",
+    "methodology": "<div class='kv'>1&nbsp;· Look up the OCIMF wind and current coefficients (CX, CY, CM) for each heading off the bow.<br>2&nbsp;· Wind force = ½&nbsp;·&nbsp;air density&nbsp;·&nbsp;wind speed²&nbsp;·&nbsp;area&nbsp;·&nbsp;coefficient, on the above-water profile.<br>3&nbsp;· Current force = ½&nbsp;·&nbsp;water density&nbsp;·&nbsp;current speed²&nbsp;·&nbsp;area&nbsp;·&nbsp;coefficient, on the submerged hull.<br>4&nbsp;· Yaw moment from the moment coefficient, referenced to length.<br>5&nbsp;· Total surge, sway and yaw = wind + current, the loads the mooring has to react.</div>",
+    "outputs": "<table><tr><th>Source</th><th>Surge Fx</th><th>Sway Fy</th><th>Yaw Mz</th></tr><tr><td>Wind (60°)</td><td>74&nbsp;kN</td><td>665&nbsp;kN</td><td>58&nbsp;MN·m</td></tr><tr><td>Current (30°)</td><td>1,394&nbsp;kN</td><td>4,186&nbsp;kN</td><td>670&nbsp;MN·m</td></tr><tr><td>Total</td><td class='verdict'>1,468&nbsp;kN</td><td class='verdict'>4,851&nbsp;kN</td><td class='verdict'>728&nbsp;MN·m</td></tr></table><div class='kv' style='margin-top:10px'><b>Verdict:</b> Total environmental load on the vessel is 1,468&nbsp;kN surge, 4,851&nbsp;kN sway and 728&nbsp;MN·m yaw. Current drives it — about 95% of the sway force and most of the yaw moment — so the mooring pattern sizing is governed by the current, not the wind.</div>"
+  },
+  "closing": {
+    "headline": "OCIMF tanker loads: wind + current force & yaw moment.",
+    "tryThis": "Wind + current loads on a 320 m VLCC at 30° (OCIMF)?",
+    "route": "Floating & Marine Systems"
+  }
+}

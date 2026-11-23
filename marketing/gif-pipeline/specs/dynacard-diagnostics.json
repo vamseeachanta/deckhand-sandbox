@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Wells & Subsurface", "tags": "⛏️ drilling · wells · reservoir" },
+  "title": { "big": "Read a dynamometer card, find the fault", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "10:42", "hold": 900, "html": "One of my rod-pumped wells is acting up and the dynamometer card looks off. Can you read the card and tell me what's wrong with the pump?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "10:42", "hold": 4100, "html": "Happy to read it. A few things so I diagnose the right card:<ul><li><b>The card itself</b> — surface card or pump (downhole) card? Load-vs-position trace is what I work from.</li><li><b>Rod string &amp; pump</b> — rod diameter and length, pump bore and setting depth?</li><li><b>Stroke &amp; speed</b> — surface stroke length and strokes-per-minute, plus the gearbox rating?</li></ul><span class='note'>I classify the common rod-pump conditions — fluid pound, gas interference, pump tagging, valve leaks, tubing movement. If it looks like none of those, I'll say so rather than force a label.</span>" },
+    { "side": "me", "time": "10:43", "hold": 4000, "file": { "name": "dynacard.csv", "size": "3.2 KB" }, "html": "Pump card attached. 1.0&quot; rods, 5,000&nbsp;ft string. 1.75&quot; pump set at 5,000&nbsp;ft. 144&quot; stroke at 10&nbsp;SPM, 640,000&nbsp;in-lb gearbox." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "10:43", "hold": 4400, "html": "Got it — pump card, 1.0&quot; rods to a 1.75&quot; pump at 5,000&nbsp;ft, 144&quot; × 10&nbsp;SPM. I'll trace the load-vs-position loop, pull the card-shape features, and run the classifier to name the condition and rank the alternatives. Running it now…" },
+    { "side": "bot", "wide": true, "time": "10:44", "hold": 3000, "file": { "name": "dynacard_diagnostic_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's what the card is telling us:<table><tr><th>Finding</th><th>Value</th><th>Read from</th></tr><tr><td>Condition</td><td>Pump tagging</td><td>100% confidence</td></tr><tr><td>Pump fillage</td><td>75.9%</td><td>downhole card area</td></tr><tr><td>Production</td><td>338&nbsp;bbl/day</td><td>effective stroke</td></tr><tr><td>Rod string</td><td>⚠ Buckling detected</td><td>load-spike at bottom</td></tr></table><span class='note'>The plunger is making mechanical contact with the standing valve (or the top of the pump) at the bottom of the stroke — that's the load spike. It also shows mechanical buckling in the rod string. Differential: tagging 100%, traveling-valve leak 0%, tubing movement 0%. I'd shorten the stroke or raise the pump before the rods take more damage.</span>" }
+  ],
+  "report": {
+    "title": "Dynacard Diagnostics",
+    "sub": "digitalmodel · dynacard-diagnostics · Report · 2026-06-16",
+    "foot": "input_dynacard_diagnostic_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Well</b><br>SIM-PUMP-TAGGING-711<br><br><b>Rod string</b><br>Diameter 1.0&quot; · Length 5,000&nbsp;ft<br><br><b>Pump</b><br>Bore 1.75&quot; · Setting depth 5,000&nbsp;ft<br><br><b>Surface unit</b><br>Stroke length 144&quot; · 10&nbsp;SPM · Gearbox 640,000&nbsp;in-lb<br><br><b>Card</b><br>Pump (downhole) card · load vs. position</div>",
+    "methodology": "<div class='kv'>1&nbsp;· Trace the load-vs-position loop from the pump card.<br>2&nbsp;· Extract card-shape features (the Bezerra projections) that describe the loop.<br>3&nbsp;· Run the trained classifier (GradientBoosting v1.0, 5,400 synthetic cards, 89.4% cross-validated) to name the condition.<br>4&nbsp;· Rank the alternatives as a differential diagnosis, not a single guess.<br>5&nbsp;· Compute pump fillage from the downhole card area and convert effective stroke to a production rate.<br>6&nbsp;· Flag rod-string buckling from the bottom-of-stroke load spike.</div>",
+    "outputs": "<table><tr><th>Quantity</th><th>Value</th><th>Note</th></tr><tr><td>Condition</td><td>Pump tagging</td><td>plunger contacts standing valve / pump top</td></tr><tr><td>Confidence</td><td>100.0%</td><td>classifier</td></tr><tr><td>Pump fillage</td><td>75.9%</td><td>downhole card area</td></tr><tr><td>Production</td><td>338.0&nbsp;bbl/day</td><td>effective stroke</td></tr><tr><td>Rod buckling</td><td>⚠ Detected</td><td>bottom-of-stroke load spike</td></tr></table><div class='kv' style='margin-top:10px'><b>Differential:</b> Pump tagging 100% · Traveling-valve leak 0% · Tubing movement 0%<br><br><b>Verdict:</b> Pump tagging with rod-string buckling — shorten the stroke or raise the pump before the rods take more damage.</div>"
+  },
+  "closing": {
+    "headline": "Dynacard diagnostics: rod-pump condition + report.",
+    "tryThis": "Read this dynamometer card — what's wrong with my pump?",
+    "route": "Wells & Subsurface"
+  }
+}

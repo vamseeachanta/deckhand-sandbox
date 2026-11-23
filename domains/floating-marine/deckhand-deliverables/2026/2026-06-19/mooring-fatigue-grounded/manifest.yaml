@@ -1,0 +1,24 @@
+artifact_id: mooring-fatigue-grounded
+created_at: '2026-06-19T00:00:00Z'
+scope: open-deck
+visibility: public
+domain: floating-marine
+subdomain: mooring-stationkeeping
+channel: open-deck
+files:
+- report.html
+prompt_summary: "Grounded analysis \u2014 Mooring / station-keeping failure: engineering\
+  \ result paired with real-world precedent incidents."
+provenance:
+  stream: 'grounded-analysis (worldenergydata #486)'
+  failure_mode: Mooring / station-keeping failure
+  data_vintage: BSEE incident investigations; corpus current to 2026-01-08
+  sources:
+    BSEE: 6
+    OSHA: not routed (off-domain for this mode)
+    EPA_TRI: not routed (off-domain for this mode)
+  data_source: BSEE incident investigations (data.bsee.gov), public record
+  operator_names: excluded (lease block + date only; aggregation policy)
+sandbox_pr: {}
+promotion:
+  status: ready

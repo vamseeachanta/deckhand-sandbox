@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Floating & Marine Systems", "tags": "🌊 mooring · riser · hydrodynamics" },
+  "title": { "big": "Hull seakeeping, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "10:14", "hold": 900, "html": "We're worried about motions on a monohull in head seas — bad enough that crew comfort is a concern. Can you screen its seakeeping?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "10:14", "hold": 4100, "html": "Happy to — a few hull particulars so I screen it the right way:<ul><li>Length on the waterline, beam and draft?</li><li>Displacement, transverse GM and waterplane area?</li><li>Longitudinal GM for the pitch period?</li><li>The sea state and heading you're worried about — and the service speed?</li></ul><span class='note'>This is a frequency-domain screen for natural periods, a heave response and a motion-comfort estimate. For full 6-DOF spectral seakeeping in irregular seas I'd flag that and pass it on.</span>" },
+    { "side": "me", "time": "10:15", "hold": 4000, "file": { "name": "hull_particulars.csv", "size": "0.9 KB" }, "html": "LWL 150&nbsp;m, beam 30&nbsp;m, displacement 10,000&nbsp;t, GM 1.0&nbsp;m, waterplane area 3,000&nbsp;m², longitudinal GM 150&nbsp;m. Head seas at 0.8&nbsp;rad/s, 8&nbsp;m/s ahead, 2&nbsp;h on the bridge. Particulars attached." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "10:15", "hold": 4400, "html": "Got it — monohull in head seas. Basis I'll use: natural periods from the heave, pitch and roll restoring stiffness; encounter frequency for 8&nbsp;m/s into 180°&nbsp;seas; a single-degree heave response at that frequency; and a 2-hour motion-sickness estimate from the O'Hanlon &amp; McCauley model. Running it now…" },
+    { "side": "bot", "wide": true, "time": "10:16", "hold": 3000, "file": { "name": "hull_seakeeping_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's how the hull behaves:<table><tr><th>Quantity</th><th>Value</th><th>Note</th></tr><tr><td>Heave period</td><td>3.62&nbsp;s</td><td>short &amp; stiff</td></tr><tr><td>Pitch period</td><td>6.14&nbsp;s</td><td>—</td></tr><tr><td>Roll period</td><td>24.07&nbsp;s</td><td>tender · GM 1.0&nbsp;m</td></tr><tr><td>Heave RAO @ 0.8&nbsp;rad/s</td><td>1.27</td><td>off resonance</td></tr><tr><td>Motion-sickness (2&nbsp;h)</td><td>8.5%</td><td class='verdict'>✅ comfortable</td></tr></table><span class='note'>Wave at 0.8&nbsp;rad/s sits well clear of the 1.74&nbsp;rad/s heave resonance, so heave is mild. The long 24&nbsp;s roll period is the comfort watch-item — the low GM makes her tender in beam seas.</span>" }
+  ],
+  "report": {
+    "title": "Hull Seakeeping Screen",
+    "sub": "digitalmodel · hull-seakeeping · Report · 2026-06-16",
+    "foot": "input_hull_seakeeping_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Hull particulars</b><br>LWL 150&nbsp;m · Beam 30&nbsp;m · Displacement 10,000&nbsp;t<br>Transverse GM 1.0&nbsp;m · Longitudinal GM 150&nbsp;m<br>Waterplane area 3,000&nbsp;m²<br><br><b>Environment &amp; operation</b><div class='mono'>Wave frequency 0.8&nbsp;rad/s · Heading 180° (head seas)<br>Speed 8&nbsp;m/s · Heave damping ratio 0.05<br>Vertical accel 0.05&nbsp;g rms · Exposure 2&nbsp;h</div></div>",
+    "methodology": "<div class='kv'>1&nbsp;· Heave period T = 2π√(m ÷ ρg·Awp) from mass and waterplane stiffness.<br>2&nbsp;· Pitch period from longitudinal GM and a 0.25·L pitch gyration radius.<br>3&nbsp;· Roll period from transverse GM and a 0.40·B roll gyration radius.<br>4&nbsp;· Encounter frequency ωₑ = ω − (ω²÷g)·V·cos(μ) for the head-sea case.<br>5&nbsp;· Heave response from a single-degree transfer function at the wave frequency.<br>6&nbsp;· Motion-sickness incidence over 2&nbsp;h from the O'Hanlon &amp; McCauley model.</div>",
+    "outputs": "<table><tr><th>Quantity</th><th>Value</th></tr><tr><td>Natural heave period</td><td>3.62&nbsp;s</td></tr><tr><td>Natural pitch period</td><td>6.14&nbsp;s</td></tr><tr><td>Natural roll period</td><td>24.07&nbsp;s</td></tr><tr><td>Encounter frequency</td><td>1.32&nbsp;rad/s</td></tr><tr><td>Heave RAO @ 0.8&nbsp;rad/s</td><td>1.27</td></tr><tr><td>Significant motion</td><td>2.00&nbsp;m</td></tr><tr><td>Motion-sickness incidence (2&nbsp;h)</td><td>8.5%</td></tr></table><div class='kv' style='margin-top:10px'><b>Verdict:</b> COMFORTABLE — motions are mild at this frequency and crew comfort clears the comfort band. Watch the 24&nbsp;s roll period in beam seas; the 1.0&nbsp;m GM makes her tender.</div>"
+  },
+  "closing": {
+    "headline": "Hull seakeeping: natural periods, RAOs, motion-sickness incidence.",
+    "tryThis": "Natural periods, RAOs and motion comfort for this hull?",
+    "route": "Floating & Marine Systems"
+  }
+}

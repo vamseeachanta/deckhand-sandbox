@@ -1,0 +1,11 @@
+# Protected deliverables — CI (protect-deliverables.yml) fails if any path here
+# is removed/renamed. These are client-depended-upon LIVE links; keep available.
+# (deckhand#463). To intentionally move one: update the path here AND leave a
+# redirect at the old location in the same PR.
+
+# Mooring-fatigue grounded card — the client's current canonical link (dated archive)
+domains/floating-marine/deckhand-deliverables/2026/2026-06-19/mooring-fatigue-grounded/report.html
+domains/floating-marine/deckhand-deliverables/2026/2026-06-19/mooring-fatigue-grounded/manifest.yaml
+
+# Stable dateless alias for going forward (survives content updates)
+domains/floating-marine/grounded/mooring-fatigue/index.html

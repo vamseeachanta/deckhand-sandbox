@@ -1,0 +1,313 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Installation Vessel Pamphlet — BokaLift 2</title>
+<style>
+:root{--ink:#0f2233;--ac:#0a6cbf;--mut:#5a6b7a;--ln:#dce3ea;--ok:#0a8f4f;--amber:#d98b00;--red:#c0392b;--bg:#eef2f6}
+*{box-sizing:border-box}
+body{font:14px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg)}
+.wrap{max-width:920px;margin:22px auto;background:#fff;box-shadow:0 1px 8px rgba(20,40,60,.10);border-radius:8px;overflow:hidden}
+header{background:linear-gradient(135deg,#0a6cbf,#0c4d80);color:#fff;padding:24px 30px}
+header h1{margin:0;font-size:23px} header .s{opacity:.92;font-size:13.5px;margin-top:4px}
+.tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:2px 11px;font-size:11.5px;margin-top:10px}
+main{padding:8px 30px 26px}
+h2{font-size:15px;color:var(--ac);margin:24px 0 8px;border-left:4px solid var(--ac);padding-left:9px}
+.sub{color:var(--mut);font-size:12.5px;margin:-2px 0 8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.card{border:1px solid var(--ln);border-radius:7px;padding:12px 14px;background:#fbfdff}
+.card h3{margin:0 0 8px;font-size:12.5px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+table{border-collapse:collapse;width:100%;font-size:12.7px}
+th,td{border-bottom:1px solid var(--ln);padding:6px 8px;text-align:center}
+th{background:#f3f7fb;font-weight:600;color:#33485a} td.l,th.l{text-align:left}
+.kv td{border:none;padding:4px 2px;text-align:left} .kv td:first-child{color:var(--mut);width:52%} .kv td:last-child{font-weight:600}
+.b{padding:1px 8px;border-radius:9px;color:#fff;font-size:10.5px;font-weight:700}
+.b.ok{background:var(--ok)} .b.warn{background:var(--amber)} .b.no{background:var(--red)} .b.mut{background:#90a4b4}
+.ut{display:inline-block;width:62px;height:7px;background:#e3eaf0;border-radius:4px;overflow:hidden;vertical-align:middle;margin-right:6px}
+.ut.wide{width:120px} .ut span{display:block;height:100%;background:var(--ac)}
+.note{background:#fff6e6;border:1px solid #f0d9a0;border-radius:7px;padding:10px 13px;font-size:12.3px;margin-top:12px}
+.note.g{background:#eafaf1;border-color:#bfe6cf}
+.banner{background:#fbe9e7;border-left:4px solid var(--red);padding:8px 13px;font-size:12.2px;color:#7a1f15;margin:14px 30px 0}
+footer{padding:14px 30px 22px;color:var(--mut);font-size:11.3px;border-top:1px solid var(--ln);margin-top:22px}
+small{color:var(--mut)}
+/* live monitor */
+.mon{border:1px solid var(--ln);border-radius:8px;background:#0e1f2e;color:#dfe9f1;padding:0;overflow:hidden}
+.mon .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#0a1722;padding:10px 14px;font-size:12.5px}
+.mon input{background:#1b3346;border:1px solid #2e526e;color:#eaf2f8;border-radius:5px;padding:4px 7px;font-size:12px;width:92px}
+.mon button{background:var(--ac);color:#fff;border:0;border-radius:5px;padding:5px 12px;font-size:12px;cursor:pointer}
+.mon button.alt{background:#2e526e}
+.mon .body{padding:14px}
+.now{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.now .m{background:#13283a;border:1px solid #1f3d54;border-radius:7px;padding:9px 11px}
+.now .m .k{font-size:10.5px;color:#7fa0b8;text-transform:uppercase;letter-spacing:.4px}
+.now .m .vv{font-size:21px;font-weight:700;margin-top:2px} .now .m .u{font-size:11px;color:#90a9bd}
+.golist{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.go{border-radius:7px;padding:10px 12px;border:1px solid #1f3d54;background:#13283a}
+.go .t{font-size:11.5px;color:#9fbcd0} .go .verdict{font-size:16px;font-weight:800;margin-top:3px}
+.go .lim{font-size:11px;color:#84a2b8;margin-top:3px}
+.go.GO{box-shadow:inset 0 0 0 2px var(--ok)} .go.MARGINAL{box-shadow:inset 0 0 0 2px var(--amber)} .go.NOGO{box-shadow:inset 0 0 0 2px var(--red)}
+.vGO{color:#4cd28a} .vMARGINAL{color:#f0b34d} .vNOGO{color:#ef7468}
+.risk{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.risk .r{background:#13283a;border:1px solid #1f3d54;border-radius:7px;padding:10px 12px}
+.risk .r h4{margin:0 0 6px;font-size:12px;color:#bcd4e6}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+.lvl-low{background:#4cd28a} .lvl-mod{background:#f0b34d} .lvl-high{background:#ef8a5a} .lvl-sev{background:#ef5350}
+.rrow{font-size:12px;margin:4px 0;color:#cfe0ec}
+.mut2{color:#8aa6ba;font-size:11px}
+.win{margin-top:12px;font-size:12.5px;background:#13283a;border:1px solid #1f3d54;border-radius:7px;padding:9px 12px}
+/* risk section */
+.oph{font-size:13px;color:var(--ink);margin:16px 0 4px;font-weight:700}
+.rt{font-size:12px} .rt td,.rt th{padding:5px 7px} .rt td.l{font-size:11.6px}
+.rk{padding:1px 8px;border-radius:9px;color:#fff;font-size:10.5px;font-weight:700;white-space:nowrap}
+.rk-low{background:#0a8f4f} .rk-med{background:#d98b00} .rk-high{background:#e2622c} .rk-crit{background:#c0392b}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.dp3{background:#eef4fb;border:1px solid #cfe0f1;border-radius:7px;padding:10px 13px;font-size:12.3px;margin-top:10px}
+.legend{font-size:11px;color:var(--mut);margin-top:6px}
+.legend .rk{margin:0 3px}
+/* provenance / progress */
+.pv{padding:1px 7px;border-radius:9px;color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.3px;vertical-align:middle;margin-left:7px}
+.pv-act{background:#0a8f4f} .pv-ship{background:#0a6cbf} .pv-prox{background:#d98b00} .pv-pend{background:#90a4b4}
+.prog{background:#0e1f2e;color:#dfe9f1;border-radius:8px;padding:14px 16px;margin:14px 30px 0}
+.prog h3{margin:0 0 4px;font-size:13px;color:#cfe2f0}
+.prog .meter{height:9px;background:#1b3346;border-radius:5px;overflow:hidden;margin:8px 0}
+.prog .meter span{display:block;height:100%;background:linear-gradient(90deg,#0a8f4f,#0a6cbf)}
+.prog table{margin-top:8px} .prog td,.prog th{border-color:#1f3d54;color:#dfe9f1;text-align:left;padding:4px 8px;font-size:11.7px}
+.prog th{background:#13283a;color:#9fbcd0} .prog tr td:first-child{color:#9fbcd0;width:42px}
+.prog .runid{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:#7fa0b8}
+@media print{body{background:#fff} .wrap{box-shadow:none;margin:0} .mon{background:#fff;color:#0f2233}}
+@media(max-width:680px){.grid,.now,.golist,.risk{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
+
+<header>
+<h1>Installation Vessel Pamphlet</h1>
+<div class="s"><b>BokaLift 2</b> &middot; Monohull heavy-lift crane vessel (converted drillship) &middot; Boskalis</div>
+<span class="tag">Desktop screening + live weather-window monitor &middot; Generated by installation_pamphlet workflow (deterministic) — 28 Jun 2026</span>
+</header>
+
+<div class="banner"><b>DRAFT — not for marine-warranty issue.</b> Seakeeping envelopes use a conservative proxy RAO
+pending the vessel-specific OrcaWave solve (parallel licensed run). Live monitor is decision-support only;
+confirm against vessel RAO, MWS approval and the bridge/DP &amp; mooring teams before execution.</div>
+
+<div class="prog">
+<h3>Analysis progress &amp; data provenance</h3>
+<div style="font-size:12px;color:#9fbcd0">Maturity 85% &middot; 3 licensed run(s) completed &middot;
+current RAO basis: <b style="color:#dfe9f1">ship-shaped (drillship) proxy</b> &middot; from <span class="runid">lr_acma_8de9c018adbd</span></div>
+<div class="meter"><span style="width:85%"></span></div>
+<table><tr><th>Task</th><th>Analysis</th><th>Status</th><th>Basis</th><th>Licensed run</th></tr><tr><td>T1</td><td>Vessel particulars & crane curve</td><td><span class="pv pv-act">ACTUAL</span></td><td>Cited vessel database</td><td class='runid'>—</td></tr><tr><td>T2</td><td>Crane lift suitability (6 items)</td><td><span class="pv pv-act">ACTUAL</span></td><td>Interpolated crane curve + DNV DAF</td><td class='runid'>—</td></tr><tr><td>T3</td><td>Vessel motion RAO</td><td><span class="pv pv-ship">SHIP-PROXY</span></td><td>ship-shaped drillship proxy (justified by completed FPSO diffraction)</td><td class='runid'>lr_acma_8de9c018adbd</td></tr><tr><td>T4</td><td>Operation envelopes (Hs/Tp)</td><td><span class="pv pv-ship">SHIP-PROXY</span></td><td>operation_envelope on T3 RAO</td><td class='runid'>lr_acma_8de9c018adbd</td></tr><tr><td>T5</td><td>Per-structure splash-zone envelope</td><td><span class="pv pv-act">ACTUAL</span></td><td>Closed-form DNV-RP-H103 splash-zone (slamming + drag + added-mass inertia, snap / slack-sling criterion) from catalog hydro coefficients</td><td class='runid'>—</td></tr><tr><td>T6</td><td>Weather-window operability</td><td><span class="pv pv-ship">SHIP-PROXY</span></td><td>weather_window engine on T4 limits</td><td class='runid'>—</td></tr><tr><td>T7</td><td>DP / mooring statistical risk</td><td><span class="pv pv-act">ACTUAL</span></td><td>IMCA + HSE RR444 + DNV statistics</td><td class='runid'>—</td></tr><tr><td>T8</td><td>Manifold / PLET structure catalog</td><td><span class="pv pv-act">ACTUAL</span></td><td>Catalog entries (PLET/manifold/SPS) computed from first principles (DNV-RP-H103)</td><td class='runid'>—</td></tr></table>
+<div style="font-size:11px;color:#7fa0b8;margin-top:7px">Auto-upgrades as licensed runs land: <b>PENDING</b> &rarr; <b>PROXY</b> &rarr; <b>SHIP-PROXY</b> &rarr; <b>ACTUAL</b>.
+Next upgrade: a vessel-specific BokaLift mesh diffraction (T3&rarr;ACTUAL) and per-structure OrcaFlex splash-zone runs (T5).</div></div>
+
+<main>
+
+<h2>1 &nbsp;Vessel Characteristics</h2>
+<div class="grid">
+<div class="card"><h3>Particulars</h3><table class="kv">
+<tr><td>Vessel type</td><td>Monohull heavy-lift crane vessel (converted drillship)</td></tr>
+<tr><td>Owner / operator</td><td>Boskalis</td></tr>
+<tr><td>Max hook load</td><td>4,000 te</td></tr>
+<tr><td>Free deck area</td><td>7,500 m&sup2;</td></tr>
+<tr><td>Deck strength</td><td>— (TBC)</td></tr>
+<tr><td>Station-keeping</td><td>DP2</td></tr>
+</table></div>
+<div class="card"><h3>Main crane — SWL vs radius</h3><svg viewBox="0 0 460 230" width="100%" role="img" aria-label="Crane SWL vs radius">
+<line x1="52" y1="196.0" x2="446" y2="196.0" stroke="#eef2f6"/><text x="46" y="199.0" font-size="9" text-anchor="end" fill="#5a6b7a">0</text><line x1="52" y1="154.3" x2="446" y2="154.3" stroke="#eef2f6"/><text x="46" y="157.3" font-size="9" text-anchor="end" fill="#5a6b7a">1,000</text><line x1="52" y1="112.7" x2="446" y2="112.7" stroke="#eef2f6"/><text x="46" y="115.7" font-size="9" text-anchor="end" fill="#5a6b7a">2,000</text><line x1="52" y1="71.0" x2="446" y2="71.0" stroke="#eef2f6"/><text x="46" y="74.0" font-size="9" text-anchor="end" fill="#5a6b7a">3,000</text><line x1="52" y1="29.3" x2="446" y2="29.3" stroke="#eef2f6"/><text x="46" y="32.3" font-size="9" text-anchor="end" fill="#5a6b7a">4,000</text><polyline points="147.5,29.3 362.4,162.7 427.2,187.7" fill="none" stroke="#0a6cbf" stroke-width="2.2"/><circle cx="147.5" cy="29.3" r="3.5" fill="#0a6cbf"/><text x="147.5" y="22.3" font-size="10" text-anchor="middle" fill="#0f2233">4,000 te</text><circle cx="362.4" cy="162.7" r="3.5" fill="#0a6cbf"/><text x="362.4" y="155.7" font-size="10" text-anchor="middle" fill="#0f2233">800 te</text><circle cx="427.2" cy="187.7" r="3.5" fill="#0a6cbf"/><text x="427.2" y="180.7" font-size="10" text-anchor="middle" fill="#0f2233">200 te</text><text x="147.5" y="210.0" font-size="10" text-anchor="middle" fill="#5a6b7a">28</text><text x="362.4" y="210.0" font-size="10" text-anchor="middle" fill="#5a6b7a">91</text><text x="427.2" y="210.0" font-size="10" text-anchor="middle" fill="#5a6b7a">110</text>
+<text x="230" y="227" font-size="10" text-anchor="middle" fill="#5a6b7a">Crane radius (m)</text>
+<text x="12" y="115" font-size="10" text-anchor="middle" fill="#5a6b7a" transform="rotate(-90 12 115)">SWL (te)</text></svg></div>
+</div>
+
+<h2>2 &nbsp;Lift Suitability — Structures &amp; Jumpers</h2>
+<div class="sub">Hook load = air mass &times; DAF 1.3 (DNV-ST-N001); SWL interpolated at 40 m radius.</div>
+<table><tr><th class="l">Item</th><th>Air mass (te)</th><th>Hook load (te)</th><th>SWL @ 40 m (te)</th><th>Utilisation</th><th>Verdict</th></tr>
+<tr><td class='l'>Mudmat (small)</td><td>50.00</td><td>65.0</td><td>3,390</td><td><div class='ut'><span style='width:2%'></span></div>1.9%</td><td><span class='b ok'>PASS</span></td></tr><tr><td class='l'>Mudmat (medium)</td><td>100.00</td><td>130.0</td><td>3,390</td><td><div class='ut'><span style='width:4%'></span></div>3.8%</td><td><span class='b ok'>PASS</span></td></tr><tr><td class='l'>Subsea structure / template (large)</td><td>200.00</td><td>260.0</td><td>3,390</td><td><div class='ut'><span style='width:8%'></span></div>7.7%</td><td><span class='b ok'>PASS</span></td></tr><tr><td class='l'>Production manifold (250 te)</td><td>250.00</td><td>325.0</td><td>3,390</td><td><div class='ut'><span style='width:10%'></span></div>9.6%</td><td><span class='b ok'>PASS</span></td></tr><tr><td class='l'>Rigid jumper (short 20 m)</td><td>1.85</td><td>2.4</td><td>3,390</td><td><div class='ut'><span style='width:1%'></span></div>0.1%</td><td><span class='b ok'>PASS</span></td></tr><tr><td class='l'>Rigid jumper (long 100 m)</td><td>9.24</td><td>12.0</td><td>3,390</td><td><div class='ut'><span style='width:1%'></span></div>0.4%</td><td><span class='b ok'>PASS</span></td></tr></table>
+<div class="note g"><b>Lift capacity is not the constraint</b> — heaviest item (250 te &rarr; 325 te hook) uses ~10% of SWL.
+Governing limits are <b>seakeeping</b> and <b>station-keeping</b> (&sect;5–6), not crane capacity.</div>
+
+<h2>3 &nbsp;Operational Envelopes — Limiting Hs vs Tp <span class="pv pv-ship">SHIP-PROXY</span></h2>
+<div class="sub">Closed-form JONSWAP &times; RAO motion-criteria screen (DNV-RP-H103 / ST-N001), &gamma;=3.3.</div>
+<div class="grid">
+<div class="card"><h3>Limiting Hs (m)</h3><svg viewBox="0 0 460 250" width="100%" role="img" aria-label="Operational Hs limit vs Tp">
+<line x1="46" y1="216.0" x2="348" y2="216.0" stroke="#eef2f6"/><text x="40" y="219.0" font-size="9" text-anchor="end" fill="#5a6b7a">0.0</text><line x1="46" y1="166.0" x2="348" y2="166.0" stroke="#eef2f6"/><text x="40" y="169.0" font-size="9" text-anchor="end" fill="#5a6b7a">0.3</text><line x1="46" y1="116.0" x2="348" y2="116.0" stroke="#eef2f6"/><text x="40" y="119.0" font-size="9" text-anchor="end" fill="#5a6b7a">0.6</text><line x1="46" y1="66.0" x2="348" y2="66.0" stroke="#eef2f6"/><text x="40" y="69.0" font-size="9" text-anchor="end" fill="#5a6b7a">0.9</text><line x1="46" y1="16.0" x2="348" y2="16.0" stroke="#eef2f6"/><text x="40" y="19.0" font-size="9" text-anchor="end" fill="#5a6b7a">1.2</text><text x="46.0" y="230.0" font-size="10" text-anchor="middle" fill="#5a6b7a">6</text><text x="106.4" y="230.0" font-size="10" text-anchor="middle" fill="#5a6b7a">8</text><text x="166.8" y="230.0" font-size="10" text-anchor="middle" fill="#5a6b7a">10</text><text x="227.2" y="230.0" font-size="10" text-anchor="middle" fill="#5a6b7a">12</text><text x="287.6" y="230.0" font-size="10" text-anchor="middle" fill="#5a6b7a">14</text><text x="348.0" y="230.0" font-size="10" text-anchor="middle" fill="#5a6b7a">16</text><polyline points="46.0,-90.7 106.4,117.7 166.8,152.7 227.2,137.7 287.6,137.7 348.0,164.3" fill="none" stroke="#0a8f4f" stroke-width="2.2"/><circle cx="46.0" cy="-90.7" r="2.6" fill="#0a8f4f"/><circle cx="106.4" cy="117.7" r="2.6" fill="#0a8f4f"/><circle cx="166.8" cy="152.7" r="2.6" fill="#0a8f4f"/><circle cx="227.2" cy="137.7" r="2.6" fill="#0a8f4f"/><circle cx="287.6" cy="137.7" r="2.6" fill="#0a8f4f"/><circle cx="348.0" cy="164.3" r="2.6" fill="#0a8f4f"/><polyline points="46.0,-29.0 106.4,137.7 166.8,166.0 227.2,154.3 287.6,164.3 348.0,181.0" fill="none" stroke="#d98b00" stroke-width="2.2"/><circle cx="46.0" cy="-29.0" r="2.6" fill="#d98b00"/><circle cx="106.4" cy="137.7" r="2.6" fill="#d98b00"/><circle cx="166.8" cy="166.0" r="2.6" fill="#d98b00"/><circle cx="227.2" cy="154.3" r="2.6" fill="#d98b00"/><circle cx="287.6" cy="164.3" r="2.6" fill="#d98b00"/><circle cx="348.0" cy="181.0" r="2.6" fill="#d98b00"/><polyline points="46.0,42.7 106.4,161.0 166.8,181.0 227.2,171.0 287.6,191.0 348.0,199.3" fill="none" stroke="#c0392b" stroke-width="2.2"/><circle cx="46.0" cy="42.7" r="2.6" fill="#c0392b"/><circle cx="106.4" cy="161.0" r="2.6" fill="#c0392b"/><circle cx="166.8" cy="181.0" r="2.6" fill="#c0392b"/><circle cx="227.2" cy="171.0" r="2.6" fill="#c0392b"/><circle cx="287.6" cy="191.0" r="2.6" fill="#c0392b"/><circle cx="348.0" cy="199.3" r="2.6" fill="#c0392b"/><line x1="354" y1="20" x2="372" y2="20" stroke="#0a8f4f" stroke-width="2.6"/><text x="376" y="23" font-size="10" fill="#0f2233">Transit (&alpha;=0.9)</text><line x1="354" y1="36" x2="372" y2="36" stroke="#d98b00" stroke-width="2.6"/><text x="376" y="39" font-size="10" fill="#0f2233">DP station-keep (&alpha;=0.9)</text><line x1="354" y1="52" x2="372" y2="52" stroke="#c0392b" stroke-width="2.6"/><text x="376" y="55" font-size="10" fill="#0f2233">Heavy lift (&alpha;=0.85)</text>
+<text x="197" y="247" font-size="10" text-anchor="middle" fill="#5a6b7a">Peak period Tp (s)</text>
+<text x="12" y="125" font-size="10" text-anchor="middle" fill="#5a6b7a" transform="rotate(-90 12 125)">Limiting Hs (m)</text></svg></div>
+<div class="card"><h3>Tabulated Hs (m) by Tp (s)</h3>
+<table><tr><th class="l">Operation</th><th>6</th><th>8</th><th>10</th><th>12</th><th>14</th><th>16</th></tr><tr><td class='l'>Transit / sail-away <small>&alpha;=0.9</small></td><td>1.84</td><td>0.59</td><td>0.38</td><td>0.47</td><td>0.47</td><td>0.31</td></tr><tr><td class='l'>DP station-keeping <small>&alpha;=0.9</small></td><td>1.47</td><td>0.47</td><td>0.30</td><td>0.37</td><td>0.31</td><td>0.21</td></tr><tr><td class='l'>Heavy lift (splash zone) <small>&alpha;=0.85</small></td><td>1.04</td><td>0.33</td><td>0.21</td><td>0.27</td><td>0.15</td><td>0.10</td></tr></table>
+<p class="sub" style="margin-top:8px">Header row = Tp (s).</p></div>
+</div>
+<div class="note"><b>Envelope basis:</b> Ship-shaped (drillship) parametric RAO — adapted basis, justified by completed FPSO diffraction run lr_acma_8de9c018adbd. These are still parametric — the vessel-specific BokaLift mesh diffraction (when that licensed run completes) replaces them and is expected to widen the limits further.</div>
+
+<h3 class='oph' style='margin-top:18px'>Per-structure splash-zone limits (DNV-RP-H103)</h3><div class="sub">Closed-form slamming + drag + added-mass inertia vs the snap / slack-sling criterion (characteristic upward hydrodynamic force &le; submerged weight / DAF). Hoist wire must stay in tension through the wave zone. Future verification: OrcaFlex dynamic lowering run.</div><div class="grid"><div class="card"><h3>Splash-zone Hs limit (m)</h3><svg viewBox="0 0 460 250" width="100%" role="img" aria-label="Splash-zone limiting Hs vs Tp">
+<line x1="46" y1="216.0" x2="310" y2="216.0" stroke="#eef2f6"/><text x="40" y="219.0" font-size="9" text-anchor="end" fill="#5a6b7a">0.0</text><line x1="46" y1="164.8" x2="310" y2="164.8" stroke="#eef2f6"/><text x="40" y="167.8" font-size="9" text-anchor="end" fill="#5a6b7a">1.7</text><line x1="46" y1="116.7" x2="310" y2="116.7" stroke="#eef2f6"/><text x="40" y="119.7" font-size="9" text-anchor="end" fill="#5a6b7a">3.3</text><line x1="46" y1="65.6" x2="310" y2="65.6" stroke="#eef2f6"/><text x="40" y="68.6" font-size="9" text-anchor="end" fill="#5a6b7a">5.0</text><line x1="46" y1="17.4" x2="310" y2="17.4" stroke="#eef2f6"/><text x="40" y="20.4" font-size="9" text-anchor="end" fill="#5a6b7a">6.6</text><text x="46.0" y="230.0" font-size="10" text-anchor="middle" fill="#5a6b7a">6</text><text x="98.8" y="230.0" font-size="10" text-anchor="middle" fill="#5a6b7a">8</text><text x="151.6" y="230.0" font-size="10" text-anchor="middle" fill="#5a6b7a">10</text><text x="204.4" y="230.0" font-size="10" text-anchor="middle" fill="#5a6b7a">12</text><text x="257.2" y="230.0" font-size="10" text-anchor="middle" fill="#5a6b7a">14</text><text x="310.0" y="230.0" font-size="10" text-anchor="middle" fill="#5a6b7a">16</text><polyline points="46.0,152.5 98.8,131.1 151.6,109.5 204.4,87.8 257.2,66.2 310.0,44.5" fill="none" stroke="#0a6cbf" stroke-width="2.2"/><circle cx="46.0" cy="152.5" r="2.6" fill="#0a6cbf"/><circle cx="98.8" cy="131.1" r="2.6" fill="#0a6cbf"/><circle cx="151.6" cy="109.5" r="2.6" fill="#0a6cbf"/><circle cx="204.4" cy="87.8" r="2.6" fill="#0a6cbf"/><circle cx="257.2" cy="66.2" r="2.6" fill="#0a6cbf"/><circle cx="310.0" cy="44.5" r="2.6" fill="#0a6cbf"/><polyline points="46.0,159.1 98.8,139.6 151.6,120.3 204.4,100.8 257.2,81.2 310.0,61.6" fill="none" stroke="#c0392b" stroke-width="2.2"/><circle cx="46.0" cy="159.1" r="2.6" fill="#c0392b"/><circle cx="98.8" cy="139.6" r="2.6" fill="#c0392b"/><circle cx="151.6" cy="120.3" r="2.6" fill="#c0392b"/><circle cx="204.4" cy="100.8" r="2.6" fill="#c0392b"/><circle cx="257.2" cy="81.2" r="2.6" fill="#c0392b"/><circle cx="310.0" cy="61.6" r="2.6" fill="#c0392b"/><polyline points="46.0,163.0 98.8,144.7 151.6,126.3 204.4,108.3 257.2,89.9 310.0,71.6" fill="none" stroke="#0a8f4f" stroke-width="2.2"/><circle cx="46.0" cy="163.0" r="2.6" fill="#0a8f4f"/><circle cx="98.8" cy="144.7" r="2.6" fill="#0a8f4f"/><circle cx="151.6" cy="126.3" r="2.6" fill="#0a8f4f"/><circle cx="204.4" cy="108.3" r="2.6" fill="#0a8f4f"/><circle cx="257.2" cy="89.9" r="2.6" fill="#0a8f4f"/><circle cx="310.0" cy="71.6" r="2.6" fill="#0a8f4f"/><polyline points="46.0,152.2 98.8,130.2 151.6,108.3 204.4,86.0 257.2,64.1 310.0,42.1" fill="none" stroke="#8e44ad" stroke-width="2.2"/><circle cx="46.0" cy="152.2" r="2.6" fill="#8e44ad"/><circle cx="98.8" cy="130.2" r="2.6" fill="#8e44ad"/><circle cx="151.6" cy="108.3" r="2.6" fill="#8e44ad"/><circle cx="204.4" cy="86.0" r="2.6" fill="#8e44ad"/><circle cx="257.2" cy="64.1" r="2.6" fill="#8e44ad"/><circle cx="310.0" cy="42.1" r="2.6" fill="#8e44ad"/><line x1="316" y1="20" x2="334" y2="20" stroke="#0a6cbf" stroke-width="2.6"/><text x="338" y="23" font-size="9.5" fill="#0f2233">MUD-S</text><line x1="316" y1="36" x2="334" y2="36" stroke="#c0392b" stroke-width="2.6"/><text x="338" y="39" font-size="9.5" fill="#0f2233">MUD-M</text><line x1="316" y1="52" x2="334" y2="52" stroke="#0a8f4f" stroke-width="2.6"/><text x="338" y="55" font-size="9.5" fill="#0f2233">MUD-L</text><line x1="316" y1="68" x2="334" y2="68" stroke="#8e44ad" stroke-width="2.6"/><text x="338" y="71" font-size="9.5" fill="#0f2233">MAN-250</text>
+<text x="178" y="247" font-size="10" text-anchor="middle" fill="#5a6b7a">Peak period Tp (s)</text>
+<text x="12" y="125" font-size="10" text-anchor="middle" fill="#5a6b7a" transform="rotate(-90 12 125)">Splash-zone Hs limit (m)</text></svg></div><div class="card"><h3>Limiting Hs (m) by Tp (s) &middot; governing term</h3><table><tr><th class='l'>Structure</th><th>6</th><th>8</th><th>10</th><th>12</th><th>14</th><th>16</th><th>Gov.</th></tr><tr><td class='l'>Mudmat (small) <small>(W<sub>sub</sub>=445 kN, A<sub>b</sub>=36 m&sup2;)</small></td><td>2.11</td><td>2.82</td><td>3.54</td><td>4.26</td><td>4.98</td><td>5.70</td><td><small>slam</small></td></tr><tr><td class='l'>Mudmat (medium) <small>(W<sub>sub</sub>=860 kN, A<sub>b</sub>=80 m&sup2;)</small></td><td>1.89</td><td>2.54</td><td>3.18</td><td>3.83</td><td>4.48</td><td>5.13</td><td><small>slam</small></td></tr><tr><td class='l'>Subsea structure / template (large) <small>(W<sub>sub</sub>=1,660 kN, A<sub>b</sub>=168 m&sup2;)</small></td><td>1.76</td><td>2.37</td><td>2.98</td><td>3.58</td><td>4.19</td><td>4.80</td><td><small>slam</small></td></tr><tr><td class='l'>Production manifold (250 te) <small>(W<sub>sub</sub>=2,132 kN, A<sub>b</sub>=168 m&sup2;)</small></td><td>2.12</td><td>2.85</td><td>3.58</td><td>4.32</td><td>5.05</td><td>5.78</td><td><small>slam</small></td></tr></table><p class="sub" style="margin-top:8px">Header row = Tp (s). "Gov." = governing term at the shortest Tp (slam / drag / inertia).</p></div></div><div class="grid" style="margin-top:14px"><div class="card"><h3>Governing lowering Hs (m) = min(vessel heavy-lift, splash-zone)</h3><table><tr><th class='l'>Structure</th><th>6</th><th>8</th><th>10</th><th>12</th><th>14</th><th>16</th></tr><tr><td class='l'>Mudmat (small)</td><td>1.04</td><td>0.33</td><td>0.21</td><td>0.27</td><td>0.15</td><td>0.10</td></tr><tr><td class='l'>Mudmat (medium)</td><td>1.04</td><td>0.33</td><td>0.21</td><td>0.27</td><td>0.15</td><td>0.10</td></tr><tr><td class='l'>Subsea structure / template (large)</td><td>1.04</td><td>0.33</td><td>0.21</td><td>0.27</td><td>0.15</td><td>0.10</td></tr><tr><td class='l'>Production manifold (250 te)</td><td>1.04</td><td>0.33</td><td>0.21</td><td>0.27</td><td>0.15</td><td>0.10</td></tr></table><p class="sub" style="margin-top:8px">Per structure, the lower of the vessel heavy-lift motion limit and its own splash-zone limit governs the lower-through-wave-zone go/no-go.</p></div></div>
+
+<h2>4 &nbsp;Lift Items (reference catalogs)</h2>
+<table><tr><th class="l">Item</th><th>Footprint L&times;W&times;H (m)</th><th>Air mass (te)</th><th>Source</th></tr>
+<tr><td class="l">Mudmat — small</td><td>6 &times; 6 &times; 1.5</td><td>50</td><td>mudmat_structures.json</td></tr>
+<tr><td class="l">Mudmat — medium</td><td>8 &times; 10 &times; 2.0</td><td>100</td><td>mudmat_structures.json</td></tr>
+<tr><td class="l">Subsea template — large</td><td>12 &times; 14 &times; 2.5</td><td>200</td><td>mudmat_structures.json</td></tr>
+<tr><td class="l">Production manifold</td><td>14 &times; 12 &times; 6</td><td>250</td><td>subsea_structures.json</td></tr>
+<tr><td class="l">Rigid jumper — 20 m</td><td>8&Prime; X65, M-shape</td><td>1.85</td><td>rigid_jumpers.json</td></tr>
+<tr><td class="l">Rigid jumper — 100 m</td><td>8&Prime; X65, W-shape</td><td>9.24</td><td>rigid_jumpers.json</td></tr>
+</table>
+
+<h2>5 &nbsp;Weather-Window Operability (site scatter) <span class="pv pv-ship">SHIP-PROXY</span></h2>
+<div class="sub">% of time Hs is below a limit, from the weather_window engine on a generic scatter diagram.</div>
+<table><tr><th>Hs limit (m)</th><th>Operability</th><th></th></tr><tr><td>&le; 0.5</td><td>3.8%</td><td><div class='ut wide'><span style='width:4%'></span></div></td></tr><tr><td>&le; 1.0</td><td>16.7%</td><td><div class='ut wide'><span style='width:17%'></span></div></td></tr><tr><td>&le; 1.5</td><td>36.0%</td><td><div class='ut wide'><span style='width:36%'></span></div></td></tr><tr><td>&le; 2.0</td><td>56.5%</td><td><div class='ut wide'><span style='width:56%'></span></div></td></tr><tr><td>&le; 2.5</td><td>74.1%</td><td><div class='ut wide'><span style='width:74%'></span></div></td></tr><tr><td>&le; 3.0</td><td>86.6%</td><td><div class='ut wide'><span style='width:87%'></span></div></td></tr><tr><td>&le; 3.5</td><td>94.0%</td><td><div class='ut wide'><span style='width:94%'></span></div></td></tr><tr><td>&le; 4.0</td><td>97.7%</td><td><div class='ut wide'><span style='width:98%'></span></div></td></tr></table>
+<div class="note"><b>Why the real RAO matters.</b> At the proxy heavy-lift limit (~0.2 m Hs) operability is ~0% — unworkable.
+A realistic vessel RAO lifts the heavy-lift limit toward 2–2.5 m Hs, where operability is <b>~57–74%</b>. The RAO solve is the single biggest lever on workable days.</div>
+
+<h2>6 &nbsp;Live Weather-Window Monitor</h2>
+<div class="sub">Live marine + wind forecast (Open-Meteo, no key) checked against the operation limits above, with DP / mooring failure-risk screening. Editable Hs limits — overwrite with vessel-specific values once available.</div>
+<div class="mon">
+ <div class="bar">
+  <span>Site</span>
+  <label>Lat <input id="lat" value="28.74"></label>
+  <label>Lon <input id="lon" value="-88.36"></label>
+  <label>HL Hs<input id="limHL" value="0.20" style="width:60px"></label>
+  <label>DP Hs<input id="limDP" value="0.30" style="width:60px"></label>
+  <label>Transit Hs<input id="limTR" value="0.45" style="width:60px"></label>
+  <button onclick="refresh()">Update</button>
+  <button class="alt" onclick="useSample()">Demo data</button>
+  <span id="stamp" class="mut2"></span>
+ </div>
+ <div class="body">
+  <div class="now" id="now"></div>
+  <div class="golist" id="golist"></div>
+  <div class="win" id="win"></div>
+  <div class="risk" id="risk"></div>
+  <div class="mut2" style="margin-top:10px">Risk gradings are screening heuristics for a DP2 unit (single-fault-tolerant DP; no DP3 redundancy).
+  DP = drive-off / drift-off on wind &amp; current; Mooring = line-tension / watch-circle on Hs &amp; wind. Not a substitute for a DP/mooring FMEA or capability plot.</div>
+ </div>
+</div>
+
+<h2>7 &nbsp;Statistical Failure-Risk Analysis — DP &amp; Mooring</h2>
+<div class="note" style="background:#eef4fb;border-color:#cfe0f1">For a DP2 monohull heavy-lift vessel doing subsea installation, the dominant station-keeping risk is loss of position (LOP) by drive-off or drift-off while a lift is suspended over or near a subsea structure. IMCA annual DP reviews show no single cause dominates every year — thrusters/propulsion, position-reference loss, power/electrical, computer/control and human/procedural error all feature, with human factors likely under-counted. Highest-consequence windows are the splash-zone crossing (dynamic amplification, slack-snatch, snag) and seabed landing (low excursion margin). On an 8-point mooring, the controlling risks are fatigue/corrosion at terminations/connectors and single-line overload leading to progressive failure; HSE RR444 found roughly one FPSO mooring-line failure per ~5–9 operating-years. BSEE Gulf of Mexico data reinforces that worst real-world outcomes are dropped objects and vessel/structure contact. Net design driver: tolerance to a single station-keeping fault while a heavy load is in the water.</div>
+
+<div class="statgrid" style="margin-top:14px">
+<div class="card"><h3>DP incident causes (initiating event)</h3>
+<table class="rt"><tr><th class="l">Cause category</th><th>Share</th><th></th><th>Source</th></tr>
+<tr><td class='l'>Thrusters / propulsion</td><td>~20–35%</td><td><div class='ut wide'><span style='width:35%'></span></div></td><td><small>IMCA</small></td></tr><tr><td class='l'>Position references / sensors</td><td>~15–37%</td><td><div class='ut wide'><span style='width:37%'></span></div></td><td><small>IMCA</small></td></tr><tr><td class='l'>Power / electrical</td><td>~10–21%</td><td><div class='ut wide'><span style='width:21%'></span></div></td><td><small>IMCA</small></td></tr><tr><td class='l'>Computer / DP control</td><td>~10–18%</td><td><div class='ut wide'><span style='width:18%'></span></div></td><td><small>IMCA</small></td></tr><tr><td class='l'>Human / procedural</td><td>~5–25%</td><td><div class='ut wide'><span style='width:25%'></span></div></td><td><small>IMCA</small></td></tr><tr><td class='l'>Environment / external</td><td>~3–10%</td><td><div class='ut wide'><span style='width:10%'></span></div></td><td><small>IMCA</small></td></tr></table>
+<div class="legend">IMCA annual DP reviews — shares vary year-to-year; no single category dominates every year.</div></div>
+<div class="card"><h3>Mooring-line failure causes</h3>
+<table class="rt"><tr><th class="l">Cause category</th><th>Share</th><th></th><th>Source</th></tr>
+<tr><td class='l'>Fatigue (terminations, OPB)</td><td>~25–40%</td><td><div class='ut wide'><span style='width:40%'></span></div></td><td><small>HSE RR444</small></td></tr><tr><td class='l'>Corrosion & wear (touchdown)</td><td>~20–30%</td><td><div class='ut wide'><span style='width:30%'></span></div></td><td><small>HSE RR444</small></td></tr><tr><td class='l'>Connector / shackle / termination</td><td>~20–30%</td><td><div class='ut wide'><span style='width:30%'></span></div></td><td><small>HSE RR444</small></td></tr><tr><td class='l'>Overload / pretension imbalance</td><td>~10–20%</td><td><div class='ut wide'><span style='width:20%'></span></div></td><td><small>DNV-OS-E301</small></td></tr><tr><td class='l'>Windlass / install error</td><td>~5–15%</td><td><div class='ut wide'><span style='width:15%'></span></div></td><td><small>HSE RR444</small></td></tr></table>
+<div class="legend">HSE RR444: ~1 FPSO line failure per ~5–9 operating-years; failures concentrate at terminations / touchdown / connectors.</div></div>
+</div>
+
+<div class="dp3"><b>DP2 vs DP3 — why it matters here.</b> DP2 = single-fault tolerant for active components (thrusters, generators, control computers, references are redundant) so no single failure causes LOP. DP3 adds tolerance to a single failure including fire or flood in any one compartment (A60/watertight separation of redundant equipment). For subsea installation, on a DP2 unit a common-mode event (fire, flood, busbar fault, or a worst-case failure that defeats the redundancy concept) can still cause LOP with a load in the water — hence critical lifts are gated on a current FMEA, proven WCFDI, DP trials, and a defined go/no-go envelope. DP3 buys compartment-level survivability that matters most for long-duration / high-consequence ops; for short, well-planned construction lifts DP2 is industry-standard provided redundancy is verified and weather/escape windows are respected (IMCA M 103 / M 117).</div>
+
+<div class="sub" style="margin-top:16px">Cause &rarr; Effect &rarr; Risk rating (Likelihood &times; Severity) per operation.
+<span class="legend">Risk:<span class="rk rk-low">Low</span><span class="rk rk-med">Medium</span><span class="rk rk-high">High</span><span class="rk rk-crit">Critical</span></span></div>
+<h3 class='oph'>Transit / sail-away</h3><table class='rt'><tr><th class='l'>Failure mode</th><th class='l'>Cause</th><th class='l'>Effect</th><th>Likelihood</th><th>Severity</th><th>Risk</th><th class='l'>Mitigation</th></tr><tr><td class='l'>Cargo shift / lashing failure</td><td class='l'>Heavy weather, under-rated seafastening</td><td class='l'>Cargo movement, deck damage, loss overboard, list</td><td>Unlikely</td><td>Major</td><td><span class='rk rk-med'>Medium</span></td><td class='l'><small>Class seafastening (ST-N001), weather routing, transit Hs limit</small></td></tr><tr><td class='l'>Blackout under way</td><td class='l'>Generator/switchboard fault</td><td class='l'>Loss of steerage, drift to hazard</td><td>Unlikely</td><td>Moderate</td><td><span class='rk rk-med'>Medium</span></td><td class='l'><small>Redundant power, standby thruster, sea-room</small></td></tr><tr><td class='l'>Collision / allision</td><td class='l'>Navigation error, traffic, visibility</td><td class='l'>Hull/structure damage, pollution</td><td>Rare</td><td>Major</td><td><span class='rk rk-med'>Medium</span></td><td class='l'><small>COLREGs, BRM, VTS/AIS, passage plan</small></td></tr><tr><td class='l'>Stability degradation</td><td class='l'>Ballast error, down-flooding, green water</td><td class='l'>Excessive heel, capsize risk</td><td>Rare</td><td>Severe</td><td><span class='rk rk-med'>Medium</span></td><td class='l'><small>Stability booklet, watertight integrity, ballast control</small></td></tr></table><h3 class='oph'>DP station-keeping</h3><table class='rt'><tr><th class='l'>Failure mode</th><th class='l'>Cause</th><th class='l'>Effect</th><th>Likelihood</th><th>Severity</th><th>Risk</th><th class='l'>Mitigation</th></tr><tr><td class='l'>DP drive-off</td><td class='l'>Erroneous position reference / control fault</td><td class='l'>Powered excursion, collision with adjacent structure</td><td>Possible</td><td>Severe</td><td><span class='rk rk-high'>High</span></td><td class='l'><small>≥3 independent references with voting, alert/abort radius</small></td></tr><tr><td class='l'>DP drift-off</td><td class='l'>Thruster/power loss or env force > capability</td><td class='l'>Drifts off position, loss of worksite overlay</td><td>Possible</td><td>Major</td><td><span class='rk rk-high'>High</span></td><td class='l'><small>Verified FMEA, capability plot vs forecast, weather limits</small></td></tr><tr><td class='l'>Partial blackout / class breach</td><td class='l'>Bus-tie/switchboard or common-mode fault</td><td class='l'>Reduced thrust, position loss mid-operation</td><td>Unlikely</td><td>Severe</td><td><span class='rk rk-high'>High</span></td><td class='l'><small>FMEA proving, WCFDI, DP trials, online consequence analysis</small></td></tr><tr><td class='l'>Operator / procedural error</td><td class='l'>Mode mismanagement, missed alarm, wrong setpoint</td><td class='l'>Unintended move, delayed fault response</td><td>Possible</td><td>Moderate</td><td><span class='rk rk-med'>Medium</span></td><td class='l'><small>Certified DPOs, handover discipline, drills</small></td></tr></table><h3 class='oph'>Heavy lift through splash zone</h3><table class='rt'><tr><th class='l'>Failure mode</th><th class='l'>Cause</th><th class='l'>Effect</th><th>Likelihood</th><th>Severity</th><th>Risk</th><th class='l'>Mitigation</th></tr><tr><td class='l'>Slack-line snatch / dynamic overload</td><td class='l'>Wave-induced relative motion, mistimed crossing</td><td class='l'>Snatch spike, rigging/crane overload, dropped object</td><td>Possible</td><td>Severe</td><td><span class='rk rk-high'>High</span></td><td class='l'><small>RP-N103 analysis, Hs limit, fast crossing, heave comp</small></td></tr><tr><td class='l'>DP LOP during lift</td><td class='l'>Reference/thruster fault while load suspended</td><td class='l'>Excursion drags load into hull/structure, snag</td><td>Possible</td><td>Severe</td><td><span class='rk rk-crit'>Critical</span></td><td class='l'><small>Abort/lay-down plan, reduced radius, references proven pre-lift</small></td></tr><tr><td class='l'>Rigging / sling failure</td><td class='l'>Under-rated/damaged rigging, shock or side load</td><td class='l'>Dropped object onto seabed assets or hull</td><td>Unlikely</td><td>Severe</td><td><span class='rk rk-high'>High</span></td><td class='l'><small>Certified rigging w/ DAF, pre-use inspection, exclusion zone</small></td></tr><tr><td class='l'>Crane / hoist failure</td><td class='l'>Hydraulic, brake, hoist-control failure</td><td class='l'>Uncontrolled lowering, dropped/swinging load</td><td>Unlikely</td><td>Severe</td><td><span class='rk rk-high'>High</span></td><td class='l'><small>Crane PM & load test, secondary brake, AHC, load monitoring</small></td></tr></table><h3 class='oph'>Subsea lowering / landing</h3><table class='rt'><tr><th class='l'>Failure mode</th><th class='l'>Cause</th><th class='l'>Effect</th><th>Likelihood</th><th>Severity</th><th>Risk</th><th class='l'>Mitigation</th></tr><tr><td class='l'>Off-target / mis-landing</td><td class='l'>DP excursion, current offset, survey error</td><td class='l'>Lands off target, damage to assets / mudmat skirts</td><td>Possible</td><td>Major</td><td><span class='rk rk-high'>High</span></td><td class='l'><small>ROV-monitored landing, USBL, current profiling</small></td></tr><tr><td class='l'>Snag / entanglement</td><td class='l'>Lateral drift, current loop, congested field</td><td class='l'>Snagged rigging, damage to pipelines/wellheads</td><td>Possible</td><td>Major</td><td><span class='rk rk-high'>High</span></td><td class='l'><small>Lift-route survey, ROV watch, exclusion zones</small></td></tr><tr><td class='l'>Snap / over-tension at touchdown</td><td class='l'>Heave-comp loss / resonance on long lower</td><td class='l'>Over-tension or recoil, dropped object, crane damage</td><td>Unlikely</td><td>Major</td><td><span class='rk rk-med'>Medium</span></td><td class='l'><small>AHC, resonance analysis, controlled payout, tension monitoring</small></td></tr><tr><td class='l'>DP LOP near seabed</td><td class='l'>Power/reference/control fault</td><td class='l'>Excursion drags landing string across seabed assets</td><td>Unlikely</td><td>Severe</td><td><span class='rk rk-high'>High</span></td><td class='l'><small>Hold-position check, abort criteria, minimise low-clearance time</small></td></tr></table><h3 class='oph'>Mooring (8-point spread)</h3><table class='rt'><tr><th class='l'>Failure mode</th><th class='l'>Cause</th><th class='l'>Effect</th><th>Likelihood</th><th>Severity</th><th>Risk</th><th class='l'>Mitigation</th></tr><tr><td class='l'>Single line parting</td><td class='l'>Fatigue/corrosion at termination, overload, connector</td><td class='l'>Loss of one restraint, higher load/offset on rest, excursion</td><td>Unlikely</td><td>Major</td><td><span class='rk rk-med'>Medium</span></td><td class='l'><small>Intact+1-damaged design (OS-E301), tension monitoring, inspection</small></td></tr><tr><td class='l'>Progressive / cascade failure</td><td class='l'>Load redistribution after first line parts in storm</td><td class='l'>Multiple lines part, large excursion, structure contact</td><td>Rare</td><td>Severe</td><td><span class='rk rk-high'>High</span></td><td class='l'><small>Damaged-condition analysis, balanced pretension, tension alarms</small></td></tr><tr><td class='l'>Anchor drag / holding loss</td><td class='l'>Soft/variable soils, under-set anchor, overload</td><td class='l'>Loss of pretension, gross drift off worksite</td><td>Unlikely</td><td>Major</td><td><span class='rk rk-med'>Medium</span></td><td class='l'><small>Geotech survey, anchor proof-load, position monitoring</small></td></tr><tr><td class='l'>Windlass / connector failure</td><td class='l'>Mechanical/hydraulic failure, brake slip, release</td><td class='l'>Sudden slack/release, excursion, snap load on adjacent lines</td><td>Unlikely</td><td>Major</td><td><span class='rk rk-med'>Medium</span></td><td class='l'><small>Winch/brake PM & proof-load, connector NDT, redundant locking</small></td></tr></table>
+
+<div class="note"><b>Headline.</b> The single <span class="rk rk-crit">Critical</span> rating is <b>DP loss-of-position during a suspended splash-zone lift</b> —
+a powered/drifting excursion that drags the load into the hull or an adjacent structure. It is controlled by a verified DP FMEA,
+a pre-lift reference check, a defined abort/lay-down plan and a hard Hs go/no-go gate (§3, §6). Mooring failures are lower-likelihood
+but the cascade case is high-consequence; design for intact + one-line-damaged (DNV-OS-E301).</div>
+
+<div class="legend" style="margin-top:8px"><b>Sources:</b> IMCA DP Station Keeping annual reviews (cause-category breakdown by initiating event) · IMCA M 103 (DP design & operation); M 117 (DP personnel); M 178/M 220 (FMEA & annual DP trials) · HSE RR444 — FPS Mooring Integrity JIP (Noble Denton, 2005): ~1 FPSO line failure per ~5–9 operating-years; failures concentrated at terminations, touchdown, connectors · OEUK/OGUK Mooring Integrity Guidance (2008) · DNV-OS-E301 Position Mooring (intact & damaged-line conditions) · DNV-RP-N103 Marine Operations (splash-zone / deep-lowering hydrodynamics); DNV-ST-N001 (warranty, seafastening, lifting) · BSEE Gulf of Mexico OCS incident data (collision/allision & station-keeping, ~1,987-incident 1995–2026 panel) — qualitative consequence framing · IOGP Risk Assessment Data Directory (marine/lifting consequence context)</div>
+
+</main>
+<footer>
+Generated Generated by installation_pamphlet workflow (deterministic) — 28 Jun 2026 from digitalmodel tables (vessel_db, mudmat_structures, subsea_structures, rigid_jumpers) + engines (vessel_suitability,
+operation_envelope, weather_window). Envelope proxy: Ship-shaped (drillship) parametric RAO — adapted basis, justified by completed FPSO diffraction run lr_acma_8de9c018adbd. Live feed: Open-Meteo marine &amp; forecast APIs.
+Lookup + decision-support screening — verify against vessel RAO, DP/mooring FMEA and MWS approval before offshore execution.
+</footer>
+</div>
+
+<script>
+const ENV = {"transit": {"alpha": 0.9, "hs_by_tp": {"6.0": 1.84, "8.0": 0.59, "10.0": 0.38, "12.0": 0.47, "14.0": 0.47, "16.0": 0.31}, "gov_by_tp": {"6.0": "pitch", "8.0": "pitch", "10.0": "pitch", "12.0": "pitch", "14.0": "roll", "16.0": "roll"}}, "dp_station_keeping": {"alpha": 0.9, "hs_by_tp": {"6.0": 1.47, "8.0": 0.47, "10.0": 0.3, "12.0": 0.37, "14.0": 0.31, "16.0": 0.21}, "gov_by_tp": {"6.0": "pitch", "8.0": "pitch", "10.0": "pitch", "12.0": "pitch", "14.0": "roll", "16.0": "roll"}}, "heavy_lift": {"alpha": 0.85, "hs_by_tp": {"6.0": 1.04, "8.0": 0.33, "10.0": 0.21, "12.0": 0.27, "14.0": 0.15, "16.0": 0.1}, "gov_by_tp": {"6.0": "pitch", "8.0": "pitch", "10.0": "pitch", "12.0": "pitch", "14.0": "roll", "16.0": "roll"}}};
+const TPGRID = [6.0, 8.0, 10.0, 12.0, 14.0, 16.0];
+// interpolate limiting Hs at a given Tp for an operation
+function hsLimitAt(op, tp){
+  const e = ENV[op].hs_by_tp; const ks = TPGRID;
+  if(tp<=ks[0]) return e[ks[0].toFixed(1)];
+  if(tp>=ks[ks.length-1]) return e[ks[ks.length-1].toFixed(1)];
+  for(let i=0;i<ks.length-1;i++){ if(tp>=ks[i]&&tp<=ks[i+1]){
+    const a=e[ks[i].toFixed(1)], b=e[ks[i+1].toFixed(1)];
+    return a+(b-a)*(tp-ks[i])/(ks[i+1]-ks[i]); } }
+  return e[ks[0].toFixed(1)];
+}
+const SAMPLE = { // 48h demo forecast (calm-ish window mid-series)
+  hours: Array.from({length:48},(_,i)=>i),
+  hs: [1.9,1.8,1.7,1.5,1.3,1.1,0.9,0.7,0.6,0.5,0.45,0.4,0.38,0.35,0.34,0.33,0.35,0.4,0.5,0.65,0.8,1.0,1.2,1.4,
+       1.5,1.6,1.6,1.5,1.3,1.1,0.9,0.8,0.7,0.65,0.6,0.62,0.7,0.85,1.0,1.2,1.4,1.6,1.8,1.9,2.0,2.1,2.0,1.9],
+  tp: Array.from({length:48},()=>9.0),
+  wind: [14,13,12,11,10,9,8,7,6.5,6,5.5,5,5,5,5,5,6,7,8,9,11,12,13,14,15,15,14,13,11,10,9,8,7,7,6.5,7,8,9,11,12,13,14,15,16,16,15,14,13]
+};
+function levelDot(l){return {low:'lvl-low',mod:'lvl-mod',high:'lvl-high',sev:'lvl-sev'}[l];}
+function dpRisk(wind, cur){ // wind m/s, current m/s -> level + note (DP2 screening)
+  const c = cur||0.4; let l='low', n='Within comfortable DP envelope.';
+  if(wind>=21||c>=1.2){l='sev';n='Approaching/over DP capability — high drive-/drift-off risk.';}
+  else if(wind>=15||c>=0.9){l='high';n='Reduced DP margin; verify capability plot &amp; thruster reserve.';}
+  else if(wind>=10||c>=0.6){l='mod';n='Moderate environmental load on DP; monitor footprint.';}
+  return {l,n};
+}
+function moorRisk(hs, wind){ let l='low', n='Line tensions low; watch-circle nominal.';
+  if(hs>=3.0||wind>=21){l='sev';n='High dynamic line tension — risk of line failure / excursion.';}
+  else if(hs>=2.0||wind>=15){l='high';n='Elevated tension cycling; check most-loaded line &amp; fatigue.';}
+  else if(hs>=1.2||wind>=10){l='mod';n='Tension build-up; monitor watch-circle.';}
+  return {l,n};
+}
+function verdict(hs, lim){ if(hs<=lim) return 'GO'; if(hs<=lim*1.25) return 'MARGINAL'; return 'NOGO'; }
+function nearestIdx(times){ const now=Date.now(); let bi=0,bd=1e18;
+  times.forEach((t,i)=>{const dd=Math.abs(new Date(t).getTime()-now); if(dd<bd){bd=dd;bi=i;}}); return bi; }
+
+async function fetchLive(lat, lon){
+  const m = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&hourly=wave_height,wave_period&forecast_days=3`;
+  const a = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=wind_speed_10m&wind_speed_unit=ms&forecast_days=3`;
+  const [mr,ar] = await Promise.all([fetch(m),fetch(a)]);
+  const mj = await mr.json(), aj = await ar.json();
+  const t = mj.hourly.time;
+  return { times:t, hs:mj.hourly.wave_height, tp:mj.hourly.wave_period, wind:aj.hourly.wind_speed_10m };
+}
+function render(cur){ // cur = {hs,tp,wind,cur,times?,series?}
+  const lims = { heavy_lift:+document.getElementById('limHL').value,
+    dp_station_keeping:+document.getElementById('limDP').value, transit:+document.getElementById('limTR').value };
+  const hs=cur.hs, tp=cur.tp, wind=cur.wind, ccur=cur.cur||0.4;
+  document.getElementById('now').innerHTML = [
+    ['Wave Hs',hs.toFixed(2),'m'],['Peak Tp',tp.toFixed(1),'s'],['Wind (10 m)',wind.toFixed(1),'m/s'],['Current*',ccur.toFixed(2),'m/s']
+  ].map(x=>`<div class="m"><div class="k">${x[0]}</div><div class="vv">${x[1]}</div><div class="u">${x[2]}</div></div>`).join('');
+  const ops=[['Heavy lift','heavy_lift'],['DP station-keep','dp_station_keeping'],['Transit','transit']];
+  document.getElementById('golist').innerHTML = ops.map(([nm,op])=>{
+    const lim=lims[op]; const vd=verdict(hs,lim);
+    return `<div class="go ${vd}"><div class="t">${nm}</div>
+      <div class="verdict v${vd}">${vd==='NOGO'?'NO-GO':vd}</div>
+      <div class="lim">Hs ${hs.toFixed(2)} vs limit ${lim.toFixed(2)} m</div></div>`;
+  }).join('');
+  // next window vs heavy-lift limit (from forecast series if available)
+  let winHtml='';
+  if(cur.series){ const lim=lims.heavy_lift; const s=cur.series;
+    let i0=nearestIdx(cur.times); let start=-1,len=0,best=0,bestStart=-1;
+    for(let i=i0;i<s.hs.length;i++){ if(s.hs[i]<=lim){ if(start<0)start=i; len++; if(len>best){best=len;bestStart=start;} } else {start=-1;len=0;} }
+    if(best>0){ const hrs=best; const startsIn=Math.max(0,bestStart-i0);
+      winHtml=`<b>Next heavy-lift window</b> (Hs &le; ${lim.toFixed(2)} m): ~${hrs} h long, starting in ~${startsIn} h.`; }
+    else winHtml=`<b>No heavy-lift window</b> in forecast horizon at Hs &le; ${lim.toFixed(2)} m — raise the limit with vessel-specific RAO.`;
+  } else { winHtml='<span class="mut2">Load live or demo data to compute the next weather window.</span>'; }
+  document.getElementById('win').innerHTML = winHtml;
+  // risk panels
+  const dp=dpRisk(wind,ccur), mo=moorRisk(hs,wind);
+  document.getElementById('risk').innerHTML = `
+   <div class="r"><h4>DP station-keeping risk (DP2)</h4>
+     <div class="rrow"><span class="dot ${levelDot(dp.l)}"></span><b>${dp.l.toUpperCase()}</b> &mdash; ${dp.n}</div>
+     <div class="rrow mut2">Drivers: wind ${wind.toFixed(1)} m/s, current ${ccur.toFixed(2)} m/s. Single-fault tolerant — a worst-case failure must still hold position.</div></div>
+   <div class="r"><h4>Mooring / line-tension risk</h4>
+     <div class="rrow"><span class="dot ${levelDot(mo.l)}"></span><b>${mo.l.toUpperCase()}</b> &mdash; ${mo.n}</div>
+     <div class="rrow mut2">Drivers: Hs ${hs.toFixed(2)} m, wind ${wind.toFixed(1)} m/s. Applies if rigged on the 8-point spread instead of DP.</div></div>`;
+}
+async function refresh(){
+  const lat=document.getElementById('lat').value, lon=document.getElementById('lon').value;
+  document.getElementById('stamp').textContent='loading…';
+  try{ const f=await fetchLive(lat,lon); const i=nearestIdx(f.times);
+    render({hs:f.hs[i],tp:f.tp[i]||9,wind:f.wind[i],cur:0.4,times:f.times,series:{hs:f.hs}});
+    document.getElementById('stamp').textContent='live · '+new Date(f.times[i]).toUTCString().slice(5,22)+' UTC';
+  }catch(e){ document.getElementById('stamp').textContent='live feed unavailable — using demo data';
+    useSample(); }
+}
+function useSample(){
+  const i=12; // calm point
+  const times=SAMPLE.hours.map(h=>new Date(Date.now()+(h-6)*3600e3).toISOString());
+  render({hs:SAMPLE.hs[i],tp:SAMPLE.tp[i],wind:SAMPLE.wind[i],cur:0.4,times,series:{hs:SAMPLE.hs}});
+  document.getElementById('stamp').textContent='demo data';
+}
+refresh(); setInterval(refresh, 600000); // auto-refresh every 10 min
+</script>
+</body></html>

@@ -1,0 +1,27 @@
+{
+  "channel": { "name": "Subsea, Pipelines & Integrity", "tags": "🛢️ pipeline · structural · integrity" },
+  "title": { "big": "On-bottom stability, answered in chat", "desc": "Ask in plain English. Deckhand asks for what it needs, runs the calculation, and sends back a report you can keep." },
+  "turns": [
+    { "side": "me", "time": "09:14", "hold": 900, "html": "We're laying a 12-inch export line and I need to know if it'll stay put on the seabed in a storm — can you check on-bottom stability?" },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "09:14", "hold": 4100, "html": "Happy to run that for you — a few things so I screen it the right way:<ul><li>Pipe make-up — steel size and wall, plus coating (type, thickness) and contents (empty for install, or product-filled)?</li><li>Water depth, and your metocean for the return period — the near-bed wave velocity and the steady current?</li><li>Seabed soil — sand or clay, so I can set the pipe-soil friction?</li></ul><span class='note'>I'll work the DNV-RP-F109 simplified lateral check. If you only have surface wave data I can flag that the near-bed velocity still needs deriving before the verdict stands.</span>" },
+    { "side": "me", "time": "09:16", "hold": 4000, "file": { "name": "line_OBS_inputs.csv", "size": "1.4 KB" }, "html": "12.75-inch steel, 0.5-inch wall, 80&nbsp;mm concrete weight coat, empty for the install case. Bottom velocity 1.5&nbsp;m/s with 0.52&nbsp;m/s² near-bed acceleration for the 1-year storm, sandy seabed so friction 0.5. Details attached." },
+    { "side": "bot", "typing": true, "hold": 1200 },
+    { "side": "bot", "time": "09:16", "hold": 4400, "html": "Got it — empty install case, sandy seabed. Basis I'll use: DNV-RP-F109 simplified lateral check — Morison drag + inertia + lift on the line, balanced against submerged weight and soil friction, with the normal safety-class factor of 1.1. Verdict holds when utilisation stays at or below 1.0. Running it now…" },
+    { "side": "bot", "wide": true, "time": "09:17", "hold": 3000, "file": { "name": "on_bottom_stability_report", "size": "inputs · method · results", "deliver": true }, "html": "Here's how the line sits in the 1-year storm:<table><tr><th>Quantity</th><th>Value</th><th>Verdict</th></tr><tr><td>Submerged weight</td><td>2.13&nbsp;kN/m</td><td>—</td></tr><tr><td>Horizontal load (drag + inertia)</td><td>0.72&nbsp;kN/m</td><td>—</td></tr><tr><td>Lateral utilisation</td><td>0.96</td><td class='verdict'>✅ Stable · 4% margin</td></tr><tr><td>Required submerged weight</td><td>2.08&nbsp;kN/m</td><td>have 2.13&nbsp;kN/m</td></tr></table><span class='note'>It holds, but only just — 4% of margin on the 80&nbsp;mm coat. If the storm return period or current firms up, a thicker weight coat would buy headroom.</span>" }
+  ],
+  "report": {
+    "title": "On-Bottom Stability (DNV-RP-F109)",
+    "sub": "digitalmodel · on-bottom-stability-f109 · Report · 2026-06-16",
+    "foot": "input_on_bottom_stability_summary.csv",
+    "hold": 3000,
+    "inputs": "<div class='kv'><b>Pipe</b><br>12.75-inch steel · OD 323.9&nbsp;mm · wall 12.7&nbsp;mm<br>80&nbsp;mm concrete weight coat (ρ 3040&nbsp;kg/m³) · empty (install case)<br>Total OD over coat 483.9&nbsp;mm<br><br><b>Metocean (1-year storm)</b><div class='mono'>near-bed velocity 1.5&nbsp;m/s · acceleration 0.524&nbsp;m/s²<br>seawater 1025&nbsp;kg/m³</div><br><b>Hydrodynamic + soil</b><br>Cd 0.7 · Cm 3.29 · Cl 0.9 · pipe-soil friction μ 0.5<br>Safety-class factor γ 1.1 (normal)</div>",
+    "methodology": "<div class='kv'>1&nbsp;· Submerged weight Ws = dry weight (steel + concrete coat) − displaced-seawater buoyancy, per metre.<br>2&nbsp;· Hydrodynamic loads from Morison — drag 0.5·ρ·Cd·D·U|U|, inertia ρ·Cm·(π/4)·D²·a, lift 0.5·ρ·Cl·D·U².<br>3&nbsp;· Lateral check, DNV-RP-F109 §4.3.2 simplified form: utilisation = γ·F_H ÷ (μ·(Ws − F_L)).<br>4&nbsp;· Required weight to reach utilisation = 1.0: Ws = γ·F_H ÷ μ + F_L.<br>5&nbsp;· Verdict: line is stable when utilisation ≤ 1.0.</div>",
+    "outputs": "<table><tr><th>Quantity</th><th>Value</th></tr><tr><td>Dry weight</td><td>3.98&nbsp;kN/m</td></tr><tr><td>Buoyancy</td><td>1.85&nbsp;kN/m</td></tr><tr><td>Submerged weight Ws</td><td>2.13&nbsp;kN/m</td></tr><tr><td>Drag</td><td>0.39&nbsp;kN/m</td></tr><tr><td>Inertia</td><td>0.32&nbsp;kN/m</td></tr><tr><td>Horizontal load F_H</td><td>0.72&nbsp;kN/m</td></tr><tr><td>Lift F_L</td><td>0.50&nbsp;kN/m</td></tr><tr><td>Lateral utilisation</td><td>0.96</td></tr><tr><td>Required submerged weight</td><td>2.08&nbsp;kN/m</td></tr></table><div class='kv' style='margin-top:10px'><b>Verdict:</b> STABLE — utilisation 0.96 ≤ 1.0; the 80&nbsp;mm weight coat clears the 1-year storm with about 4% margin. Have 2.13&nbsp;kN/m against 2.08&nbsp;kN/m required.</div>"
+  },
+  "closing": {
+    "headline": "On-bottom stability (DNV-RP-F109): lateral verdict + required weight.",
+    "tryThis": "On-bottom stability for my 16-inch line in a 1-year storm (F109)?",
+    "route": "Subsea, Pipelines & Integrity"
+  }
+}

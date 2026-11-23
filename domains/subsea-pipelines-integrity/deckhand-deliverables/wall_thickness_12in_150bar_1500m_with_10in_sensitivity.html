@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Pipeline Wall Thickness Quick Check</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 32px; color: #1f2933; line-height: 1.45; }
+h1 { color: #0b3d5c; }
+h2 { margin-top: 28px; color: #174a66; }
+table { border-collapse: collapse; width: 100%; margin: 14px 0; }
+th, td { border: 1px solid #c7d2da; padding: 8px 10px; text-align: left; }
+th { background: #e8f1f6; }
+.note { background: #fff7df; border-left: 4px solid #d99a00; padding: 10px 14px; }
+.pass { color: #116329; font-weight: bold; }
+.small { color: #52616b; font-size: 0.92em; }
+</style></head>
+<body>
+<h1>Pipeline Wall Thickness Quick Check</h1>
+<p class="small">Computed 2026-06-10T03:05:48.498678+00:00. Grounded in the Subsea, Pipelines & Integrity pack and its approved wall-thickness quick-check capability.</p>
+<h2>Assumptions</h2>
+<ul>
+<li>Material: X65, SMYS 448 MPa, SMTS 531 MPa.</li>
+<li>Internal pressure: 150 bar; water depth: 1500 m.</li>
+<li>External hydrostatic pressure: 15.08 MPa using seawater density 1025 kg/m³ and g = 9.81 m/s².</li>
+<li>Corrosion allowance included: 3.0 mm.</li>
+<li>Nominal OD cases: 12-inch = 323.9 mm; 10-inch = 273.1 mm.</li>
+</ul>
+<h2>Headline results</h2>
+<table><thead><tr><th>Case</th><th>OD mm</th><th>Minimum nominal WT mm</th><th>WT in</th><th>Governing code</th><th>Governing mode</th><th>Utilisation</th></tr></thead><tbody>
+    <tr>
+      <td>12-inch nominal OD</td>
+      <td>323.9</td>
+      <td><strong>25.4</strong></td>
+      <td>1.000</td>
+      <td>DNV-ST-F101</td>
+      <td>propagation_buckling</td>
+      <td>1.000</td>
+    </tr>
+    <tr>
+      <td>10-inch nominal OD sensitivity</td>
+      <td>273.1</td>
+      <td><strong>21.9</strong></td>
+      <td>0.862</td>
+      <td>DNV-ST-F101</td>
+      <td>propagation_buckling</td>
+      <td>1.000</td>
+    </tr></tbody></table>
+<h2>Code check detail at selected wall</h2>
+<table><thead><tr><th>Case</th><th>Code</th><th>Max utilisation</th><th>Governing check</th><th>Verdict</th></tr></thead><tbody>
+        <tr><td>12-inch nominal OD</td><td>DNV-ST-F101</td><td>1.000</td><td>propagation_buckling</td><td>PASS</td></tr>
+        <tr><td>12-inch nominal OD</td><td>API-RP-1111</td><td>0.789</td><td>propagation</td><td>PASS</td></tr>
+        <tr><td>10-inch nominal OD sensitivity</td><td>DNV-ST-F101</td><td>1.000</td><td>propagation_buckling</td><td>PASS</td></tr>
+        <tr><td>10-inch nominal OD sensitivity</td><td>API-RP-1111</td><td>0.749</td><td>propagation</td><td>PASS</td></tr></tbody></table>
+<h2>Design use and limits</h2>
+<p>This is a quick-screen minimum nominal wall from the available DNV-ST-F101 / API RP 1111 wall-thickness capability. It is not a purchase wall or issued-for-design recommendation.</p>
+<p>Design release would still need project class factors, ovality/manufacturing tolerance, collapse/local buckling detail, installation, thermal/pressure expansion, spans/VIV, stability, fatigue, weld/joint details, corrosion philosophy, and operator/regulator requirements.</p>
+<h2>Assumptions &amp; Sensitivity</h2>
+<p>The 10-inch OD sensitivity reduces the required nominal wall from 25.4 mm to 21.9 mm on the same pressure, depth, material, and corrosion allowance basis. The governing mode remains DNV-ST-F101 propagation buckling. Higher corrosion allowance, lower material grade, greater depth, or higher design pressure will increase the required wall.</p>
+</body></html>
